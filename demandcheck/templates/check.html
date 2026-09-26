@@ -5,6 +5,15 @@
 
 <div class="card">
   {% if errors %}<div class="errors">{% for e in errors %}<p>{{ t(e) }}</p>{% endfor %}</div>{% endif %}
+  <div class="field lookup">
+    <label for="business_id">{{ t('form.business_id') }} <span class="opt">{{ t('form.optional') }}</span></label>
+    <div class="lookup-row">
+      <input type="text" id="business_id" inputmode="numeric" autocomplete="off" placeholder="{{ t('form.business_id_placeholder') }}" aria-describedby="business_id_help lookup_msg">
+      <button type="button" class="btn secondary" id="lookup_btn">{{ t('form.lookup') }}</button>
+    </div>
+    <div class="help" id="business_id_help">{{ t('form.business_id_help') }}</div>
+    <div class="lookup-msg" id="lookup_msg" role="status" aria-live="polite"></div>
+  </div>
   <form method="post" action="/{{ lang }}/check">
     <div class="field">
       <label for="sector">{{ t('form.sector') }}</label>
@@ -63,4 +72,31 @@
     <li>{{ t('promise.no_sharing') }}</li>
   </ul>
 </div>
+<script>
+  (function () {
+    var input = document.getElementById('business_id');
+    var button = document.getElementById('lookup_btn');
+    var msg = document.getElementById('lookup_msg');
+    function show(text, ok) { msg.textContent = text; msg.className = 'lookup-msg ' + (ok ? 'ok' : 'err'); }
+    function lookup() {
+      var id = input.value.trim();
+      if (!id) return;
+      button.disabled = true;
+      fetch('/api/prh/' + encodeURIComponent(id) + '?lang={{ lang }}')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data.ok) {
+            if (data.sector) document.getElementById('sector').value = data.sector;
+            document.getElementById('country').value = data.country;
+            (data.sector ? document.getElementById('revenue_band') : document.getElementById('sector')).focus();
+          }
+          show(data.message, data.ok);
+        })
+        .catch(function () { show({{ t('form.lookup_error')|tojson }}, false); })
+        .finally(function () { button.disabled = false; });
+    }
+    button.addEventListener('click', lookup);
+    input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); lookup(); } });
+  })();
+</script>
 {% endblock %}

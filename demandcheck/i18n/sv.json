@@ -1,0 +1,208 @@
+{
+  "site": {
+    "name": "MGX Köparkoll",
+    "tagline": "Se hur många köpare som letar efter ett företag som ditt. Anonymt, gratis, på två minuter.",
+    "sample_notice": "Prototyp. Köparsiffrorna kommer från ett illustrativt, fiktivt urval, inte från verklig MGX-data.",
+    "footer": "En prototyp byggd för Mergero. Köpardatan är ett illustrativt, fiktivt urval.",
+    "privacy_link": "Integritetspolicy",
+    "sectors_link": "Köparefterfrågan per bransch",
+    "language": "Språk"
+  },
+  "routes": {"sectors": "branscher"},
+  "promise": {
+    "anonymous": "Anonymt tills du själv väljer något annat",
+    "no_identity": "Köpare ser inte vem du är utan ditt medgivande",
+    "no_sharing": "Inget delas utan ditt tillstånd"
+  },
+  "form": {
+    "title": "Vem skulle köpa ditt företag?",
+    "intro": "Svara på fyra frågor. Du ser resultatet direkt. Inget namn, ingen e-post eller telefonnummer behövs.",
+    "sector": "Bransch",
+    "country": "Var har företaget sitt säte?",
+    "revenue": "Årlig omsättning",
+    "ebitda": "Årligt rörelseresultat (EBITDA)",
+    "ebitda_help": "Resultat före räntor, skatter och avskrivningar. En ungefärlig nivå räcker.",
+    "optional": "Valfritt",
+    "timing": "När kan en försäljning eller ny ägare bli aktuell?",
+    "ownership": "Din ägarandel",
+    "choose": "Välj...",
+    "submit": "Visa köparefterfrågan",
+    "time_note": "Tar ungefär två minuter. Inget som identifierar dig sparas.",
+    "error_required": "Svara på de fyra obligatoriska frågorna.",
+    "business_id": "Finskt företag? Fyll i med FO-nummer (Y-tunnus)",
+    "business_id_placeholder": "1234567-8",
+    "business_id_help": "Valfritt. Vi hämtar företagets bransch från det öppna finska registret (PRH) för att fylla i formuläret. Numret sparas inte med dina svar.",
+    "lookup": "Sök",
+    "lookup_found": "Hittat: {name}. Branschen är ifylld, kontrollera den.",
+    "lookup_found_nosector": "Hittat: {name}. Välj branschen själv.",
+    "lookup_not_found": "Inget företag hittades med detta nummer. Fyll i formuläret själv.",
+    "lookup_invalid": "Ett finskt FO-nummer har formatet 1234567-8.",
+    "lookup_error": "Registret kunde inte nås. Fyll i formuläret själv."
+  },
+  "timing": {
+    "now": "Nu eller inom ett år",
+    "1_2y": "Om ett till två år",
+    "3y_plus": "Om tre år eller senare",
+    "curious": "Bara nyfiken"
+  },
+  "ownership": {
+    "100": "100 %",
+    "50_99": "50–99 %",
+    "lt50": "Under 50 %"
+  },
+  "sector": {
+    "industrial_services": "Industriservice och underhåll",
+    "technical_installation": "El- och installationsteknik",
+    "facility_services": "Städ- och fastighetsservice",
+    "logistics": "Logistik och transport",
+    "waste_circular": "Avfallshantering och cirkulär ekonomi",
+    "construction_services": "Byggtjänster",
+    "technical_wholesale": "Teknisk grossisthandel",
+    "software_it": "Mjukvara och IT-tjänster",
+    "health_products": "Hälso- och medicintekniska produkter",
+    "healthcare_services": "Vård- och omsorgstjänster",
+    "manufacturing": "Metallprodukter och maskiner",
+    "food_production": "Livsmedels- och dryckesproduktion",
+    "business_services": "Företagstjänster",
+    "engineering_consulting": "Teknikkonsulter och ingenjörstjänster",
+    "retail_ecommerce": "Detaljhandel och e-handel"
+  },
+  "country": {
+    "FI": "Finland", "SE": "Sverige", "NO": "Norge", "DK": "Danmark", "EE": "Estland",
+    "DE": "Tyskland", "AT": "Österrike", "CH": "Schweiz", "NL": "Nederländerna",
+    "GB": "Storbritannien", "FR": "Frankrike", "US": "USA", "other": "Övriga länder"
+  },
+  "revenue": {
+    "r_lt2": "Under 2 mn €", "r_2_5": "2–5 mn €", "r_5_10": "5–10 mn €", "r_10_20": "10–20 mn €",
+    "r_20_50": "20–50 mn €", "r_50_100": "50–100 mn €", "r_100p": "Över 100 mn €"
+  },
+  "ebitda": {
+    "e_neg": "Förlustbringande", "e_0_05": "Under 0,5 mn €", "e_05_1": "0,5–1 mn €", "e_1_2": "1–2 mn €",
+    "e_2_5": "2–5 mn €", "e_5_10": "5–10 mn €", "e_10_20": "10–20 mn €", "e_20p": "Över 20 mn €"
+  },
+  "buyer_type": {
+    "pe_platform": "Private equity-fonder",
+    "pe_addon": "Fondägda företagsgrupper",
+    "strategic": "Strategiska köpare",
+    "family_office": "Family offices",
+    "search_fund": "Search funds och oberoende investerare",
+    "other": "Övriga köpartyper"
+  },
+  "buyer_type_help": {
+    "pe_platform": "Fonder som söker ett företag att bygga en koncern kring.",
+    "pe_addon": "Fondägda koncerner som köper företag som kompletterar verksamheten.",
+    "strategic": "Företag i din eller en närliggande bransch.",
+    "family_office": "Förmögna familjers investmentbolag, ofta långsiktiga ägare.",
+    "search_fund": "Entreprenörer med investerare i ryggen som söker ett företag att driva."
+  },
+  "result": {
+    "title": "Köparefterfrågan för ditt företag",
+    "profile": "{sector} · {country} · omsättning {revenue} · EBITDA {ebitda}",
+    "count_lead": "köpare i vårt nätverk letar efter företag som ditt",
+    "count_lead_one": "köpare i vårt nätverk letar efter företag som ditt",
+    "fewer_than": "Färre än {n}",
+    "zero_title": "Inga matchande köpare just nu",
+    "zero_body": "Ingen köpare i urvalet anger i dag kriterier som passar denna profil. Efterfrågan ändras när nya köpare ansluter. Du kan be om att få besked när det händer.",
+    "small_body": "Ett fåtal köpare matchar. För att skydda deras konfidentialitet visar vi inga exakta siffror under {n}.",
+    "by_type": "Vilka de är",
+    "by_hq": "Var de finns",
+    "appetite": "Dessa köpares samlade investeringsvilja",
+    "appetite_note": "Summan av vad dessa köpare säger att de vill investera totalt. Inget bud.",
+    "recent": "{n} av dem har anslutit de senaste 90 dagarna",
+    "recent_few": "Några av dem har anslutit de senaste 90 dagarna",
+    "value_title": "Indikativt värdeintervall",
+    "value_basis": "Baserat på typiska EBITDA-multiplar på {low}x till {high}x för din bransch och storlek.",
+    "value_none": "Ett värde baserat på resultatmultiplar är inte meningsfullt för ett förlustbringande företag. Köpare tittar då på omsättning, tillväxt och vägen till lönsamhet.",
+    "value_disclaimer": "Indikativt, baserat på marknadsgenomsnitt. En verklig värdering kräver dina siffror.",
+    "next_title": "Vad du kan göra härnäst",
+    "next_call": "Konfidentiellt samtal",
+    "next_call_body": "Prata konfidentiellt med en M&A-rådgivare om vad dessa köpare söker och vilka alternativ du har.",
+    "next_profile": "Anonym profil",
+    "next_profile_body": "Vi tar fram en anonym profil av ditt företag och ber matchande köpare om återkoppling. Ditt namn förblir dolt.",
+    "next_updates": "Uppdateringar om köparefterfrågan",
+    "next_updates_body": "Få en kort uppdatering när nya köpare som passar ditt företag ansluter, högst en gång per kvartal.",
+    "edit": "Ändra svar",
+    "sample_label": "Illustrativt urval"
+  },
+  "optin": {
+    "title": "Vill du gå vidare? Berätta hur vi når dig",
+    "intro": "Allt nedan är frivilligt. Kryssa bara i det du vill. Du kan när som helst återkalla varje samtycke.",
+    "name": "Ditt namn",
+    "email": "E-post",
+    "phone": "Telefon",
+    "company": "Företagsnamn eller organisationsnummer",
+    "company_help": "Hjälper oss att förbereda. Visas inte för köpare utan ditt medgivande.",
+    "channels_title": "Hur får vi kontakta dig?",
+    "channels_help": "Varje ruta är ett separat samtycke. Ingen är obligatorisk.",
+    "submit": "Skicka",
+    "privacy_ack": "Så hanterar vi dina uppgifter:",
+    "error_contact": "Ange en e-postadress eller ett telefonnummer.",
+    "error_email_needed": "Samtycke till e-post och uppdateringar kräver en e-postadress.",
+    "error_phone_needed": "Samtycke till samtal, sms och WhatsApp kräver ett telefonnummer.",
+    "error_no_consent": "Kryssa i minst ett sätt som vi får kontakta dig på."
+  },
+  "consent": {
+    "email": "Jag samtycker till att Mergero kontaktar mig via e-post om försäljning eller tillväxt av mitt företag.",
+    "phone": "Jag samtycker till att Mergero ringer mig om försäljning eller tillväxt av mitt företag.",
+    "sms": "Jag samtycker till att Mergero skickar sms till mig om försäljning eller tillväxt av mitt företag.",
+    "whatsapp": "Jag samtycker till att Mergero skickar WhatsApp-meddelanden till mig om försäljning eller tillväxt av mitt företag.",
+    "updates": "Skicka mig en uppdatering om köparefterfrågan via e-post när nya matchande köpare ansluter, högst en gång per kvartal.",
+    "withdraw": "Du kan när som helst återkalla varje samtycke via länken i varje meddelande eller genom att svara \"stopp\"."
+  },
+  "channel": {
+    "email": "E-post", "phone": "Samtal", "sms": "Sms", "whatsapp": "WhatsApp", "updates": "Kvartalsuppdateringar"
+  },
+  "thanks": {
+    "title": "Tack",
+    "body": "Vi har tagit emot dina uppgifter. En rådgivare på Mergero går igenom dem personligen.",
+    "confirm_title": "Ett steg kvar: bekräfta din e-postadress",
+    "confirm_body": "Vi har skickat en bekräftelselänk till {email}. Kontakt via e-post och uppdateringar börjar först när du har bekräftat.",
+    "demo_inbox": "Demoinkorg (e-postmeddelandet som skulle skickas)",
+    "phone_body": "En rådgivare kontaktar dig endast via de kanaler du har valt.",
+    "back": "Tillbaka till ditt resultat",
+    "pending": "väntar på bekräftelse",
+    "open_inbox": "Öppna demoinkorgen",
+    "close": "Stäng"
+  },
+  "confirm": {
+    "subject": "Bekräfta din e-postadress",
+    "greeting": "Hej {name},",
+    "body": "Bekräfta att du vill att Mergero kontaktar dig på denna adress. Tills du klickar på länken skickar vi inget annat.",
+    "button": "Bekräfta min e-post",
+    "ignore": "Om du inte har begärt detta kan du bortse från meddelandet. Inget händer.",
+    "done_title": "E-post bekräftad",
+    "done_body": "Tack. Ditt samtycke till e-post är nu aktivt.",
+    "invalid": "Denna bekräftelselänk är ogiltig eller har redan använts."
+  },
+  "privacy": {
+    "title": "Integritetspolicy",
+    "controller": "Personuppgiftsansvarig: Mergero (prototyp). Kontakt: privacy@example.com.",
+    "what": "Vad vi samlar in: dina svar på de fyra frågorna (kopplas inte till dig om du inte lämnar kontaktuppgifter). Om du lämnar kontaktuppgifter: namn, e-post, telefon, företagsnamn eller organisationsnummer samt dina samtycken med exakt formulering, version och tidpunkt.",
+    "why": "Varför: för att visa dig köparefterfrågan och, endast med ditt samtycke, kontakta dig via de kanaler du valt. Rättslig grund: ditt samtycke (artikel 6.1 a i GDPR).",
+    "who": "Vem ser uppgifterna: endast rådgivare på Mergero. Köpare ser inte din identitet utan ditt medgivande. Inget säljs eller delas utan ditt tillstånd.",
+    "retention": "Lagring: kontaktuppgifter raderas 24 månader efter vår senaste kontakt, eller tidigare på begäran. Anonyma svar sparas som statistik.",
+    "rights": "Dina rättigheter: tillgång, rättelse, radering, återkallelse av samtycke, invändning och klagomål till dataskyddsmyndigheten.",
+    "ai": "AI: ett AI-verktyg kan ta fram interna anteckningar och förslag på meddelanden. En medarbetare på Mergero granskar varje meddelande innan det skickas."
+  },
+  "unsubscribe": {
+    "title": "Avregistrerad",
+    "body": "Du får inga fler uppdateringar om köparefterfrågan. Dina övriga val är oförändrade."
+  },
+  "nurture": {
+    "subject": "Köparefterfrågan för ditt företag har ändrats: {n} nya köpare",
+    "subject_one": "Köparefterfrågan för ditt företag har ändrats: 1 ny köpare",
+    "greeting": "Hej {name},",
+    "body": "Sedan din senaste koll har {n} nya köpare som passar ditt företag ({sector}, {country}) anslutit till vårt nätverk. Totalt matchar nu {total} köpare din profil.",
+    "cta": "Se ditt uppdaterade resultat",
+    "footer": "Du får detta eftersom du bad om uppdateringar om köparefterfrågan. Avregistrera dig med ett klick: {link}"
+  },
+  "sectors_page": {
+    "title": "Köparefterfrågan per bransch",
+    "intro": "Antal köpare i vårt nätverk som letar efter företag i respektive bransch.",
+    "count": "{n} köpare letar",
+    "count_lead": "köpare i vårt nätverk letar efter företag i denna bransch",
+    "in_country": "{n} köpare letar efter företag inom {sector} i {country}",
+    "start": "Kolla ditt företag",
+    "detail_intro": "Dessa köpares kriterier omfattar {sector}. Ange ditt företags storlek för att se exakt hur många som passar dig."
+  }
+}

@@ -103,10 +103,34 @@ def test_full_owner_and_advisor_flow(client):
     assert "/unsubscribe/" in msgs[0]["body"]
 
 
-def test_sector_pages(client):
+def test_sector_pages_localized(client):
     assert "Logistics and transport" in client.get("/en/sectors").text
-    assert client.get("/en/sectors/logistics").status_code == 200
+    assert "Logistiikka ja kuljetus" in client.get("/fi/toimialat/logistiikka-ja-kuljetus").text
+    r = client.get("/de/toimialat/logistiikka-ja-kuljetus?country=DE", follow_redirects=False)
+    assert r.status_code == 301 and r.headers["location"] == "/de/branchen/logistik-und-transport?country=DE"
+    assert client.get("/en/sectors/logistics", follow_redirects=False).status_code == 301
     assert client.get("/en/sectors/nope").status_code == 404
+    assert client.get("/en/nope").status_code == 404
+
+
+@pytest.mark.parametrize("lang,text", [("fi", "Kuka ostaisi yrityksesi?"), ("de", "Wer würde Ihr Unternehmen kaufen?"),
+                                       ("sv", "Vem skulle köpa ditt företag?")])
+def test_translated_owner_pages(client, lang, text):
+    page = client.get(f"/{lang}")
+    assert text in page.text and f'lang="{lang}"' in page.text
+    result = client.get(run_check(client, lang))
+    assert result.status_code == 200 and "checkbox" in result.text
+
+
+def test_prh_lookup_endpoint(client, monkeypatch):
+    from demandcheck import registry
+    company = registry.Company("0536104-0", "Example Oy", "49410", "Freight", "logistics")
+    monkeypatch.setattr(registry, "lookup", lambda bid, lang="fi": company)
+    data = client.get("/api/prh/0536104-0?lang=fi").json()
+    assert data["ok"] and data["sector"] == "logistics" and "Example Oy" in data["message"]
+    assert client.get("/api/prh/1234567-8").status_code == 400
+    monkeypatch.setattr(registry, "lookup", lambda bid, lang="fi": None)
+    assert client.get("/api/prh/0536104-0").status_code == 404
 
 
 def test_parse_optin_only_counts_explicit_yes():

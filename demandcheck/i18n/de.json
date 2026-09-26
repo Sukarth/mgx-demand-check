@@ -1,0 +1,220 @@
+{
+  "site": {
+    "name": "MGX Käufer-Check",
+    "tagline": "Sehen Sie, wie viele Käufer ein Unternehmen wie Ihres suchen. Anonym, kostenlos, in zwei Minuten.",
+    "sample_notice": "Prototyp. Die Käuferzahlen stammen aus einer illustrativen, fiktiven Stichprobe, nicht aus echten MGX-Daten.",
+    "footer": "Ein Prototyp für Mergero. Die Käuferdaten sind eine illustrative, fiktive Stichprobe.",
+    "privacy_link": "Datenschutzhinweise",
+    "sectors_link": "Käufernachfrage nach Branche",
+    "language": "Sprache"
+  },
+  "routes": {"sectors": "branchen"},
+  "promise": {
+    "anonymous": "Anonym, bis Sie selbst etwas anderes entscheiden",
+    "no_identity": "Käufer erfahren Ihre Identität nur mit Ihrer Zustimmung",
+    "no_sharing": "Nichts wird ohne Ihre Erlaubnis weitergegeben"
+  },
+  "form": {
+    "title": "Wer würde Ihr Unternehmen kaufen?",
+    "intro": "Beantworten Sie vier Fragen. Sie sehen das Ergebnis sofort. Kein Name, keine E-Mail, keine Telefonnummer nötig.",
+    "sector": "Branche",
+    "country": "Wo hat das Unternehmen seinen Sitz?",
+    "revenue": "Jahresumsatz",
+    "ebitda": "Operatives Ergebnis pro Jahr (EBITDA)",
+    "ebitda_help": "Ergebnis vor Zinsen, Steuern und Abschreibungen. Eine grobe Größenordnung genügt.",
+    "optional": "Optional",
+    "timing": "Wann könnte ein Verkauf oder eine Nachfolge ein Thema sein?",
+    "ownership": "Ihr Anteil am Unternehmen",
+    "choose": "Bitte wählen...",
+    "submit": "Käufernachfrage anzeigen",
+    "time_note": "Dauert etwa zwei Minuten. Es wird nichts gespeichert, das Sie identifiziert.",
+    "error_required": "Bitte beantworten Sie die vier Pflichtfragen.",
+    "business_id": "Finnisches Unternehmen? Mit Y-Tunnus ausfüllen",
+    "business_id_placeholder": "1234567-8",
+    "business_id_help": "Optional. Wir lesen die Branche aus dem öffentlichen finnischen Register (PRH) aus, um das Formular vorauszufüllen. Die Nummer wird nicht mit Ihren Antworten gespeichert.",
+    "lookup": "Suchen",
+    "lookup_found": "Gefunden: {name}. Branche vorausgefüllt, bitte prüfen.",
+    "lookup_found_nosector": "Gefunden: {name}. Bitte wählen Sie die Branche selbst.",
+    "lookup_not_found": "Kein Unternehmen mit dieser Nummer gefunden. Bitte füllen Sie das Formular selbst aus.",
+    "lookup_invalid": "Eine finnische Y-Tunnus hat das Format 1234567-8.",
+    "lookup_error": "Das Register ist nicht erreichbar. Bitte füllen Sie das Formular selbst aus."
+  },
+  "timing": {
+    "now": "Jetzt oder innerhalb eines Jahres",
+    "1_2y": "In ein bis zwei Jahren",
+    "3y_plus": "In drei Jahren oder später",
+    "curious": "Nur aus Interesse"
+  },
+  "ownership": {
+    "100": "100 %",
+    "50_99": "50 bis 99 %",
+    "lt50": "Unter 50 %"
+  },
+  "sector": {
+    "industrial_services": "Industrieservice und Instandhaltung",
+    "technical_installation": "Elektro- und Gebäudetechnik",
+    "facility_services": "Gebäudereinigung und Facility Services",
+    "logistics": "Logistik und Transport",
+    "waste_circular": "Entsorgung und Kreislaufwirtschaft",
+    "construction_services": "Bauleistungen",
+    "technical_wholesale": "Technischer Großhandel",
+    "software_it": "Software und IT-Dienstleistungen",
+    "health_products": "Gesundheits- und Medizinprodukte",
+    "healthcare_services": "Gesundheits- und Pflegedienstleistungen",
+    "manufacturing": "Metallerzeugnisse und Maschinenbau",
+    "food_production": "Lebensmittel- und Getränkeherstellung",
+    "business_services": "Unternehmensdienstleistungen",
+    "engineering_consulting": "Ingenieur- und technische Beratung",
+    "retail_ecommerce": "Einzelhandel und E-Commerce"
+  },
+  "country": {
+    "FI": "Finnland", "SE": "Schweden", "NO": "Norwegen", "DK": "Dänemark", "EE": "Estland",
+    "DE": "Deutschland", "AT": "Österreich", "CH": "Schweiz", "NL": "Niederlande",
+    "GB": "Vereinigtes Königreich", "FR": "Frankreich", "US": "USA", "other": "Weitere Länder"
+  },
+  "revenue": {
+    "r_lt2": "Unter 2 Mio. €", "r_2_5": "2 bis 5 Mio. €", "r_5_10": "5 bis 10 Mio. €", "r_10_20": "10 bis 20 Mio. €",
+    "r_20_50": "20 bis 50 Mio. €", "r_50_100": "50 bis 100 Mio. €", "r_100p": "Über 100 Mio. €"
+  },
+  "ebitda": {
+    "e_neg": "Verlust", "e_0_05": "Unter 0,5 Mio. €", "e_05_1": "0,5 bis 1 Mio. €", "e_1_2": "1 bis 2 Mio. €",
+    "e_2_5": "2 bis 5 Mio. €", "e_5_10": "5 bis 10 Mio. €", "e_10_20": "10 bis 20 Mio. €", "e_20p": "Über 20 Mio. €"
+  },
+  "buyer_type": {
+    "pe_platform": "Private-Equity-Fonds",
+    "pe_addon": "Fondsgeführte Unternehmensgruppen",
+    "strategic": "Strategische Käufer",
+    "family_office": "Family Offices",
+    "search_fund": "Search Funds und unabhängige Investoren",
+    "other": "Weitere Käufertypen"
+  },
+  "buyer_type_help": {
+    "pe_platform": "Fonds, die ein Unternehmen als Basis für eine Gruppe suchen.",
+    "pe_addon": "Unternehmensgruppen im Besitz eines Fonds, die ergänzende Unternehmen zukaufen.",
+    "strategic": "Unternehmen aus Ihrer oder einer benachbarten Branche.",
+    "family_office": "Investmentgesellschaften vermögender Familien, oft langfristige Eigentümer.",
+    "search_fund": "Von Investoren unterstützte Unternehmer, die ein Unternehmen zum Führen suchen."
+  },
+  "result": {
+    "title": "Käufernachfrage für Ihr Unternehmen",
+    "profile": "{sector} · {country} · Umsatz {revenue} · EBITDA {ebitda}",
+    "count_lead": "Käufer in unserem Netzwerk suchen Unternehmen wie Ihres",
+    "count_lead_one": "Käufer in unserem Netzwerk sucht Unternehmen wie Ihres",
+    "fewer_than": "Weniger als {n}",
+    "zero_title": "Derzeit keine passenden Käufer",
+    "zero_body": "Kein Käufer der Stichprobe nennt derzeit Kriterien, die zu diesem Profil passen. Die Nachfrage ändert sich, wenn neue Käufer hinzukommen. Sie können sich darüber informieren lassen.",
+    "small_body": "Einige wenige Käufer passen. Zum Schutz ihrer Vertraulichkeit zeigen wir keine genauen Zahlen unter {n}.",
+    "by_type": "Wer sie sind",
+    "by_hq": "Wo sie ansässig sind",
+    "appetite": "Gesamtes Investitionsvolumen dieser Käufer",
+    "appetite_note": "Summe dessen, was diese Käufer insgesamt investieren wollen. Kein Angebot.",
+    "recent": "{n} davon sind in den letzten 90 Tagen hinzugekommen",
+    "recent_few": "Einige davon sind in den letzten 90 Tagen hinzugekommen",
+    "value_title": "Indikative Wertspanne",
+    "value_basis": "Basierend auf typischen EBITDA-Multiplikatoren von {low}x bis {high}x für Ihre Branche und Größe.",
+    "value_none": "Ein Wert auf Basis von Ergebnismultiplikatoren ist bei einem Verlust nicht aussagekräftig. Käufer achten dann auf Umsatz, Wachstum und den Weg in die Gewinnzone.",
+    "value_disclaimer": "Indikativ, auf Basis von Marktdurchschnitten. Eine echte Bewertung braucht Ihre Zahlen.",
+    "next_title": "Ihre nächsten Schritte",
+    "next_call": "Vertrauliches Gespräch",
+    "next_call_body": "Sprechen Sie vertraulich mit einem M&A-Berater darüber, was diese Käufer suchen und welche Optionen Sie haben.",
+    "next_profile": "Anonymes Profil",
+    "next_profile_body": "Wir erstellen ein anonymes Profil Ihres Unternehmens und holen Feedback passender Käufer ein. Ihr Name bleibt verborgen.",
+    "next_updates": "Updates zur Käufernachfrage",
+    "next_updates_body": "Erhalten Sie ein kurzes Update, wenn neue passende Käufer hinzukommen, höchstens einmal pro Quartal.",
+    "edit": "Antworten ändern",
+    "sample_label": "Illustrative Stichprobe"
+  },
+  "optin": {
+    "title": "Möchten Sie weitergehen? Sagen Sie uns, wie wir Sie erreichen",
+    "intro": "Alle Angaben sind freiwillig. Kreuzen Sie nur an, was Sie möchten. Sie können jede Einwilligung jederzeit widerrufen.",
+    "name": "Ihr Name",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "company": "Firmenname oder Registernummer",
+    "company_help": "Hilft uns bei der Vorbereitung. Wird Käufern nicht ohne Ihre Zustimmung gezeigt.",
+    "channels_title": "Wie dürfen wir Sie kontaktieren?",
+    "channels_help": "Jedes Kästchen ist eine eigene Einwilligung. Keines ist erforderlich.",
+    "submit": "Absenden",
+    "privacy_ack": "So gehen wir mit Ihren Daten um:",
+    "error_contact": "Bitte geben Sie eine E-Mail-Adresse oder eine Telefonnummer an.",
+    "error_email_needed": "Für E-Mail-Kontakt und Updates brauchen wir eine E-Mail-Adresse.",
+    "error_phone_needed": "Für Anrufe, SMS und WhatsApp brauchen wir eine Telefonnummer.",
+    "error_no_consent": "Bitte wählen Sie mindestens einen Weg, auf dem wir Sie kontaktieren dürfen."
+  },
+  "consent": {
+    "email": "Ich willige ein, dass Mergero mich per E-Mail zum Verkauf oder Wachstum meines Unternehmens kontaktiert.",
+    "phone": "Ich willige ein, dass Mergero mich telefonisch zum Verkauf oder Wachstum meines Unternehmens kontaktiert.",
+    "sms": "Ich willige ein, dass Mergero mir SMS zum Verkauf oder Wachstum meines Unternehmens sendet.",
+    "whatsapp": "Ich willige ein, dass Mergero mir WhatsApp-Nachrichten zum Verkauf oder Wachstum meines Unternehmens sendet.",
+    "updates": "Senden Sie mir per E-Mail ein Update zur Käufernachfrage, wenn neue passende Käufer hinzukommen, höchstens einmal pro Quartal.",
+    "withdraw": "Sie können jede Einwilligung jederzeit über den Link in jeder Nachricht oder mit der Antwort \"Stopp\" widerrufen."
+  },
+  "channel": {
+    "email": "E-Mail", "phone": "Anruf", "sms": "SMS", "whatsapp": "WhatsApp", "updates": "Quartals-Updates"
+  },
+  "thanks": {
+    "title": "Vielen Dank",
+    "body": "Wir haben Ihre Angaben erhalten. Ein Berater von Mergero prüft sie persönlich.",
+    "confirm_title": "Ein letzter Schritt: Bestätigen Sie Ihre E-Mail-Adresse",
+    "confirm_body": "Wir haben einen Bestätigungslink an {email} gesendet. E-Mail-Kontakt und Updates beginnen erst nach Ihrer Bestätigung.",
+    "demo_inbox": "Demo-Postfach (die E-Mail, die versendet würde)",
+    "phone_body": "Ein Berater kontaktiert Sie ausschließlich über die von Ihnen gewählten Kanäle.",
+    "back": "Zurück zu Ihrem Ergebnis",
+    "pending": "Bestätigung ausstehend",
+    "open_inbox": "Demo-Postfach öffnen",
+    "close": "Schließen"
+  },
+  "confirm": {
+    "subject": "Bitte bestätigen Sie Ihre E-Mail-Adresse",
+    "greeting": "Guten Tag {name},",
+    "body": "Bitte bestätigen Sie, dass Mergero Sie unter dieser Adresse kontaktieren darf. Bis Sie auf den Link klicken, senden wir Ihnen nichts weiter.",
+    "button": "E-Mail-Adresse bestätigen",
+    "ignore": "Falls Sie dies nicht angefordert haben, ignorieren Sie diese E-Mail. Es passiert nichts.",
+    "done_title": "E-Mail-Adresse bestätigt",
+    "done_body": "Vielen Dank. Ihre Einwilligung für E-Mail-Kontakt ist jetzt aktiv.",
+    "invalid": "Dieser Bestätigungslink ist ungültig oder wurde bereits verwendet."
+  },
+  "privacy": {
+    "title": "Datenschutzhinweise",
+    "controller": "Verantwortlicher: Mergero (Prototyp). Kontakt: privacy@example.com.",
+    "what": "Was wir erheben: Ihre Antworten auf die vier Fragen (ohne Bezug zu Ihrer Person, solange Sie keine Kontaktdaten angeben). Wenn Sie Kontaktdaten angeben: Name, E-Mail, Telefon, Firmenname oder Registernummer sowie Ihre Einwilligungen mit genauem Wortlaut, Version und Zeitpunkt.",
+    "why": "Wozu: um Ihnen die Käufernachfrage zu zeigen und Sie, nur mit Ihrer Einwilligung, über die gewählten Kanäle zu kontaktieren. Rechtsgrundlage: Ihre Einwilligung (Art. 6 Abs. 1 lit. a DSGVO).",
+    "who": "Wer die Daten sieht: nur Berater von Mergero. Käufer erfahren Ihre Identität nur mit Ihrer Zustimmung. Nichts wird ohne Ihre Erlaubnis verkauft oder weitergegeben.",
+    "retention": "Speicherdauer: Kontaktdaten werden 24 Monate nach unserem letzten Kontakt gelöscht, auf Wunsch früher. Anonyme Antworten werden als Statistik aufbewahrt.",
+    "rights": "Ihre Rechte: Auskunft, Berichtigung, Löschung, Widerruf der Einwilligung, Widerspruch und Beschwerde bei einer Datenschutzaufsichtsbehörde.",
+    "ai": "KI: Ein KI-Werkzeug kann interne Notizen und Nachrichtenentwürfe erstellen. Jede Nachricht wird vor dem Versand von einem Mitarbeiter von Mergero geprüft."
+  },
+  "unsubscribe": {
+    "title": "Abgemeldet",
+    "body": "Sie erhalten keine weiteren Updates zur Käufernachfrage. Ihre übrigen Einstellungen bleiben unverändert."
+  },
+  "nurture": {
+    "subject": "Die Käufernachfrage für Ihr Unternehmen hat sich geändert: {n} neue Käufer",
+    "subject_one": "Die Käufernachfrage für Ihr Unternehmen hat sich geändert: 1 neuer Käufer",
+    "greeting": "Guten Tag {name},",
+    "body": "Seit Ihrem letzten Check sind {n} neue Käufer, die zu Ihrem Unternehmen passen ({sector}, {country}), unserem Netzwerk beigetreten. Insgesamt passen jetzt {total} Käufer zu Ihrem Profil.",
+    "cta": "Aktualisiertes Ergebnis ansehen",
+    "footer": "Sie erhalten diese Nachricht, weil Sie Updates zur Käufernachfrage angefordert haben. Mit einem Klick abmelden: {link}"
+  },
+  "sectors_page": {
+    "title": "Käufernachfrage nach Branche",
+    "intro": "Anzahl der Käufer in unserem Netzwerk, die Unternehmen der jeweiligen Branche suchen.",
+    "count": "{n} Käufer suchen",
+    "count_lead": "Käufer in unserem Netzwerk suchen Unternehmen dieser Branche",
+    "in_country": "{n} Käufer suchen Unternehmen der Branche {sector} in {country}",
+    "start": "Ihr Unternehmen prüfen",
+    "detail_intro": "Die Kriterien dieser Käufer umfassen die Branche {sector}. Geben Sie die Größe Ihres Unternehmens ein, um zu sehen, wie viele genau zu Ihnen passen."
+  },
+  "letter": {
+    "subject": "{n} Käufer suchen derzeit Unternehmen der Branche {sector} in {country}",
+    "greeting": "Guten Tag {name},",
+    "greeting_generic": "Sehr geehrte Damen und Herren,",
+    "p1": "in unserem Netzwerk suchen derzeit {n} Käufer nach Unternehmen der Branche {sector} in {country}: Private-Equity-Fonds, strategische Käufer und Family Offices.",
+    "p2": "Wie viele davon zu Ihrem Unternehmen passen, sehen Sie anonym in etwa zwei Minuten: vier Fragen, kein Name, keine E-Mail, kein Anruf.",
+    "cta": "Code scannen oder aufrufen:",
+    "p3": "Auch wenn ein Verkauf für Sie heute kein Thema ist, zeigt der Check, wonach der Markt sucht. Ob und wann Sie uns kontaktieren, entscheiden allein Sie.",
+    "signoff": "Mit freundlichen Grüßen",
+    "art14": "Warum Sie diesen Brief erhalten: Name und Anschrift Ihres Unternehmens stammen aus dem öffentlichen Handelsregister. Verantwortlicher: Mergero. Sie können weiteren Schreiben jederzeit unter privacy@example.com widersprechen; wir löschen Ihre Anschrift dann. Details: {privacy_url}",
+    "sample": "Prototyp. Die Käuferzahlen stammen aus einer illustrativen, fiktiven Stichprobe."
+  }
+}

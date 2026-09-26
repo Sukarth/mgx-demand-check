@@ -11,7 +11,7 @@
 <div class="notice">{{ t('site.sample_notice') }}</div>
 <header class="site">
   <div class="wrap">
-    <a class="brand" href="/{{ lang }}">MGX <span>Demand Check</span></a>
+    {% set brand = t('site.name') %}<a class="brand" href="/{{ lang }}">{{ brand.split(' ', 1)[0] }} <span>{{ brand.split(' ', 1)[1] }}</span></a>
     {% block header_right %}
     {% set parts = request.url.path.split('/') %}
     <nav class="langs" aria-label="{{ t('site.language') }}">
@@ -36,7 +36,7 @@
   <div class="wrap {{ self.wrap_class() }}">
     <p>{{ t('site.footer') }}</p>
     <a href="/{{ lang }}/privacy">{{ t('site.privacy_link') }}</a>
-    <a href="/{{ lang }}/sectors">{{ t('site.sectors_link') }}</a>
+    <a href="{{ sector_url() }}">{{ t('site.sectors_link') }}</a>
   </div>
 </footer>
 </body>

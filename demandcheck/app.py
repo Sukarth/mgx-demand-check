@@ -15,11 +15,12 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
 
-from . import briefs, nurture
+from . import briefs, nurture, registry
 from .buyers import BUYER_TYPES, Buyer, buyer_from_criteria, load_buyers
 from .consent import CHANNELS, CONSENT_VERSION, consent_text, parse_optin
 from .i18n import (
-    LANGUAGE_NAMES, available_languages, format_eur, format_int, pick_language, translate,
+    LANGUAGE_NAMES, available_languages, format_eur, format_int, is_sectors_segment, pick_language,
+    resolve_sector_slug, sector_path, sectors_segment, translate,
 )
 from .llm import LLMClient
 from .matching import OwnerProfile, match, public_view, sector_count
@@ -76,6 +77,7 @@ def render(request: Request, name: str, lang: str = "en", status_code: int = 200
         request=request, lang=lang, t=t, languages=available_languages(),
         language_names=LANGUAGE_NAMES, eur=lambda v: format_eur(v, lang),
         num=lambda v: format_int(v, lang),
+        sector_url=lambda sector=None, country=None: sector_path(lang, sector, country),
     )
     return templates.TemplateResponse(request, name, ctx, status_code=status_code)
 
@@ -204,8 +206,8 @@ def unsubscribe(request: Request, token: str):
     if not owner:
         raise HTTPException(404)
     store.withdraw(owner["id"], "updates")
-    return render(request, "message.html", owner["lang"], title_key="channel.updates",
-                  body_text="Unsubscribed. You will not receive further buyer demand updates.")
+    return render(request, "message.html", owner["lang"], title_key="unsubscribe.title",
+                  body_key="unsubscribe.body")
 
 
 @public.get("/{lang}/privacy", response_class=HTMLResponse)
@@ -213,23 +215,51 @@ def privacy(request: Request, lang: str):
     return render(request, "privacy.html", _lang_or_404(lang))
 
 
-@public.get("/{lang}/sectors", response_class=HTMLResponse)
-def sectors_index(request: Request, lang: str):
+@app.get("/api/prh/{business_id}")
+def prh_lookup(business_id: str, lang: str = "fi"):
+    """Look up a Finnish company to pre-fill the form; the ID is not stored."""
+    lang = lang if lang in available_languages() else "fi"
+    bid = registry.normalize_business_id(business_id)
+    if not registry.valid_business_id(bid):
+        return JSONResponse({"ok": False, "message": translate(lang, "form.lookup_invalid")}, 400)
+    try:
+        company = registry.lookup(bid, lang)
+    except registry.RegistryUnavailable:
+        return JSONResponse({"ok": False, "message": translate(lang, "form.lookup_error")}, 502)
+    if company is None:
+        return JSONResponse({"ok": False, "message": translate(lang, "form.lookup_not_found")}, 404)
+    key = "form.lookup_found" if company.sector else "form.lookup_found_nosector"
+    return {"ok": True, "name": company.name, "sector": company.sector, "country": "FI",
+            "industry": company.industry_name, "message": translate(lang, key, name=company.name)}
+
+
+@public.get("/{lang}/{segment}", response_class=HTMLResponse)
+def sectors_index(request: Request, lang: str, segment: str):
     lang = _lang_or_404(lang)
+    if not is_sectors_segment(segment):
+        raise HTTPException(404)
+    if segment != sectors_segment(lang):
+        return RedirectResponse(sector_path(lang), 301)
     buyers = current_buyers()
     rows = sorted(((s, sector_count(buyers, s)) for s in SECTOR_IDS), key=lambda r: -r[1])
     return render(request, "sectors.html", lang, rows=rows)
 
 
-@public.get("/{lang}/sectors/{sector}", response_class=HTMLResponse)
-def sector_page(request: Request, lang: str, sector: str, country: str = ""):
+@public.get("/{lang}/{segment}/{slug}", response_class=HTMLResponse)
+def sector_page(request: Request, lang: str, segment: str, slug: str, country: str = ""):
     lang = _lang_or_404(lang)
-    if sector not in SECTORS_BY_ID:
+    sector = resolve_sector_slug(slug, SECTOR_IDS) if is_sectors_segment(segment) else None
+    if not sector:
         raise HTTPException(404)
+    country = country if country in COUNTRIES else ""
+    canonical = sector_path(lang, sector)
+    if request.url.path != canonical:
+        return RedirectResponse(sector_path(lang, sector, country or None), 301)
     buyers = current_buyers()
     per_country = [(c, sector_count(buyers, sector, {c})) for c in COUNTRIES]
     return render(request, "sector.html", lang, sector=sector, total=sector_count(buyers, sector),
-                  per_country=per_country, country=country if country in COUNTRIES else "",
+                  per_country=per_country, country=country,
+                  country_total=sector_count(buyers, sector, {country}) if country else None,
                   **form_options())
 
 

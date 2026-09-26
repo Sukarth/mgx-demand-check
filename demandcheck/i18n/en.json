@@ -27,7 +27,16 @@
     "choose": "Choose...",
     "submit": "Show buyer demand",
     "time_note": "Takes about two minutes. Nothing is stored that identifies you.",
-    "error_required": "Please answer the four required questions."
+    "error_required": "Please answer the four required questions.",
+    "business_id": "Finnish company? Fill in with your business ID",
+    "business_id_placeholder": "1234567-8",
+    "business_id_help": "Optional. We look up the company's industry in the public PRH register to pre-fill the form. The business ID is not stored with your answers.",
+    "lookup": "Look up",
+    "lookup_found": "Found: {name}. Industry pre-filled, please check it.",
+    "lookup_found_nosector": "Found: {name}. Please choose the industry yourself.",
+    "lookup_not_found": "No company found with this business ID. Please fill in the form yourself.",
+    "lookup_invalid": "A Finnish business ID looks like 1234567-8.",
+    "lookup_error": "The register could not be reached. Please fill in the form yourself."
   },
   "timing": {
     "now": "Now or within a year",
@@ -58,17 +67,38 @@
     "retail_ecommerce": "Retail and e-commerce"
   },
   "country": {
-    "FI": "Finland", "SE": "Sweden", "NO": "Norway", "DK": "Denmark", "EE": "Estonia",
-    "DE": "Germany", "AT": "Austria", "CH": "Switzerland", "NL": "Netherlands",
-    "GB": "United Kingdom", "FR": "France", "US": "United States", "other": "Other countries"
+    "FI": "Finland",
+    "SE": "Sweden",
+    "NO": "Norway",
+    "DK": "Denmark",
+    "EE": "Estonia",
+    "DE": "Germany",
+    "AT": "Austria",
+    "CH": "Switzerland",
+    "NL": "Netherlands",
+    "GB": "United Kingdom",
+    "FR": "France",
+    "US": "United States",
+    "other": "Other countries"
   },
   "revenue": {
-    "r_lt2": "Under €2M", "r_2_5": "€2 to 5M", "r_5_10": "€5 to 10M", "r_10_20": "€10 to 20M",
-    "r_20_50": "€20 to 50M", "r_50_100": "€50 to 100M", "r_100p": "Over €100M"
+    "r_lt2": "Under €2M",
+    "r_2_5": "€2 to 5M",
+    "r_5_10": "€5 to 10M",
+    "r_10_20": "€10 to 20M",
+    "r_20_50": "€20 to 50M",
+    "r_50_100": "€50 to 100M",
+    "r_100p": "Over €100M"
   },
   "ebitda": {
-    "e_neg": "Loss-making", "e_0_05": "Under €0.5M", "e_05_1": "€0.5 to 1M", "e_1_2": "€1 to 2M",
-    "e_2_5": "€2 to 5M", "e_5_10": "€5 to 10M", "e_10_20": "€10 to 20M", "e_20p": "Over €20M"
+    "e_neg": "Loss-making",
+    "e_0_05": "Under €0.5M",
+    "e_05_1": "€0.5 to 1M",
+    "e_1_2": "€1 to 2M",
+    "e_2_5": "€2 to 5M",
+    "e_5_10": "€5 to 10M",
+    "e_10_20": "€10 to 20M",
+    "e_20p": "Over €20M"
   },
   "buyer_type": {
     "pe_platform": "Private equity funds",
@@ -140,7 +170,11 @@
     "withdraw": "You can withdraw each consent at any time with the link in any message or by replying \"stop\"."
   },
   "channel": {
-    "email": "Email", "phone": "Phone call", "sms": "SMS", "whatsapp": "WhatsApp", "updates": "Quarterly updates"
+    "email": "Email",
+    "phone": "Phone call",
+    "sms": "SMS",
+    "whatsapp": "WhatsApp",
+    "updates": "Quarterly updates"
   },
   "thanks": {
     "title": "Thank you",
@@ -190,5 +224,24 @@
     "in_country": "{n} buyers looking for {sector} companies in {country}",
     "start": "Check your company",
     "detail_intro": "These buyers state criteria that include {sector}. Enter your company's size to see how many fit you exactly."
+  },
+  "routes": {
+    "sectors": "sectors"
+  },
+  "unsubscribe": {
+    "title": "Unsubscribed",
+    "body": "You will not receive further buyer demand updates. Your other choices are unchanged."
+  },
+  "letter": {
+    "subject": "{n} buyers are currently looking for {sector} companies in {country}",
+    "greeting": "Dear {name},",
+    "greeting_generic": "Dear Sir or Madam,",
+    "p1": "In our network, {n} buyers are currently looking for companies in the field of {sector} in {country}: private equity funds, strategic acquirers and family offices.",
+    "p2": "How many of them fit your company you can see anonymously in about two minutes: four questions, no name, no email, no call.",
+    "cta": "Scan the code or open:",
+    "p3": "Even if a sale is not on your mind, the check shows what the market is looking for. Whether and when you contact us is entirely up to you.",
+    "signoff": "Kind regards",
+    "art14": "Why you are receiving this letter: we took your company's name and address from the public commercial register. Controller: Mergero. You can object to further letters at any time at privacy@example.com; we will then delete your address. Details: {privacy_url}",
+    "sample": "Prototype. Buyer figures come from an illustrative, fictional sample."
   }
 }

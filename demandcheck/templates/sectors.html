@@ -6,7 +6,7 @@
 <p class="lead">{{ t('sectors_page.intro') }} <span class="tag">{{ t('result.sample_label') }}</span></p>
 <ul class="sector-list">
   {% for s, n in rows %}
-  <li><a href="/{{ lang }}/sectors/{{ s }}"><span>{{ t('sector.' ~ s) }}</span><b>{{ num(n) }}</b></a></li>
+  <li><a href="{{ sector_url(s) }}"><span>{{ t('sector.' ~ s) }}</span><b>{{ num(n) }}</b></a></li>
   {% endfor %}
 </ul>
 {% endblock %}

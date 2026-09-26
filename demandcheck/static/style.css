@@ -144,3 +144,10 @@ dialog.modal { border: 0; border-radius: var(--radius); padding: 1.25rem; width:
 dialog.modal::backdrop { background: rgba(20, 33, 61, .45); }
 .modal-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: .75rem; }
 .modal-head p { margin: 0; }
+
+.lookup { padding-bottom: 1.1rem; border-bottom: 1px solid var(--line); margin-bottom: 1.25rem; }
+.lookup-row { display: flex; gap: .5rem; }
+.lookup-row input { flex: 1; min-width: 0; }
+.lookup-msg { font-size: .9rem; margin-top: .35rem; }
+.lookup-msg.ok { color: var(--accent); }
+.lookup-msg.err { color: var(--danger); }

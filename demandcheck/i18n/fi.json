@@ -1,0 +1,208 @@
+{
+  "site": {
+    "name": "MGX Ostajakysyntä",
+    "tagline": "Katso, kuinka moni ostaja etsii kaltaistasi yritystä. Nimettömästi, maksutta, kahdessa minuutissa.",
+    "sample_notice": "Prototyyppi. Ostajaluvut perustuvat havainnolliseen, kuvitteelliseen otokseen, eivät todelliseen MGX-dataan.",
+    "footer": "Prototyyppi Mergerolle. Ostajadata on havainnollinen, kuvitteellinen otos.",
+    "privacy_link": "Tietosuojaseloste",
+    "sectors_link": "Ostajakysyntä toimialoittain",
+    "language": "Kieli"
+  },
+  "routes": {"sectors": "toimialat"},
+  "promise": {
+    "anonymous": "Nimetön, kunnes itse päätät toisin",
+    "no_identity": "Ostajat eivät näe henkilöllisyyttäsi ilman lupaasi",
+    "no_sharing": "Mitään ei jaeta ilman lupaasi"
+  },
+  "form": {
+    "title": "Kuka ostaisi yrityksesi?",
+    "intro": "Vastaa neljään kysymykseen. Näet tuloksen heti. Nimeä, sähköpostia tai puhelinnumeroa ei tarvita.",
+    "sector": "Toimiala",
+    "country": "Missä maassa yritys toimii?",
+    "revenue": "Liikevaihto vuodessa",
+    "ebitda": "Käyttökate vuodessa (EBITDA)",
+    "ebitda_help": "Tulos ennen korkoja, veroja ja poistoja. Suuruusluokka riittää.",
+    "optional": "Vapaaehtoinen",
+    "timing": "Milloin myynti tai uusi omistaja voisi olla ajankohtainen?",
+    "ownership": "Omistusosuutesi",
+    "choose": "Valitse...",
+    "submit": "Näytä ostajakysyntä",
+    "time_note": "Vie noin kaksi minuuttia. Sinua yksilöiviä tietoja ei tallenneta.",
+    "error_required": "Vastaa neljään pakolliseen kysymykseen.",
+    "business_id": "Suomalainen yritys? Täytä Y-tunnuksella",
+    "business_id_placeholder": "1234567-8",
+    "business_id_help": "Vapaaehtoinen. Haemme yrityksen toimialan PRH:n avoimesta rekisteristä lomakkeen esitäyttöä varten. Y-tunnusta ei tallenneta vastaustesi yhteyteen.",
+    "lookup": "Hae",
+    "lookup_found": "Löytyi: {name}. Toimiala esitäytetty, tarkista se.",
+    "lookup_found_nosector": "Löytyi: {name}. Valitse toimiala itse.",
+    "lookup_not_found": "Tällä Y-tunnuksella ei löytynyt yritystä. Täytä lomake itse.",
+    "lookup_invalid": "Y-tunnus on muotoa 1234567-8.",
+    "lookup_error": "Rekisteriin ei saatu yhteyttä. Täytä lomake itse."
+  },
+  "timing": {
+    "now": "Nyt tai vuoden sisällä",
+    "1_2y": "Yhden–kahden vuoden päästä",
+    "3y_plus": "Kolmen vuoden päästä tai myöhemmin",
+    "curious": "Olen vain utelias"
+  },
+  "ownership": {
+    "100": "100 %",
+    "50_99": "50–99 %",
+    "lt50": "Alle 50 %"
+  },
+  "sector": {
+    "industrial_services": "Teollisuuden palvelut ja kunnossapito",
+    "technical_installation": "Sähkö- ja talotekniikka-asennukset",
+    "facility_services": "Siivous- ja kiinteistöpalvelut",
+    "logistics": "Logistiikka ja kuljetus",
+    "waste_circular": "Jätehuolto ja kiertotalous",
+    "construction_services": "Rakennuspalvelut",
+    "technical_wholesale": "Tekninen tukkukauppa",
+    "software_it": "Ohjelmistot ja IT-palvelut",
+    "health_products": "Terveys- ja lääkintätuotteet",
+    "healthcare_services": "Terveys- ja hoivapalvelut",
+    "manufacturing": "Metallituotteet ja koneet",
+    "food_production": "Elintarvike- ja juomatuotanto",
+    "business_services": "Yrityspalvelut",
+    "engineering_consulting": "Suunnittelu ja tekninen konsultointi",
+    "retail_ecommerce": "Vähittäiskauppa ja verkkokauppa"
+  },
+  "country": {
+    "FI": "Suomi", "SE": "Ruotsi", "NO": "Norja", "DK": "Tanska", "EE": "Viro",
+    "DE": "Saksa", "AT": "Itävalta", "CH": "Sveitsi", "NL": "Alankomaat",
+    "GB": "Iso-Britannia", "FR": "Ranska", "US": "Yhdysvallat", "other": "Muut maat"
+  },
+  "revenue": {
+    "r_lt2": "Alle 2 M€", "r_2_5": "2–5 M€", "r_5_10": "5–10 M€", "r_10_20": "10–20 M€",
+    "r_20_50": "20–50 M€", "r_50_100": "50–100 M€", "r_100p": "Yli 100 M€"
+  },
+  "ebitda": {
+    "e_neg": "Tappiollinen", "e_0_05": "Alle 0,5 M€", "e_05_1": "0,5–1 M€", "e_1_2": "1–2 M€",
+    "e_2_5": "2–5 M€", "e_5_10": "5–10 M€", "e_10_20": "10–20 M€", "e_20p": "Yli 20 M€"
+  },
+  "buyer_type": {
+    "pe_platform": "Pääomasijoitusrahastot",
+    "pe_addon": "Rahastojen omistamat yritysryhmät",
+    "strategic": "Teolliset ostajat",
+    "family_office": "Perhesijoitusyhtiöt",
+    "search_fund": "Search fundit ja yksityiset sijoittajat",
+    "other": "Muut ostajatyypit"
+  },
+  "buyer_type_help": {
+    "pe_platform": "Rahastot, jotka etsivät yritystä, jonka ympärille rakentaa konserni.",
+    "pe_addon": "Rahaston omistamat konsernit, jotka ostavat yrityksiä olemassa olevan toimintansa jatkoksi.",
+    "strategic": "Saman tai lähialan yritykset.",
+    "family_office": "Varakkaiden perheiden sijoitusyhtiöt, usein pitkäaikaisia omistajia.",
+    "search_fund": "Sijoittajien tukemat yrittäjät, jotka etsivät yhtä yritystä johdettavakseen."
+  },
+  "result": {
+    "title": "Yrityksesi ostajakysyntä",
+    "profile": "{sector} · {country} · liikevaihto {revenue} · käyttökate {ebitda}",
+    "count_lead": "ostajaa verkostossamme etsii kaltaistasi yritystä",
+    "count_lead_one": "ostaja verkostossamme etsii kaltaistasi yritystä",
+    "fewer_than": "Alle {n}",
+    "zero_title": "Sopivia ostajia ei juuri nyt ole",
+    "zero_body": "Yhdenkään otoksen ostajan kriteerit eivät tällä hetkellä sovi tähän profiiliin. Kysyntä muuttuu, kun uusia ostajia liittyy. Voit pyytää ilmoitusta, kun näin käy.",
+    "small_body": "Muutama ostaja sopii profiiliin. Ostajien luottamuksellisuuden vuoksi emme näytä tarkkoja lukuja alle {n}:n.",
+    "by_type": "Keitä he ovat",
+    "by_hq": "Missä he toimivat",
+    "appetite": "Näiden ostajien yhteenlaskettu sijoitushalukkuus",
+    "appetite_note": "Summa siitä, mitä nämä ostajat kertovat haluavansa sijoittaa yhteensä. Ei tarjous.",
+    "recent": "Heistä {n} liittyi viimeisten 90 päivän aikana",
+    "recent_few": "Osa heistä liittyi viimeisten 90 päivän aikana",
+    "value_title": "Suuntaa-antava arvohaarukka",
+    "value_basis": "Perustuu toimialasi ja kokoluokkasi tyypillisiin käyttökatekertoimiin {low}x–{high}x.",
+    "value_none": "Tuloskertoimiin perustuva arvo ei ole mielekäs tappiolliselle yritykselle. Ostajat katsovat silloin liikevaihtoa, kasvua ja polkua kannattavuuteen.",
+    "value_disclaimer": "Suuntaa-antava, perustuu markkinakeskiarvoihin. Todellinen arvonmääritys vaatii yrityksesi luvut.",
+    "next_title": "Mitä voit tehdä seuraavaksi",
+    "next_call": "Luottamuksellinen puhelu",
+    "next_call_body": "Keskustele luottamuksellisesti M&A-neuvonantajan kanssa siitä, mitä nämä ostajat etsivät ja mitä vaihtoehtoja sinulla on.",
+    "next_profile": "Nimetön yritysprofiili",
+    "next_profile_body": "Laadimme yrityksestäsi nimettömän profiilin ja kysymme sopivilta ostajilta palautetta. Nimesi pysyy salassa.",
+    "next_updates": "Ostajakysynnän päivitykset",
+    "next_updates_body": "Saat lyhyen päivityksen, kun yritykseesi sopivia uusia ostajia liittyy, enintään kerran neljännesvuodessa.",
+    "edit": "Muuta vastauksia",
+    "sample_label": "Havainnollinen otosdata"
+  },
+  "optin": {
+    "title": "Haluatko jatkaa? Kerro, miten tavoitamme sinut",
+    "intro": "Kaikki alla oleva on vapaaehtoista. Valitse vain se, mitä haluat. Voit perua minkä tahansa suostumuksen milloin tahansa.",
+    "name": "Nimesi",
+    "email": "Sähköposti",
+    "phone": "Puhelin",
+    "company": "Yrityksen nimi tai Y-tunnus",
+    "company_help": "Auttaa meitä valmistautumaan. Ei näytetä ostajille ilman lupaasi.",
+    "channels_title": "Miten saamme ottaa sinuun yhteyttä?",
+    "channels_help": "Jokainen valinta on erillinen suostumus. Mikään ei ole pakollinen.",
+    "submit": "Lähetä",
+    "privacy_ack": "Näin käsittelemme tietojasi:",
+    "error_contact": "Anna sähköpostiosoite tai puhelinnumero.",
+    "error_email_needed": "Sähköpostisuostumus ja päivitykset edellyttävät sähköpostiosoitetta.",
+    "error_phone_needed": "Puhelin-, tekstiviesti- ja WhatsApp-suostumus edellyttävät puhelinnumeroa.",
+    "error_no_consent": "Valitse vähintään yksi tapa, jolla saamme ottaa yhteyttä."
+  },
+  "consent": {
+    "email": "Hyväksyn, että Mergero voi ottaa minuun yhteyttä sähköpostitse yritykseni myyntiin tai kasvuun liittyen.",
+    "phone": "Hyväksyn, että Mergero voi soittaa minulle yritykseni myyntiin tai kasvuun liittyen.",
+    "sms": "Hyväksyn, että Mergero voi lähettää minulle tekstiviestejä yritykseni myyntiin tai kasvuun liittyen.",
+    "whatsapp": "Hyväksyn, että Mergero voi lähettää minulle WhatsApp-viestejä yritykseni myyntiin tai kasvuun liittyen.",
+    "updates": "Lähettäkää minulle sähköpostilla ostajakysynnän päivitys, kun uusia sopivia ostajia liittyy, enintään kerran neljännesvuodessa.",
+    "withdraw": "Voit perua jokaisen suostumuksen milloin tahansa minkä tahansa viestin linkistä tai vastaamalla \"stop\"."
+  },
+  "channel": {
+    "email": "Sähköposti", "phone": "Puhelu", "sms": "Tekstiviesti", "whatsapp": "WhatsApp", "updates": "Neljännesvuosipäivitykset"
+  },
+  "thanks": {
+    "title": "Kiitos",
+    "body": "Saimme tietosi. Mergeron neuvonantaja käy ne läpi henkilökohtaisesti.",
+    "confirm_title": "Vielä yksi vaihe: vahvista sähköpostiosoitteesi",
+    "confirm_body": "Lähetimme vahvistuslinkin osoitteeseen {email}. Sähköpostiyhteydenotot ja päivitykset alkavat vasta, kun olet vahvistanut osoitteen.",
+    "demo_inbox": "Demopostilaatikko (viesti, joka lähetettäisiin)",
+    "phone_body": "Neuvonantaja ottaa sinuun yhteyttä vain valitsemiesi kanavien kautta.",
+    "back": "Takaisin tulokseesi",
+    "pending": "odottaa vahvistusta",
+    "open_inbox": "Avaa demopostilaatikko",
+    "close": "Sulje"
+  },
+  "confirm": {
+    "subject": "Vahvista sähköpostiosoitteesi",
+    "greeting": "Hei {name},",
+    "body": "Vahvista, että haluat Mergeron ottavan sinuun yhteyttä tähän osoitteeseen. Emme lähetä mitään muuta ennen kuin olet klikannut linkkiä.",
+    "button": "Vahvista sähköpostiosoite",
+    "ignore": "Jos et pyytänyt tätä, voit jättää viestin huomiotta. Mitään ei tapahdu.",
+    "done_title": "Sähköposti vahvistettu",
+    "done_body": "Kiitos. Sähköpostisuostumuksesi on nyt voimassa.",
+    "invalid": "Vahvistuslinkki ei ole voimassa tai sitä on jo käytetty."
+  },
+  "privacy": {
+    "title": "Tietosuojaseloste",
+    "controller": "Rekisterinpitäjä: Mergero (prototyyppi). Yhteystieto: privacy@example.com.",
+    "what": "Mitä keräämme: vastauksesi neljään kysymykseen (ei yhdistetä sinuun, ellet jätä yhteystietojasi). Jos jätät yhteystietosi: nimi, sähköposti, puhelinnumero, yrityksen nimi tai Y-tunnus sekä suostumuksesi tarkkoine sanamuotoineen, versioineen ja aikaleimoineen.",
+    "why": "Miksi: näyttääksemme ostajakysynnän ja, vain suostumuksellasi, ottaaksemme yhteyttä valitsemiesi kanavien kautta. Oikeusperuste: suostumuksesi (GDPR 6 artiklan 1 kohdan a alakohta).",
+    "who": "Kuka näkee tiedot: vain Mergeron neuvonantajat. Ostajat eivät näe henkilöllisyyttäsi ilman lupaasi. Tietoja ei myydä eikä jaeta ilman lupaasi.",
+    "retention": "Säilytys: yhteystiedot poistetaan 24 kuukauden kuluttua viimeisestä yhteydenotostamme tai aiemmin pyynnöstäsi. Nimettömät vastaukset säilytetään tilastoina.",
+    "rights": "Oikeutesi: tietojen tarkastus, oikaisu, poisto, suostumuksen peruminen, vastustaminen ja valitus tietosuojaviranomaiselle.",
+    "ai": "Tekoäly: tekoälytyökalu voi laatia sisäisiä muistiinpanoja ja viestiehdotuksia. Mergeron työntekijä tarkistaa jokaisen viestin ennen lähettämistä."
+  },
+  "unsubscribe": {
+    "title": "Tilaus peruttu",
+    "body": "Et saa enää ostajakysynnän päivityksiä. Muut valintasi pysyvät ennallaan."
+  },
+  "nurture": {
+    "subject": "Yrityksesi ostajakysyntä muuttui: {n} uutta ostajaa",
+    "subject_one": "Yrityksesi ostajakysyntä muuttui: 1 uusi ostaja",
+    "greeting": "Hei {name},",
+    "body": "Edellisen tarkistuksesi jälkeen verkostoomme on liittynyt {n} uutta yritykseesi sopivaa ostajaa ({sector}, {country}). Profiiliisi sopii nyt yhteensä {total} ostajaa.",
+    "cta": "Katso päivitetty tulos",
+    "footer": "Saat tämän viestin, koska tilasit ostajakysynnän päivitykset. Peru tilaus yhdellä klikkauksella: {link}"
+  },
+  "sectors_page": {
+    "title": "Ostajakysyntä toimialoittain",
+    "intro": "Verkostomme ostajien määrä, jotka etsivät yrityksiä kultakin toimialalta.",
+    "count": "{n} ostajaa etsii",
+    "count_lead": "ostajaa verkostossamme etsii tämän toimialan yrityksiä",
+    "in_country": "{n} ostajaa etsii tämän toimialan yrityksiä, maa: {country}",
+    "start": "Tarkista oma yrityksesi",
+    "detail_intro": "Näiden ostajien kriteereihin kuuluu toimiala: {sector}. Syötä yrityksesi koko nähdäksesi, kuinka moni sopii juuri sinulle."
+  }
+}

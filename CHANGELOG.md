@@ -34,7 +34,18 @@ All notable changes to this project are documented here. The format follows
 - Message catalogs (English) and locale-aware number formatting, ready for
   further languages.
 
+- Finnish, German and Swedish translations of all owner pages, consent texts,
+  confirmation and update emails, and the privacy notice.
+- Finnish business ID pre-fill: validates the Y-tunnus check digit, reads name
+  and main line of business from the PRH open data API (YTJ v3) and maps the
+  industry code to a sector; manual entry remains the fallback. The ID is not
+  stored.
+- Localized sector page URLs (for example `/fi/toimialat/logistiikka-ja-kuljetus`,
+  `/de/branchen/logistik-und-transport`) with redirects between languages and
+  a per-country buyer count.
+
 ### Changed
+- Euro amounts use local notation in Finnish, German and Swedish.
 - Buyer sample retuned: exact type mix (private equity 55%, strategic 25%,
   family offices 12%, search funds 8%), one to three sectors and country
   groups per buyer, narrower size ranges. Typical results now land between
