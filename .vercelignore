@@ -1,0 +1,12 @@
+.planning/
+CLAUDE.md
+TODO.md
+.env
+.env.*
+.venv/
+.pytest_cache/
+__pycache__/
+*.db
+tests/
+exports/
+cache/

@@ -8,7 +8,9 @@
     "sectors_link": "Käufernachfrage nach Branche",
     "language": "Sprache"
   },
-  "routes": {"sectors": "branchen"},
+  "routes": {
+    "sectors": "branchen"
+  },
   "promise": {
     "anonymous": "Anonym, bis Sie selbst etwas anderes entscheiden",
     "no_identity": "Käufer erfahren Ihre Identität nur mit Ihrer Zustimmung",
@@ -68,17 +70,38 @@
     "retail_ecommerce": "Einzelhandel und E-Commerce"
   },
   "country": {
-    "FI": "Finnland", "SE": "Schweden", "NO": "Norwegen", "DK": "Dänemark", "EE": "Estland",
-    "DE": "Deutschland", "AT": "Österreich", "CH": "Schweiz", "NL": "Niederlande",
-    "GB": "Vereinigtes Königreich", "FR": "Frankreich", "US": "USA", "other": "Weitere Länder"
+    "FI": "Finnland",
+    "SE": "Schweden",
+    "NO": "Norwegen",
+    "DK": "Dänemark",
+    "EE": "Estland",
+    "DE": "Deutschland",
+    "AT": "Österreich",
+    "CH": "Schweiz",
+    "NL": "Niederlande",
+    "GB": "Vereinigtes Königreich",
+    "FR": "Frankreich",
+    "US": "USA",
+    "other": "Weitere Länder"
   },
   "revenue": {
-    "r_lt2": "Unter 2 Mio. €", "r_2_5": "2 bis 5 Mio. €", "r_5_10": "5 bis 10 Mio. €", "r_10_20": "10 bis 20 Mio. €",
-    "r_20_50": "20 bis 50 Mio. €", "r_50_100": "50 bis 100 Mio. €", "r_100p": "Über 100 Mio. €"
+    "r_lt2": "Unter 2 Mio. €",
+    "r_2_5": "2 bis 5 Mio. €",
+    "r_5_10": "5 bis 10 Mio. €",
+    "r_10_20": "10 bis 20 Mio. €",
+    "r_20_50": "20 bis 50 Mio. €",
+    "r_50_100": "50 bis 100 Mio. €",
+    "r_100p": "Über 100 Mio. €"
   },
   "ebitda": {
-    "e_neg": "Verlust", "e_0_05": "Unter 0,5 Mio. €", "e_05_1": "0,5 bis 1 Mio. €", "e_1_2": "1 bis 2 Mio. €",
-    "e_2_5": "2 bis 5 Mio. €", "e_5_10": "5 bis 10 Mio. €", "e_10_20": "10 bis 20 Mio. €", "e_20p": "Über 20 Mio. €"
+    "e_neg": "Verlust",
+    "e_0_05": "Unter 0,5 Mio. €",
+    "e_05_1": "0,5 bis 1 Mio. €",
+    "e_1_2": "1 bis 2 Mio. €",
+    "e_2_5": "2 bis 5 Mio. €",
+    "e_5_10": "5 bis 10 Mio. €",
+    "e_10_20": "10 bis 20 Mio. €",
+    "e_20p": "Über 20 Mio. €"
   },
   "buyer_type": {
     "pe_platform": "Private-Equity-Fonds",
@@ -150,7 +173,11 @@
     "withdraw": "Sie können jede Einwilligung jederzeit über den Link in jeder Nachricht oder mit der Antwort \"Stopp\" widerrufen."
   },
   "channel": {
-    "email": "E-Mail", "phone": "Anruf", "sms": "SMS", "whatsapp": "WhatsApp", "updates": "Quartals-Updates"
+    "email": "E-Mail",
+    "phone": "Anruf",
+    "sms": "SMS",
+    "whatsapp": "WhatsApp",
+    "updates": "Quartals-Updates"
   },
   "thanks": {
     "title": "Vielen Dank",
@@ -193,6 +220,7 @@
     "subject_one": "Die Käufernachfrage für Ihr Unternehmen hat sich geändert: 1 neuer Käufer",
     "greeting": "Guten Tag {name},",
     "body": "Seit Ihrem letzten Check sind {n} neue Käufer, die zu Ihrem Unternehmen passen ({sector}, {country}), unserem Netzwerk beigetreten. Insgesamt passen jetzt {total} Käufer zu Ihrem Profil.",
+    "body_one": "Seit Ihrem letzten Check ist 1 neuer Käufer, der zu Ihrem Unternehmen passt ({sector}, {country}), unserem Netzwerk beigetreten. Insgesamt passen jetzt {total} Käufer zu Ihrem Profil.",
     "cta": "Aktualisiertes Ergebnis ansehen",
     "footer": "Sie erhalten diese Nachricht, weil Sie Updates zur Käufernachfrage angefordert haben. Mit einem Klick abmelden: {link}"
   },

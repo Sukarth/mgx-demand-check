@@ -55,10 +55,12 @@ def update_email(owner: dict, change: DemandChange, result_url: str,
     n = len(change.new_buyer_ids)
     subject = (translate(lang, "nurture.subject_one") if n == 1
                else translate(lang, "nurture.subject", n=n))
-    name = (owner.get("name") or "").split(" ")[0] or ""
+    # German business correspondence addresses people by full name, not first name.
+    full = (owner.get("name") or "").strip()
+    name = full if lang == "de" else full.split(" ")[0]
     body = "\n\n".join([
         translate(lang, "nurture.greeting", name=name).replace(" ,", ","),
-        translate(lang, "nurture.body", n=n,
+        translate(lang, "nurture.body_one" if n == 1 else "nurture.body", n=n,
                   sector=translate(lang, f"sector.{owner['sector']}"),
                   country=translate(lang, f"country.{owner['country']}"),
                   total=format_int(change.new_total, lang)),

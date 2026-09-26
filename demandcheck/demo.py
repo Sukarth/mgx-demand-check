@@ -7,10 +7,15 @@ arrives through a postal letter. Usage::
 
     python -m demandcheck.demo            # add the demo owners
     python -m demandcheck.demo --drafts   # also draft call briefs and profiles
+    python -m demandcheck.demo --drafts --env .env.production   # seed the Turso database
+
+The buyer sample itself ships with the code (``data/buyers_sample.json``) and
+is read-only; the database holds owners, consents, drafts and added buyers.
 """
 
 from __future__ import annotations
 
+import os
 import sys
 
 from . import briefs, nurture
@@ -64,6 +69,18 @@ def seed(store: Store, with_drafts: bool = False) -> list[int]:
     return ids
 
 
+def load_env_file(path: str) -> None:
+    for line in open(path, encoding="utf-8").read().splitlines():
+        line = line.strip()
+        if line and not line.startswith("#") and "=" in line:
+            key, value = line.split("=", 1)
+            os.environ[key.strip()] = value.strip().strip('"').strip("'")
+
+
 if __name__ == "__main__":
-    created = seed(Store(), with_drafts="--drafts" in sys.argv)
+    if "--env" in sys.argv:
+        load_env_file(sys.argv[sys.argv.index("--env") + 1])
+    store = Store()
+    print(f"Database: {type(store.db).__name__}")
+    created = seed(store, with_drafts="--drafts" in sys.argv)
     print(f"Created {len(created)} demo owner(s): {created}")

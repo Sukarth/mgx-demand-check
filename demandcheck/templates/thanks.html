@@ -31,7 +31,7 @@
   </div>
   <div class="email-preview">
     <div class="hdr"><b>{{ t('confirm.subject') }}</b><br>To: {{ owner.email }}</div>
-    <p>{{ t('confirm.greeting', name=(owner.name or '').split(' ')[0]) }}</p>
+    <p>{{ t('confirm.greeting', name=(owner.name or '') if lang == 'de' else (owner.name or '').split(' ')[0]) }}</p>
     <p>{{ t('confirm.body') }}</p>
     <p><a class="btn" href="{{ confirm_url }}" autofocus>{{ t('confirm.button') }}</a></p>
     <p class="help">{{ t('confirm.ignore') }}</p>

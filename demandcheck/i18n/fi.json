@@ -8,7 +8,9 @@
     "sectors_link": "Ostajakysyntä toimialoittain",
     "language": "Kieli"
   },
-  "routes": {"sectors": "toimialat"},
+  "routes": {
+    "sectors": "toimialat"
+  },
   "promise": {
     "anonymous": "Nimetön, kunnes itse päätät toisin",
     "no_identity": "Ostajat eivät näe henkilöllisyyttäsi ilman lupaasi",
@@ -68,17 +70,38 @@
     "retail_ecommerce": "Vähittäiskauppa ja verkkokauppa"
   },
   "country": {
-    "FI": "Suomi", "SE": "Ruotsi", "NO": "Norja", "DK": "Tanska", "EE": "Viro",
-    "DE": "Saksa", "AT": "Itävalta", "CH": "Sveitsi", "NL": "Alankomaat",
-    "GB": "Iso-Britannia", "FR": "Ranska", "US": "Yhdysvallat", "other": "Muut maat"
+    "FI": "Suomi",
+    "SE": "Ruotsi",
+    "NO": "Norja",
+    "DK": "Tanska",
+    "EE": "Viro",
+    "DE": "Saksa",
+    "AT": "Itävalta",
+    "CH": "Sveitsi",
+    "NL": "Alankomaat",
+    "GB": "Iso-Britannia",
+    "FR": "Ranska",
+    "US": "Yhdysvallat",
+    "other": "Muut maat"
   },
   "revenue": {
-    "r_lt2": "Alle 2 M€", "r_2_5": "2–5 M€", "r_5_10": "5–10 M€", "r_10_20": "10–20 M€",
-    "r_20_50": "20–50 M€", "r_50_100": "50–100 M€", "r_100p": "Yli 100 M€"
+    "r_lt2": "Alle 2 M€",
+    "r_2_5": "2–5 M€",
+    "r_5_10": "5–10 M€",
+    "r_10_20": "10–20 M€",
+    "r_20_50": "20–50 M€",
+    "r_50_100": "50–100 M€",
+    "r_100p": "Yli 100 M€"
   },
   "ebitda": {
-    "e_neg": "Tappiollinen", "e_0_05": "Alle 0,5 M€", "e_05_1": "0,5–1 M€", "e_1_2": "1–2 M€",
-    "e_2_5": "2–5 M€", "e_5_10": "5–10 M€", "e_10_20": "10–20 M€", "e_20p": "Yli 20 M€"
+    "e_neg": "Tappiollinen",
+    "e_0_05": "Alle 0,5 M€",
+    "e_05_1": "0,5–1 M€",
+    "e_1_2": "1–2 M€",
+    "e_2_5": "2–5 M€",
+    "e_5_10": "5–10 M€",
+    "e_10_20": "10–20 M€",
+    "e_20p": "Yli 20 M€"
   },
   "buyer_type": {
     "pe_platform": "Pääomasijoitusrahastot",
@@ -150,7 +173,11 @@
     "withdraw": "Voit perua jokaisen suostumuksen milloin tahansa minkä tahansa viestin linkistä tai vastaamalla \"stop\"."
   },
   "channel": {
-    "email": "Sähköposti", "phone": "Puhelu", "sms": "Tekstiviesti", "whatsapp": "WhatsApp", "updates": "Neljännesvuosipäivitykset"
+    "email": "Sähköposti",
+    "phone": "Puhelu",
+    "sms": "Tekstiviesti",
+    "whatsapp": "WhatsApp",
+    "updates": "Neljännesvuosipäivitykset"
   },
   "thanks": {
     "title": "Kiitos",
@@ -193,6 +220,7 @@
     "subject_one": "Yrityksesi ostajakysyntä muuttui: 1 uusi ostaja",
     "greeting": "Hei {name},",
     "body": "Edellisen tarkistuksesi jälkeen verkostoomme on liittynyt {n} uutta yritykseesi sopivaa ostajaa ({sector}, {country}). Profiiliisi sopii nyt yhteensä {total} ostajaa.",
+    "body_one": "Edellisen tarkistuksesi jälkeen verkostoomme on liittynyt 1 uusi yritykseesi sopiva ostaja ({sector}, {country}). Profiiliisi sopii nyt yhteensä {total} ostajaa.",
     "cta": "Katso päivitetty tulos",
     "footer": "Saat tämän viestin, koska tilasit ostajakysynnän päivitykset. Peru tilaus yhdellä klikkauksella: {link}"
   },

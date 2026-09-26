@@ -7,7 +7,7 @@
 <title>{{ t('site.name') }}</title>
 <link rel="stylesheet" href="/static/style.css">
 <style>
-  body { background: transparent; }
+  body { background: transparent; margin: 0; }
   .embed { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.25rem; }
   .embed h1 { font-size: 1.35rem; }
   .embed .brandline { font-size: .8rem; color: var(--muted); margin-top: .75rem; }
@@ -59,7 +59,8 @@
 </div>
 <script>
   (function () {
-    function post() { parent.postMessage({ mgxHeight: document.documentElement.scrollHeight + 4 }, '*'); }
+    var card = document.querySelector('.embed');
+    function post() { parent.postMessage({ mgxHeight: Math.ceil(card.getBoundingClientRect().height) + 2 }, '*'); }
     window.addEventListener('load', post);
     window.addEventListener('resize', post);
   })();

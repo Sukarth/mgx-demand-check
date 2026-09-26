@@ -6,9 +6,12 @@ import json
 import os
 import secrets
 import sqlite3
+import re
 import threading
 from datetime import datetime, timezone
 from pathlib import Path
+
+import httpx
 
 DEFAULT_DB = Path(__file__).resolve().parent.parent / "data" / "demandcheck.db"
 
@@ -90,27 +93,106 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
 
-class Store:
-    def __init__(self, path: str | Path | None = None):
-        self.path = str(path or os.environ.get("DB_PATH") or DEFAULT_DB)
-        if self.path != ":memory:":
-            Path(self.path).parent.mkdir(parents=True, exist_ok=True)
-        self._conn = sqlite3.connect(self.path, check_same_thread=False)
+class SQLiteBackend:
+    """Local SQLite file (tests and local runs)."""
+
+    def __init__(self, path: str):
+        if path != ":memory:":
+            Path(path).parent.mkdir(parents=True, exist_ok=True)
+        self._conn = sqlite3.connect(path, check_same_thread=False)
         self._conn.row_factory = sqlite3.Row
         self._lock = threading.Lock()
-        with self._lock:
-            self._conn.executescript(SCHEMA)
-            self._conn.commit()
 
-    def _exec(self, sql: str, params: tuple = ()) -> sqlite3.Cursor:
+    def execute(self, sql: str, params: tuple = ()) -> tuple[list[dict], int | None]:
         with self._lock:
             cur = self._conn.execute(sql, params)
+            rows = [dict(r) for r in cur.fetchall()]
             self._conn.commit()
-            return cur
+            return rows, cur.lastrowid
+
+    def batch(self, statements: list[tuple[str, tuple]]) -> None:
+        with self._lock:
+            for sql, params in statements:
+                self._conn.execute(sql, params)
+            self._conn.commit()
+
+
+class LibSQLHTTPBackend:
+    """Turso / libSQL over the Hrana HTTP protocol (``/v2/pipeline``).
+
+    Plain HTTPS keeps the deployment free of native extensions. Statements in
+    one ``batch`` call run in a single request and a single transaction.
+    """
+
+    def __init__(self, url: str, auth_token: str | None, http: httpx.Client | None = None):
+        self.url = re.sub(r"^libsql://", "https://", url).rstrip("/") + "/v2/pipeline"
+        self._headers = {"Authorization": f"Bearer {auth_token}"} if auth_token else {}
+        self._http = http or httpx.Client(timeout=15.0)
+
+    @staticmethod
+    def _arg(value) -> dict:
+        if value is None:
+            return {"type": "null"}
+        if isinstance(value, bool):
+            return {"type": "integer", "value": str(int(value))}
+        if isinstance(value, int):
+            return {"type": "integer", "value": str(value)}
+        if isinstance(value, float):
+            return {"type": "float", "value": value}
+        return {"type": "text", "value": str(value)}
+
+    @staticmethod
+    def _value(cell: dict):
+        kind = cell.get("type")
+        if kind == "null":
+            return None
+        if kind == "integer":
+            return int(cell["value"])
+        if kind == "float":
+            return float(cell["value"])
+        return cell.get("value")
+
+    def _pipeline(self, statements: list[tuple[str, tuple]]) -> list[dict]:
+        requests = [{"type": "execute", "stmt": {"sql": sql, "args": [self._arg(p) for p in params]}}
+                    for sql, params in statements]
+        resp = self._http.post(self.url, headers=self._headers,
+                               json={"requests": requests + [{"type": "close"}]})
+        resp.raise_for_status()
+        results = resp.json()["results"][:len(statements)]
+        for r in results:
+            if r.get("type") == "error":
+                raise sqlite3.OperationalError(r.get("error", {}).get("message", "libSQL error"))
+        return [r["response"]["result"] for r in results]
+
+    def execute(self, sql: str, params: tuple = ()) -> tuple[list[dict], int | None]:
+        result = self._pipeline([(sql, params)])[0]
+        cols = [c["name"] for c in result["cols"]]
+        rows = [dict(zip(cols, (self._value(c) for c in row))) for row in result["rows"]]
+        last = result.get("last_insert_rowid")
+        return rows, int(last) if last is not None else None
+
+    def batch(self, statements: list[tuple[str, tuple]]) -> None:
+        self._pipeline([("BEGIN", ())] + statements + [("COMMIT", ())])
+
+
+def backend_from_env(path: str | Path | None = None):
+    """``DATABASE_URL`` (libsql:// or https://) selects Turso; otherwise a local SQLite file."""
+    url = os.environ.get("DATABASE_URL")
+    if url and path is None:
+        return LibSQLHTTPBackend(url, os.environ.get("DATABASE_AUTH_TOKEN"))
+    return SQLiteBackend(str(path or os.environ.get("DB_PATH") or DEFAULT_DB))
+
+
+class Store:
+    def __init__(self, path: str | Path | None = None, backend=None):
+        self.db = backend or backend_from_env(path)
+        self.db.batch([(stmt, ()) for stmt in SCHEMA.split(";") if stmt.strip()])
+
+    def _exec(self, sql: str, params: tuple = ()) -> int | None:
+        return self.db.execute(sql, params)[1]
 
     def _all(self, sql: str, params: tuple = ()) -> list[dict]:
-        with self._lock:
-            return [dict(r) for r in self._conn.execute(sql, params).fetchall()]
+        return self.db.execute(sql, params)[0]
 
     def _one(self, sql: str, params: tuple = ()) -> dict | None:
         rows = self._all(sql, params)
@@ -142,18 +224,15 @@ class Store:
         """Create an owner with one consent row per ``(channel, text, version)``."""
         ts = now_iso()
         token = secrets.token_urlsafe(16) if needs_confirmation else None
-        with self._lock:
-            cur = self._conn.execute(
-                "INSERT INTO owners (check_id, created_at, lang, name, email, phone, company, "
-                "confirm_token, unsubscribe_token, snapshot) VALUES (?,?,?,?,?,?,?,?,?,?)",
-                (check_id, ts, lang, name, email, phone, company, token,
-                 secrets.token_urlsafe(16), json.dumps(snapshot)))
-            owner_id = cur.lastrowid
-            self._conn.executemany(
+        owner_id = self._exec(
+            "INSERT INTO owners (check_id, created_at, lang, name, email, phone, company, "
+            "confirm_token, unsubscribe_token, snapshot) VALUES (?,?,?,?,?,?,?,?,?,?)",
+            (check_id, ts, lang, name, email, phone, company, token,
+             secrets.token_urlsafe(16), json.dumps(snapshot)))
+        if consents:
+            self.db.batch([(
                 "INSERT INTO consents (owner_id, channel, text, text_version, lang, granted_at) "
-                "VALUES (?,?,?,?,?,?)",
-                [(owner_id, ch, text, ver, lang, ts) for ch, text, ver in consents])
-            self._conn.commit()
+                "VALUES (?,?,?,?,?,?)", (owner_id, ch, text, ver, lang, ts)) for ch, text, ver in consents])
         return self.get_owner(owner_id)
 
     def get_owner(self, owner_id: int) -> dict | None:
@@ -221,7 +300,7 @@ class Store:
     def queue_message(self, owner_id: int, kind: str, subject: str, body: str) -> int:
         return self._exec(
             "INSERT INTO messages (owner_id, created_at, kind, subject, body) VALUES (?,?,?,?,?)",
-            (owner_id, now_iso(), kind, subject, body)).lastrowid
+            (owner_id, now_iso(), kind, subject, body))
 
     def messages(self, owner_id: int | None = None) -> list[dict]:
         if owner_id is None:

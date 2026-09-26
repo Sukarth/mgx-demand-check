@@ -213,6 +213,7 @@
     "subject_one": "Buyer demand for your company changed: 1 new buyer",
     "greeting": "Hello {name},",
     "body": "Since your last check, {n} new buyers who fit your company ({sector}, {country}) joined our network. {total} buyers in total now match your profile.",
+    "body_one": "Since your last check, 1 new buyer who fits your company ({sector}, {country}) joined our network. {total} buyers in total now match your profile.",
     "cta": "See your updated result",
     "footer": "You receive this because you asked for buyer demand updates. Unsubscribe with one click: {link}"
   },

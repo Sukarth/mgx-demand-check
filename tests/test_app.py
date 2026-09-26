@@ -173,3 +173,14 @@ def test_demo_seed_creates_dach_case_once(tmp_path):
     v = indicative_value(de["sector"], de["ebitda_band"])
     assert 20_000_000 <= v.ev_low < v.ev_high <= 200_000_000
     assert de["email_confirmed_at"] and de["source"] == "letter" and de["snapshot"]["total"] >= 20
+
+
+def test_update_email_grammar_and_address():
+    from demandcheck.matching import MatchResult
+    from demandcheck.nurture import DemandChange, update_email
+    change = DemandChange(1, 49, 50, ["N001"], MatchResult(50, {}, {}, 0, 0, []))
+    base = {"sector": "logistics", "country": "FI"}
+    _, fi = update_email({**base, "lang": "fi", "name": "Matti Meikäläinen"}, change, "u", "x")
+    assert "1 uusi yritykseesi sopiva ostaja" in fi and fi.startswith("Hei Matti,")
+    _, de = update_email({**base, "lang": "de", "name": "Max Mustermann"}, change, "u", "x")
+    assert de.startswith("Guten Tag Max Mustermann,") and "ist 1 neuer Käufer" in de

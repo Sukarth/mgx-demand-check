@@ -58,6 +58,20 @@ All notable changes to this project are documented here. The format follows
 - Demo seeder with a Finnish owner and a German owner in the DACH size band
   (indicative EV about €41 to 56M) who arrives through a postal letter.
 
+- Turso (libSQL) storage over the Hrana HTTP protocol, selected by
+  `DATABASE_URL`/`DATABASE_AUTH_TOKEN`; SQLite remains the default for local
+  runs and tests. Same schema on both.
+- Vercel deployment: `api/index.py` entry point, `vercel.json` (Dublin region),
+  `requirements.txt`, `.vercelignore`; `--env` option on the demo seeder.
+
+### Fixed
+- Embedded widget no longer grows in a resize loop; it reports the height of
+  its card instead of the document.
+- Buyer-demand update email uses the singular for exactly one new buyer.
+- German confirmation and update emails address the owner by full name.
+- Dashboard shows region names correctly (DACH) and the add-buyer
+  confirmation next to the form.
+
 ### Changed
 - Call brief opening lines use the customary form of address (German: "Sie"
   with title and surname); brief and profile prompts restrict statements to

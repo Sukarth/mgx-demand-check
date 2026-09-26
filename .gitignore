@@ -4,6 +4,8 @@ CLAUDE.md
 
 # Secrets
 .env
+.env.*
+!.env.example
 
 # Local data
 data/*.db
@@ -20,3 +22,6 @@ __pycache__/
 
 # Tooling
 .claude/
+
+# Vercel
+.vercel/

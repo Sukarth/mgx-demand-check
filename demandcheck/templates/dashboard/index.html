@@ -1,6 +1,5 @@
 {% extends "dashboard/base.html" %}
 {% block content %}
-{% if flash %}<div class="flash">{{ flash }}</div>{% endif %}
 
 <div class="kpis">
   <div class="kpi"><div class="n">{{ num(stats.checks) }}</div><div class="l">Anonymous checks</div></div>
@@ -41,6 +40,7 @@
   <div class="card">
     <p style="float:right;margin:0"><a class="btn small secondary" href="/dashboard/letters">Postal letters (DACH)</a></p>
     <h2>Add a buyer to MGX</h2>
+    {% if flash %}<div class="flash">{{ flash }}</div>{% endif %}
     <p class="muted">Recording new buyer criteria recomputes demand for every opted-in owner with confirmed update consent, and queues a "buyer demand changed" email for owners who gain new matches.</p>
     <form method="post" action="/dashboard/buyers">
       <div class="grid2">
@@ -57,7 +57,7 @@
         <div class="checks">{% for s in sectors %}<label><input type="checkbox" name="sectors" value="{{ s }}" {{ 'checked' if s == 'logistics' }}> {{ t('sector.' ~ s) }}</label>{% endfor %}</div></div>
       <div class="field"><label>Target geography</label>
         <div class="checks">
-          {% for r in regions %}<label><input type="checkbox" name="targets" value="{{ r }}"> {{ r.title() }}</label>{% endfor %}
+          {% for r in regions %}<label><input type="checkbox" name="targets" value="{{ r }}"> {{ {'NORDICS': 'Nordics', 'BALTICS': 'Baltics', 'DACH': 'DACH', 'BENELUX': 'Benelux', 'EUROPE': 'All of Europe'}.get(r, r) }}</label>{% endfor %}
           {% for c in countries %}<label><input type="checkbox" name="targets" value="{{ c }}" {{ 'checked' if c == 'FI' }}> {{ t('country.' ~ c) }}</label>{% endfor %}
         </div></div>
       <div class="grid2">

@@ -93,6 +93,26 @@ Run the tests:
 pytest
 ```
 
+## Deploy
+
+The app runs on Vercel (Python runtime, FastAPI detected automatically;
+`api/index.py` exposes the app) with a Turso (libSQL) database. Vercel's
+filesystem is not shared between requests, so production data lives in Turso;
+local runs and tests use a SQLite file.
+
+1. Create a Turso database and a token (Turso CLI or Platform API).
+2. Put the production values in `.env.production` (gitignored):
+   `DATABASE_URL=libsql://<db>.turso.io`, `DATABASE_AUTH_TOKEN`,
+   `DASHBOARD_PASSWORD`, `SESSION_SECRET`.
+3. Seed the demo owners and drafts:
+   `python -m demandcheck.demo --drafts --env .env.production`
+4. Add the same variables plus `GROQ_API_KEY` and `OPENCODE_API_KEY` to the
+   Vercel project (`vercel env add <NAME> production`), then deploy:
+   `vercel deploy --prod`.
+
+`SESSION_SECRET` must be set in production so dashboard logins survive across
+function instances. The buyer sample ships with the code and is read-only.
+
 ## Configuration
 
 | Variable | Purpose |
@@ -101,7 +121,9 @@ pytest
 | `OPENCODE_API_KEY` | OpenCode Zen fallback |
 | `DASHBOARD_PASSWORD` | Advisor dashboard password |
 | `SESSION_SECRET` | Cookie signing key (random per process if unset) |
-| `DB_PATH` | SQLite path (default `data/demandcheck.db`) |
+| `DATABASE_URL` | Turso/libSQL URL; when set, used instead of SQLite |
+| `DATABASE_AUTH_TOKEN` | Turso database token |
+| `DB_PATH` | SQLite path when `DATABASE_URL` is unset (default `data/demandcheck.db`) |
 
 Without any LLM key the dashboard falls back to template drafts.
 

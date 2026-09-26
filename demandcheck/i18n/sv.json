@@ -8,7 +8,9 @@
     "sectors_link": "Köparefterfrågan per bransch",
     "language": "Språk"
   },
-  "routes": {"sectors": "branscher"},
+  "routes": {
+    "sectors": "branscher"
+  },
   "promise": {
     "anonymous": "Anonymt tills du själv väljer något annat",
     "no_identity": "Köpare ser inte vem du är utan ditt medgivande",
@@ -68,17 +70,38 @@
     "retail_ecommerce": "Detaljhandel och e-handel"
   },
   "country": {
-    "FI": "Finland", "SE": "Sverige", "NO": "Norge", "DK": "Danmark", "EE": "Estland",
-    "DE": "Tyskland", "AT": "Österrike", "CH": "Schweiz", "NL": "Nederländerna",
-    "GB": "Storbritannien", "FR": "Frankrike", "US": "USA", "other": "Övriga länder"
+    "FI": "Finland",
+    "SE": "Sverige",
+    "NO": "Norge",
+    "DK": "Danmark",
+    "EE": "Estland",
+    "DE": "Tyskland",
+    "AT": "Österrike",
+    "CH": "Schweiz",
+    "NL": "Nederländerna",
+    "GB": "Storbritannien",
+    "FR": "Frankrike",
+    "US": "USA",
+    "other": "Övriga länder"
   },
   "revenue": {
-    "r_lt2": "Under 2 mn €", "r_2_5": "2–5 mn €", "r_5_10": "5–10 mn €", "r_10_20": "10–20 mn €",
-    "r_20_50": "20–50 mn €", "r_50_100": "50–100 mn €", "r_100p": "Över 100 mn €"
+    "r_lt2": "Under 2 mn €",
+    "r_2_5": "2–5 mn €",
+    "r_5_10": "5–10 mn €",
+    "r_10_20": "10–20 mn €",
+    "r_20_50": "20–50 mn €",
+    "r_50_100": "50–100 mn €",
+    "r_100p": "Över 100 mn €"
   },
   "ebitda": {
-    "e_neg": "Förlustbringande", "e_0_05": "Under 0,5 mn €", "e_05_1": "0,5–1 mn €", "e_1_2": "1–2 mn €",
-    "e_2_5": "2–5 mn €", "e_5_10": "5–10 mn €", "e_10_20": "10–20 mn €", "e_20p": "Över 20 mn €"
+    "e_neg": "Förlustbringande",
+    "e_0_05": "Under 0,5 mn €",
+    "e_05_1": "0,5–1 mn €",
+    "e_1_2": "1–2 mn €",
+    "e_2_5": "2–5 mn €",
+    "e_5_10": "5–10 mn €",
+    "e_10_20": "10–20 mn €",
+    "e_20p": "Över 20 mn €"
   },
   "buyer_type": {
     "pe_platform": "Private equity-fonder",
@@ -150,7 +173,11 @@
     "withdraw": "Du kan när som helst återkalla varje samtycke via länken i varje meddelande eller genom att svara \"stopp\"."
   },
   "channel": {
-    "email": "E-post", "phone": "Samtal", "sms": "Sms", "whatsapp": "WhatsApp", "updates": "Kvartalsuppdateringar"
+    "email": "E-post",
+    "phone": "Samtal",
+    "sms": "Sms",
+    "whatsapp": "WhatsApp",
+    "updates": "Kvartalsuppdateringar"
   },
   "thanks": {
     "title": "Tack",
@@ -193,6 +220,7 @@
     "subject_one": "Köparefterfrågan för ditt företag har ändrats: 1 ny köpare",
     "greeting": "Hej {name},",
     "body": "Sedan din senaste koll har {n} nya köpare som passar ditt företag ({sector}, {country}) anslutit till vårt nätverk. Totalt matchar nu {total} köpare din profil.",
+    "body_one": "Sedan din senaste koll har 1 ny köpare som passar ditt företag ({sector}, {country}) anslutit till vårt nätverk. Totalt matchar nu {total} köpare din profil.",
     "cta": "Se ditt uppdaterade resultat",
     "footer": "Du får detta eftersom du bad om uppdateringar om köparefterfrågan. Avregistrera dig med ett klick: {link}"
   },
