@@ -1,0 +1,81 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+{% if flash %}<div class="flash">{{ flash }}</div>{% endif %}
+
+<div class="kpis">
+  <div class="kpi"><div class="n">{{ num(stats.checks) }}</div><div class="l">Anonymous checks</div></div>
+  <div class="kpi"><div class="n">{{ num(stats.owners) }}</div><div class="l">Opted-in owners</div></div>
+  <div class="kpi"><div class="n">{{ '%d%%' % (stats.owners / stats.checks * 100) if stats.checks else '–' }}</div><div class="l">Check to opt-in</div></div>
+  <div class="kpi"><div class="n">{{ num(stats.buyers) }}</div><div class="l">Active buyers (sample)</div></div>
+  <div class="kpi"><div class="n">{{ eur(stats.appetite) }}</div><div class="l">Buyer appetite (sample)</div></div>
+</div>
+
+<div class="card">
+  <h2>Owner inbox</h2>
+  {% if not owners %}
+    <p class="muted">No owners yet. Run a check at <a href="/en">/en</a> and opt in to see one here.</p>
+  {% else %}
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Received</th><th>Owner</th><th>Company profile</th><th>Timing</th><th>Consents</th><th>Buyers</th><th>Status</th></tr></thead>
+    <tbody>
+    {% for o in owners %}
+      <tr class="link" onclick="location.href='/dashboard/owners/{{ o.id }}'">
+        <td>{{ o.created_at[:16].replace('T', ' ') }}</td>
+        <td><a href="/dashboard/owners/{{ o.id }}"><b>{{ o.name or '(no name)' }}</b></a><br><small>{{ o.company or '' }} · {{ o.lang|upper }}</small></td>
+        <td>{{ t('sector.' ~ o.sector) }}<br><small>{{ t('country.' ~ o.country) }} · {{ t('revenue.' ~ o.revenue_band) }} · EBITDA {{ t('ebitda.' ~ o.ebitda_band) }}</small></td>
+        <td>{{ t('timing.' ~ o.timing) if o.timing else '–' }}</td>
+        <td>{% for ch in o.channels %}<span class="pill">{{ t('channel.' ~ ch) }}</span>{% endfor %}
+            {% if o.confirm_token %}<span class="pill warn">email unconfirmed</span>{% endif %}</td>
+        <td><b>{{ o.snapshot.total }}</b></td>
+        <td class="status">{{ o.status.replace('_', ' ') }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  {% endif %}
+</div>
+
+<div class="split" id="nurture">
+  <div class="card">
+    <h2>Add a buyer to MGX</h2>
+    <p class="muted">Recording new buyer criteria recomputes demand for every opted-in owner with confirmed update consent, and queues a "buyer demand changed" email for owners who gain new matches.</p>
+    <form method="post" action="/dashboard/buyers">
+      <div class="grid2">
+        <div class="field"><label for="display_type">Buyer type</label>
+          <select id="display_type" name="display_type">
+            {% for bt in buyer_types %}<option value="{{ bt }}" {{ 'selected' if bt == 'pe_platform' }}>{{ t('buyer_type.' ~ bt) }}</option>{% endfor %}
+          </select></div>
+        <div class="field"><label for="hq_country">HQ country</label>
+          <select id="hq_country" name="hq_country">
+            {% for c in hq_countries %}<option value="{{ c }}" {{ 'selected' if c == 'SE' }}>{{ t('country.' ~ c) }}</option>{% endfor %}
+          </select></div>
+      </div>
+      <div class="field"><label>Target sectors</label>
+        <div class="checks">{% for s in sectors %}<label><input type="checkbox" name="sectors" value="{{ s }}" {{ 'checked' if s == 'logistics' }}> {{ t('sector.' ~ s) }}</label>{% endfor %}</div></div>
+      <div class="field"><label>Target geography</label>
+        <div class="checks">
+          {% for r in regions %}<label><input type="checkbox" name="targets" value="{{ r }}"> {{ r.title() }}</label>{% endfor %}
+          {% for c in countries %}<label><input type="checkbox" name="targets" value="{{ c }}" {{ 'checked' if c == 'FI' }}> {{ t('country.' ~ c) }}</label>{% endfor %}
+        </div></div>
+      <div class="grid2">
+        <div class="field"><label for="ev_min">EV from (€M)</label><input type="number" id="ev_min" name="ev_min" value="5" min="1" step="1"></div>
+        <div class="field"><label for="ev_max">EV to (€M)</label><input type="number" id="ev_max" name="ev_max" value="40" min="2" step="1"></div>
+      </div>
+      <button class="btn" type="submit">Add buyer and recompute</button>
+    </form>
+  </div>
+  <div class="card">
+    <h2>Outgoing queue</h2>
+    <p class="muted">Preview only. In production an advisor approves each message before it is sent.</p>
+    {% if not messages %}<p class="muted">Nothing queued.</p>{% endif %}
+    <table>
+      {% for m in messages %}
+      <tr><td><a href="/dashboard/messages/{{ m.id }}">{{ m.subject }}</a><br><small>To {{ m.name or m.email }} · {{ m.created_at[:16].replace('T', ' ') }}</small></td>
+          <td><span class="pill grey">{{ m.status }}</span></td></tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock %}

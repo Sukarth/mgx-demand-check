@@ -1,0 +1,114 @@
+{% extends "dashboard/base.html" %}
+{% block title %}{{ owner.name or 'Owner' }}{% endblock %}
+{% block content %}
+<p><a href="/dashboard">← Owner inbox</a></p>
+{% if flash %}<div class="flash">{{ flash }}</div>{% endif %}
+
+<div class="split">
+  <div>
+    <div class="card">
+      <h1 style="font-size:1.5rem">{{ owner.name or '(no name)' }} <small>{{ owner.company }}</small></h1>
+      <dl class="facts">
+        <dt>Email</dt><dd>{{ owner.email or '–' }} {% if owner.email %}{% if owner.email_confirmed_at %}<span class="pill">confirmed</span>{% else %}<span class="pill warn">unconfirmed</span>{% endif %}{% endif %}</dd>
+        <dt>Phone</dt><dd>{{ owner.phone or '–' }}</dd>
+        <dt>Language</dt><dd>{{ language_names.get(owner.lang, owner.lang) }}</dd>
+        <dt>Sector</dt><dd>{{ t('sector.' ~ owner.sector) }}</dd>
+        <dt>Country</dt><dd>{{ t('country.' ~ owner.country) }}</dd>
+        <dt>Revenue</dt><dd>{{ t('revenue.' ~ owner.revenue_band) }}</dd>
+        <dt>EBITDA</dt><dd>{{ t('ebitda.' ~ owner.ebitda_band) }}</dd>
+        <dt>Timing</dt><dd>{{ t('timing.' ~ owner.timing) if owner.timing else '–' }}</dd>
+        <dt>Ownership</dt><dd>{{ t('ownership.' ~ owner.ownership) if owner.ownership else '–' }}</dd>
+        <dt>Indicative EV</dt><dd>{% if valuation %}{{ eur(valuation.ev_low) }} – {{ eur(valuation.ev_high) }}{% else %}n/a (loss-making){% endif %}</dd>
+        <dt>Source</dt><dd>{{ owner.source or 'direct' }}</dd>
+      </dl>
+      <form method="post" action="/dashboard/owners/{{ owner.id }}/status" style="margin-top:1rem;display:flex;gap:.5rem;align-items:center">
+        <label for="status" style="margin:0">Status</label>
+        <select id="status" name="status" style="width:auto">
+          {% for s in statuses %}<option value="{{ s }}" {{ 'selected' if s == owner.status }}>{{ s.replace('_', ' ') }}</option>{% endfor %}
+        </select>
+        <button class="btn small">Save</button>
+      </form>
+    </div>
+
+    {% set brief = drafts.get('brief') %}
+    <div class="card draft" id="brief">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem">
+        <h2 style="margin:0">Call brief</h2>
+        <form method="post" action="/dashboard/owners/{{ owner.id }}/draft/brief" class="inline">
+          <button class="btn small {{ 'secondary' if brief }}">{{ 'Regenerate' if brief else 'Draft call brief' }}</button></form>
+      </div>
+      {% if brief %}
+        {% set d = brief.data %}
+        <p class="help">Drafted by {{ brief.model }} · {{ brief.created_at[:16].replace('T', ' ') }} · review before use</p>
+        <p>{{ d.summary }}</p>
+        <h3>Opening line ({{ language_names.get(owner.lang, owner.lang) }})</h3>
+        <div class="opening">{{ d.opening_line }}</div>
+        {% if owner.lang != 'en' and d.opening_line_en %}<p class="help">{{ d.opening_line_en }}</p>{% endif %}
+        {% for key, label in [('situation', 'What they told us'), ('buyer_fit', 'Buyer fit'), ('questions', 'Questions to ask'), ('watch_outs', 'Watch out')] %}
+          {% if d.get(key) %}<h3>{{ label }}</h3><ul>{% for item in d[key] %}<li>{{ item }}</li>{% endfor %}</ul>{% endif %}
+        {% endfor %}
+      {% else %}
+        <p class="muted">Draft a brief for the first call: who this is, what matches, an opening line in the owner's language and questions to ask.{% if not llm_ready %} No LLM key configured: a template draft will be used.{% endif %}</p>
+      {% endif %}
+    </div>
+
+    {% set profile = drafts.get('profile') %}
+    <div class="card draft" id="profile">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem">
+        <h2 style="margin:0">Anonymous profile</h2>
+        <form method="post" action="/dashboard/owners/{{ owner.id }}/draft/profile" class="inline">
+          <button class="btn small {{ 'secondary' if profile }}">{{ 'Regenerate' if profile else 'Draft profile' }}</button></form>
+      </div>
+      {% if profile %}
+        {% set d = profile.data %}
+        <p class="help">Drafted by {{ profile.model }} · starting point for Soft Launch or Silent Mandate · share only with the owner's agreement</p>
+        <h3 style="font-size:1.2rem">{{ d.headline }}</h3>
+        <p>{{ d.summary }}</p>
+        {% if d.key_facts %}<h3>Key facts</h3><ul>{% for f in d.key_facts %}<li>{{ f }}</li>{% endfor %}</ul>{% endif %}
+        {% if d.highlights %}<h3>Highlights</h3><ul>{% for f in d.highlights %}<li>{{ f }}</li>{% endfor %}</ul>{% endif %}
+        {% if d.ideal_buyers %}<h3>Ideal buyers</h3><p>{{ d.ideal_buyers }}</p>{% endif %}
+        {% if d.transaction %}<h3>Transaction</h3><p>{{ d.transaction }}</p>{% endif %}
+      {% else %}
+        <p class="muted">Draft an anonymous teaser starter from what the owner entered. Unknown points are left as placeholders.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div>
+    <div class="card">
+      <h2>Match snapshot</h2>
+      <p class="help">Exact internal counts as of {{ owner.snapshot.at }}. The owner sees these with the privacy threshold applied.</p>
+      <div class="stat">{{ owner.snapshot.total }} buyers</div>
+      <p class="muted">Combined appetite {{ eur(owner.snapshot.appetite_eur) }}</p>
+      <h3>By type</h3>
+      <ul class="bars">{% for k, v in owner.snapshot.by_type.items() %}<li><div class="row"><span>{{ t('buyer_type.' ~ k) }}</span><b>{{ v }}</b></div></li>{% endfor %}</ul>
+      <h3>By HQ country</h3>
+      <ul class="chips">{% for k, v in owner.snapshot.by_hq.items() %}<li>{{ t('country.' ~ k) }} · <b>{{ v }}</b></li>{% endfor %}</ul>
+    </div>
+
+    <div class="card">
+      <h2>Consent proof</h2>
+      <table>
+        <thead><tr><th>Channel</th><th>Granted (UTC)</th><th>Version</th></tr></thead>
+        {% for c in consents %}
+        <tr>
+          <td><b>{{ t('channel.' ~ c.channel) }}</b>{% if c.withdrawn_at %} <span class="pill warn">withdrawn {{ c.withdrawn_at[:10] }}</span>{% endif %}
+              <br><small>"{{ c.text }}" ({{ c.lang|upper }})</small></td>
+          <td>{{ c.granted_at.replace('T', ' ')[:19] }}</td>
+          <td><small>{{ c.text_version }}</small></td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% if owner.email_confirmed_at %}<p class="help">Email double opt-in confirmed {{ owner.email_confirmed_at.replace('T', ' ')[:19] }} UTC.</p>{% endif %}
+      <a class="btn small secondary" href="/dashboard/owners/{{ owner.id }}/consents.json">Export proof (JSON)</a>
+    </div>
+
+    {% if messages %}
+    <div class="card">
+      <h2>Messages</h2>
+      <table>{% for m in messages %}<tr><td><a href="/dashboard/messages/{{ m.id }}">{{ m.subject }}</a><br><small>{{ m.created_at[:16].replace('T', ' ') }}</small></td><td><span class="pill grey">{{ m.status }}</span></td></tr>{% endfor %}</table>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

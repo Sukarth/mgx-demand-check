@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h1>{{ t('thanks.title') }}</h1>
+  <p class="lead">{{ t('thanks.body') }}</p>
+  <ul class="chips" style="margin-bottom:1rem">
+    {% for ch in channels %}<li>✓ {{ t('channel.' ~ ch) }}</li>{% endfor %}
+  </ul>
+  {% if channels | select('in', ['phone', 'sms', 'whatsapp']) | list %}<p>{{ t('thanks.phone_body') }}</p>{% endif %}
+  <a class="btn secondary" href="/{{ lang }}/result/{{ owner.check_id }}">{{ t('thanks.back') }}</a>
+</div>
+
+{% if confirm_url %}
+<div class="card">
+  <h2>{{ t('thanks.confirm_title') }}</h2>
+  <p>{{ t('thanks.confirm_body', email=owner.email) }}</p>
+  <p class="help">{{ t('thanks.demo_inbox') }}</p>
+  <div class="email-preview">
+    <div class="hdr"><b>{{ t('confirm.subject') }}</b><br>To: {{ owner.email }}</div>
+    <p>{{ t('confirm.greeting', name=(owner.name or '').split(' ')[0]) }}</p>
+    <p>{{ t('confirm.body') }}</p>
+    <p><a class="btn" href="{{ confirm_url }}">{{ t('confirm.button') }}</a></p>
+    <p class="help">{{ t('confirm.ignore') }}</p>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

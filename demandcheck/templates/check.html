@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ t('form.title') }}</h1>
+<p class="lead">{{ t('form.intro') }}</p>
+
+<div class="card">
+  {% if errors %}<div class="errors">{% for e in errors %}<p>{{ t(e) }}</p>{% endfor %}</div>{% endif %}
+  <form method="post" action="/{{ lang }}/check">
+    <div class="field">
+      <label for="sector">{{ t('form.sector') }}</label>
+      <select id="sector" name="sector" required>
+        <option value="">{{ t('form.choose') }}</option>
+        {% for s in sectors %}<option value="{{ s }}" {{ 'selected' if values.sector == s }}>{{ t('sector.' ~ s) }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="field">
+      <label for="country">{{ t('form.country') }}</label>
+      <select id="country" name="country" required>
+        <option value="">{{ t('form.choose') }}</option>
+        {% for c in countries %}<option value="{{ c }}" {{ 'selected' if values.country == c }}>{{ t('country.' ~ c) }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="grid2">
+      <div class="field">
+        <label for="revenue_band">{{ t('form.revenue') }}</label>
+        <select id="revenue_band" name="revenue_band" required>
+          <option value="">{{ t('form.choose') }}</option>
+          {% for b in revenue_bands %}<option value="{{ b }}" {{ 'selected' if values.revenue_band == b }}>{{ t('revenue.' ~ b) }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="field">
+        <label for="ebitda_band">{{ t('form.ebitda') }}</label>
+        <select id="ebitda_band" name="ebitda_band" required aria-describedby="ebitda_help">
+          <option value="">{{ t('form.choose') }}</option>
+          {% for b in ebitda_bands %}<option value="{{ b }}" {{ 'selected' if values.ebitda_band == b }}>{{ t('ebitda.' ~ b) }}</option>{% endfor %}
+        </select>
+        <div class="help" id="ebitda_help">{{ t('form.ebitda_help') }}</div>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="field">
+        <label for="timing">{{ t('form.timing') }} <span class="opt">{{ t('form.optional') }}</span></label>
+        <select id="timing" name="timing">
+          <option value="">{{ t('form.choose') }}</option>
+          {% for o in timings %}<option value="{{ o }}" {{ 'selected' if values.timing == o }}>{{ t('timing.' ~ o) }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="field">
+        <label for="ownership">{{ t('form.ownership') }} <span class="opt">{{ t('form.optional') }}</span></label>
+        <select id="ownership" name="ownership">
+          <option value="">{{ t('form.choose') }}</option>
+          {% for o in ownerships %}<option value="{{ o }}" {{ 'selected' if values.ownership == o }}>{{ t('ownership.' ~ o) }}</option>{% endfor %}
+        </select>
+      </div>
+    </div>
+    <input type="hidden" name="source" value="{{ request.query_params.get('src', '') }}">
+    <button class="btn" type="submit">{{ t('form.submit') }}</button>
+    <p class="help" style="margin-top:.75rem">{{ t('form.time_note') }}</p>
+  </form>
+  <ul class="promises">
+    <li>{{ t('promise.anonymous') }}</li>
+    <li>{{ t('promise.no_identity') }}</li>
+    <li>{{ t('promise.no_sharing') }}</li>
+  </ul>
+</div>
+{% endblock %}

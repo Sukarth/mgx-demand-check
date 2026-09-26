@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>{% block title %}Owner inbox{% endblock %} · MGX Demand Check</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="dash">
+<div class="notice">Internal advisor view. Buyer data is an illustrative, fictional sample.</div>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="/dashboard">MGX <span>Demand Check</span> · Advisor</a>
+    {% if request.session.get('dashboard') %}
+    <form method="post" action="/dashboard/logout" class="inline"><button class="btn small secondary">Log out</button></form>
+    {% endif %}
+  </div>
+</header>
+<main><div class="wrap">{% block content %}{% endblock %}</div></main>
+</body>
+</html>

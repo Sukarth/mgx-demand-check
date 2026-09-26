@@ -1,0 +1,191 @@
+{
+  "site": {
+    "name": "MGX Demand Check",
+    "tagline": "See how many buyers are looking for a company like yours. Anonymous, free, two minutes.",
+    "sample_notice": "Prototype. Buyer figures come from an illustrative, fictional sample, not from real MGX data.",
+    "footer": "A prototype built for Mergero. Buyer data is an illustrative, fictional sample.",
+    "privacy_link": "Privacy notice",
+    "sectors_link": "Buyer demand by sector",
+    "language": "Language"
+  },
+  "promise": {
+    "anonymous": "Anonymous until you choose otherwise",
+    "no_identity": "Buyers never see who you are",
+    "no_sharing": "Nothing is shared without your permission"
+  },
+  "form": {
+    "title": "Who would buy your company?",
+    "intro": "Answer four questions. You see the result immediately. No name, email or phone number needed.",
+    "sector": "Industry",
+    "country": "Where is the company based?",
+    "revenue": "Annual revenue",
+    "ebitda": "Annual operating profit (EBITDA)",
+    "ebitda_help": "Profit before interest, taxes, depreciation and amortisation. A rough band is enough.",
+    "optional": "Optional",
+    "timing": "When might a sale or new owner be relevant?",
+    "ownership": "Your ownership share",
+    "choose": "Choose...",
+    "submit": "Show buyer demand",
+    "time_note": "Takes about two minutes. Nothing is stored that identifies you.",
+    "error_required": "Please answer the four required questions."
+  },
+  "timing": {
+    "now": "Now or within a year",
+    "1_2y": "In one to two years",
+    "3y_plus": "In three years or later",
+    "curious": "Just curious"
+  },
+  "ownership": {
+    "100": "100%",
+    "50_99": "50 to 99%",
+    "lt50": "Under 50%"
+  },
+  "sector": {
+    "industrial_services": "Industrial services and maintenance",
+    "technical_installation": "Electrical and technical installation",
+    "facility_services": "Cleaning and facility services",
+    "logistics": "Logistics and transport",
+    "waste_circular": "Waste management and circular economy",
+    "construction_services": "Construction services",
+    "technical_wholesale": "Technical wholesale",
+    "software_it": "Software and IT services",
+    "health_products": "Health and medical products",
+    "healthcare_services": "Healthcare and care services",
+    "manufacturing": "Metal products and machinery",
+    "food_production": "Food and beverage production",
+    "business_services": "Business services",
+    "engineering_consulting": "Engineering and technical consulting",
+    "retail_ecommerce": "Retail and e-commerce"
+  },
+  "country": {
+    "FI": "Finland", "SE": "Sweden", "NO": "Norway", "DK": "Denmark", "EE": "Estonia",
+    "DE": "Germany", "AT": "Austria", "CH": "Switzerland", "NL": "Netherlands",
+    "GB": "United Kingdom", "FR": "France", "US": "United States", "other": "Other countries"
+  },
+  "revenue": {
+    "r_lt2": "Under €2M", "r_2_5": "€2 to 5M", "r_5_10": "€5 to 10M", "r_10_20": "€10 to 20M",
+    "r_20_50": "€20 to 50M", "r_50_100": "€50 to 100M", "r_100p": "Over €100M"
+  },
+  "ebitda": {
+    "e_neg": "Loss-making", "e_0_05": "Under €0.5M", "e_05_1": "€0.5 to 1M", "e_1_2": "€1 to 2M",
+    "e_2_5": "€2 to 5M", "e_5_10": "€5 to 10M", "e_10_20": "€10 to 20M", "e_20p": "Over €20M"
+  },
+  "buyer_type": {
+    "pe_platform": "Private equity funds",
+    "pe_addon": "Private equity add-on buyers",
+    "strategic": "Strategic acquirers",
+    "family_office": "Family offices",
+    "search_fund": "Search funds and independent sponsors",
+    "other": "Other buyer types"
+  },
+  "buyer_type_help": {
+    "pe_platform": "Funds looking for a company to build a group around.",
+    "pe_addon": "Groups owned by a fund, buying companies to add to what they have.",
+    "strategic": "Companies in your industry or a neighbouring one.",
+    "family_office": "Investment companies of wealthy families, often long-term owners.",
+    "search_fund": "Individual entrepreneurs backed by investors, looking for one company to run."
+  },
+  "result": {
+    "title": "Buyer demand for your company",
+    "profile": "{sector} · {country} · revenue {revenue} · EBITDA {ebitda}",
+    "count_lead": "buyers in our network are looking for companies like yours",
+    "count_lead_one": "buyer in our network is looking for companies like yours",
+    "fewer_than": "Fewer than {n}",
+    "zero_title": "No matching buyers right now",
+    "zero_body": "No buyer in the sample network currently states criteria that fit this profile. Buyer demand changes as new buyers join. You can ask to be told when that happens.",
+    "small_body": "A small number of buyers match. To protect their confidentiality we do not show exact numbers below {n}.",
+    "by_type": "Who they are",
+    "by_hq": "Where they are based",
+    "appetite": "Combined investment appetite of these buyers",
+    "appetite_note": "Sum of what these buyers say they want to invest in total, not an offer.",
+    "recent": "{n} of them joined in the last 90 days",
+    "recent_few": "Some of them joined in the last 90 days",
+    "value_title": "Indicative value range",
+    "value_basis": "Based on typical EBITDA multiples of {low}x to {high}x for your industry and size.",
+    "value_none": "A value based on profit multiples is not meaningful for a loss-making company. Buyers look at revenue, growth and the path to profit instead.",
+    "value_disclaimer": "Indicative, based on market averages. A real valuation needs your numbers.",
+    "next_title": "What you can do next",
+    "next_call": "Confidential call",
+    "next_call_body": "Talk to an M&A advisor about what these buyers look for. No obligation, no fees for a first call.",
+    "next_profile": "Anonymous profile",
+    "next_profile_body": "We draft an anonymous profile of your company and ask matching buyers for feedback. Your name stays hidden.",
+    "next_updates": "Buyer demand updates",
+    "next_updates_body": "Get a short update when new buyers who fit your company join, at most once a quarter.",
+    "edit": "Change answers",
+    "sample_label": "Illustrative sample data"
+  },
+  "optin": {
+    "title": "Want to go further? Tell us how to reach you",
+    "intro": "Everything below is optional. Tick only what you want. You can withdraw any consent at any time.",
+    "name": "Your name",
+    "email": "Email",
+    "phone": "Phone",
+    "company": "Company name or business ID",
+    "company_help": "Helps us prepare. Never shown to buyers.",
+    "channels_title": "How may we contact you?",
+    "channels_help": "Each box is a separate consent. None is required.",
+    "submit": "Send",
+    "privacy_ack": "How we handle your data:",
+    "error_contact": "Please give an email address or a phone number.",
+    "error_email_needed": "Email consent and updates need an email address.",
+    "error_phone_needed": "Phone, SMS and WhatsApp consent need a phone number.",
+    "error_no_consent": "Please tick at least one way we may contact you."
+  },
+  "consent": {
+    "email": "I agree that Mergero may contact me by email about selling or growing my company.",
+    "phone": "I agree that Mergero may call me by phone about selling or growing my company.",
+    "sms": "I agree that Mergero may send me text messages (SMS) about selling or growing my company.",
+    "whatsapp": "I agree that Mergero may message me on WhatsApp about selling or growing my company.",
+    "updates": "Send me a buyer demand update by email when new matching buyers join, at most once a quarter.",
+    "withdraw": "You can withdraw each consent at any time with the link in any message or by replying \"stop\"."
+  },
+  "channel": {
+    "email": "Email", "phone": "Phone call", "sms": "SMS", "whatsapp": "WhatsApp", "updates": "Quarterly updates"
+  },
+  "thanks": {
+    "title": "Thank you",
+    "body": "We received your details. A Mergero advisor will review them personally.",
+    "confirm_title": "One more step: confirm your email",
+    "confirm_body": "We sent a confirmation link to {email}. Email contact and updates start only after you confirm.",
+    "demo_inbox": "Demo inbox (the email that would be sent)",
+    "phone_body": "An advisor will contact you on the channels you chose, usually within two working days.",
+    "back": "Back to your result"
+  },
+  "confirm": {
+    "subject": "Please confirm your email address",
+    "greeting": "Hello {name},",
+    "body": "Please confirm that you want Mergero to contact you at this address. Until you click the link we will not send you anything else.",
+    "button": "Confirm my email",
+    "ignore": "If you did not request this, ignore this email. Nothing will happen.",
+    "done_title": "Email confirmed",
+    "done_body": "Thank you. Your email consent is now active.",
+    "invalid": "This confirmation link is not valid or was already used."
+  },
+  "privacy": {
+    "title": "Privacy notice",
+    "controller": "Controller: Mergero (prototype). Contact: privacy@example.com.",
+    "what": "What we collect: the answers to the four questions (not linked to you unless you opt in). If you opt in: name, email, phone, company name or business ID, your consents with their exact wording, version and time.",
+    "why": "Why: to show you buyer demand, and, only with your consent, to contact you on the channels you chose. Legal basis: your consent (GDPR Art. 6(1)(a)).",
+    "who": "Who sees it: Mergero advisors only. Buyers never see your identity. Nothing is sold or shared without your permission.",
+    "retention": "Retention: contact details are deleted 24 months after our last contact with you, or earlier on request. Anonymous answers are kept as statistics.",
+    "rights": "Your rights: access, correction, deletion, withdrawal of consent, objection, and complaint to your data protection authority.",
+    "ai": "AI: an AI tool may draft internal notes and message suggestions. A Mergero person reviews every message before it is sent."
+  },
+  "nurture": {
+    "subject": "Buyer demand for your company changed: {n} new buyers",
+    "subject_one": "Buyer demand for your company changed: 1 new buyer",
+    "greeting": "Hello {name},",
+    "body": "Since your last check, {n} new buyers who fit your company ({sector}, {country}) joined our network. {total} buyers in total now match your profile.",
+    "cta": "See your updated result",
+    "footer": "You receive this because you asked for buyer demand updates. Unsubscribe with one click: {link}"
+  },
+  "sectors_page": {
+    "title": "Buyer demand by industry",
+    "intro": "Live number of buyers in our network looking for companies in each industry.",
+    "count": "{n} buyers looking",
+    "count_lead": "buyers in our network are looking for companies in this industry",
+    "in_country": "{n} buyers looking for {sector} companies in {country}",
+    "start": "Check your company",
+    "detail_intro": "These buyers state criteria that include {sector}. Enter your company's size to see how many fit you exactly."
+  }
+}

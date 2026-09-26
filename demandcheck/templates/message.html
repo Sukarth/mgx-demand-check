@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h1>{{ t(title_key) }}</h1>
+  <p class="lead">{{ body_text if body_text else t(body_key) }}</p>
+  <a class="btn secondary" href="/{{ lang }}">{{ t('site.name') }}</a>
+</div>
+{% endblock %}

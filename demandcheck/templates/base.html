@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="{{ lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ t('site.name') }}{% endblock %}</title>
+<meta name="description" content="{{ t('site.tagline') }}">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="{% block body_class %}{% endblock %}">
+<div class="notice">{{ t('site.sample_notice') }}</div>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="/{{ lang }}">MGX <span>Demand Check</span></a>
+    {% block header_right %}
+    {% set parts = request.url.path.split('/') %}
+    <nav class="langs" aria-label="{{ t('site.language') }}">
+      {% for code in languages %}
+        {% if parts|length > 1 and parts[1] in languages %}
+          {% set target = '/' ~ code ~ ('/' ~ parts[2:]|join('/') if parts|length > 2 else '') %}
+        {% else %}
+          {% set target = '/' ~ code %}
+        {% endif %}
+        <a href="{{ target }}" class="{{ 'on' if code == lang }}" hreflang="{{ code }}">{{ language_names[code] }}</a>
+      {% endfor %}
+    </nav>
+    {% endblock %}
+  </div>
+</header>
+<main>
+  <div class="wrap {% block wrap_class %}narrow{% endblock %}">
+    {% block content %}{% endblock %}
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap {{ self.wrap_class() }}">
+    <p>{{ t('site.footer') }}</p>
+    <a href="/{{ lang }}/privacy">{{ t('site.privacy_link') }}</a>
+    <a href="/{{ lang }}/sectors">{{ t('site.sectors_link') }}</a>
+  </div>
+</footer>
+</body>
+</html>

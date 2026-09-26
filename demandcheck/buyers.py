@@ -179,6 +179,31 @@ def generate_sample(n: int = SAMPLE_SIZE, seed: int = SAMPLE_SEED,
     return buyers
 
 
+def buyer_from_criteria(buyer_id: str, display_type: str, hq_country: str, sectors: list[str],
+                        target_countries: list[str], ev_min: float, ev_max: float,
+                        appetite_eur: float, added_at: str | None = None) -> Buyer:
+    """Build a buyer from the criteria an advisor records; EBITDA and revenue ranges derive from EV."""
+    ebitda_min = _round_eur(ev_min / 8.0)
+    ebitda_max = _round_eur(ev_max / 5.0)
+    return Buyer(
+        id=buyer_id,
+        display_type=display_type,
+        hq_country=hq_country,
+        target_sectors=list(sectors),
+        target_countries=list(target_countries),
+        revenue_min=_round_eur(ebitda_min / 0.25),
+        revenue_max=_round_eur(ebitda_max / 0.05),
+        ebitda_min=ebitda_min,
+        ebitda_max=ebitda_max,
+        ev_min=ev_min,
+        ev_max=ev_max,
+        deal_types=["majority", "full_exit"],
+        appetite_eur=appetite_eur,
+        active=True,
+        added_at=added_at or date.today().isoformat(),
+    )
+
+
 def save_buyers(buyers: list[Buyer], path: Path = SAMPLE_PATH) -> None:
     payload = {
         "notice": "Illustrative, fictional sample. Not real buyers. "

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{{ t('sector.' ~ sector) }} · {{ t('site.name') }}{% endblock %}
+{% block content %}
+<p class="profile-line"><a href="/{{ lang }}/sectors">{{ t('sectors_page.title') }}</a></p>
+<h1>{{ t('sector.' ~ sector) }}</h1>
+<div class="card">
+  <div class="hero-count">
+    <span class="n">{{ num(total) }}</span>
+    <span class="what">{{ t('sectors_page.count_lead') }}</span>
+  </div>
+  <p>{{ t('sectors_page.detail_intro', sector=t('sector.' ~ sector)|lower) }} <span class="tag">{{ t('result.sample_label') }}</span></p>
+  <ul class="chips" style="margin-bottom:1.25rem">
+    {% for c, n in per_country if n >= 5 %}
+    <li><a href="/{{ lang }}?sector={{ sector }}&country={{ c }}&src=sector">{{ t('country.' ~ c) }}</a> · <b>{{ num(n) }}</b></li>
+    {% endfor %}
+  </ul>
+  <a class="btn" href="/{{ lang }}?sector={{ sector }}{{ '&country=' ~ country if country }}&src=sector">{{ t('sectors_page.start') }}</a>
+  <ul class="promises">
+    <li>{{ t('promise.anonymous') }}</li>
+    <li>{{ t('promise.no_identity') }}</li>
+  </ul>
+</div>
+{% endblock %}

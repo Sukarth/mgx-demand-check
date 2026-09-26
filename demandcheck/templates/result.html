@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% from "_macros.html" import count %}
+{% block content %}
+<p class="profile-line">
+  {{ t('result.profile', sector=t('sector.' ~ check.sector), country=t('country.' ~ check.country),
+       revenue=t('revenue.' ~ check.revenue_band), ebitda=t('ebitda.' ~ check.ebitda_band)) }}
+  · <a href="/{{ lang }}?sector={{ check.sector }}&country={{ check.country }}">{{ t('result.edit') }}</a>
+</p>
+
+<div class="card">
+  <h1 style="font-size:1.25rem">{{ t('result.title') }} <span class="tag">{{ t('result.sample_label') }}</span></h1>
+  {% if view.total.zero %}
+    <h2>{{ t('result.zero_title') }}</h2>
+    <p>{{ t('result.zero_body') }}</p>
+  {% else %}
+    <div class="hero-count">
+      <span class="n {{ 'text' if view.total.below_threshold }}">{{ count(view.total, t, num) }}</span>
+      <span class="what">{{ t('result.count_lead') }}</span>
+    </div>
+    {% if view.total.below_threshold %}
+      <p>{{ t('result.small_body', n=5) }}</p>
+    {% else %}
+      {% if view.recent.value %}<p class="muted">{{ t('result.recent', n=num(view.recent.value)) }}</p>
+      {% elif view.recent.below_threshold %}<p class="muted">{{ t('result.recent_few') }}</p>{% endif %}
+    {% endif %}
+  {% endif %}
+</div>
+
+{% if not view.total.zero and not view.total.below_threshold %}
+<div class="cols">
+  <div class="card">
+    <h2>{{ t('result.by_type') }}</h2>
+    <ul class="bars">
+      {% for key, c in view.by_type %}
+      <li>
+        <div class="row"><span>{{ t('buyer_type.' ~ key) }}</span><b>{{ count(c, t, num) }}</b></div>
+        <div class="bar"><i style="width: {{ ((c.value or 2) / max_type * 100)|round|int }}%"></i></div>
+        {% if key != 'other' %}<div class="sub">{{ t('buyer_type_help.' ~ key) }}</div>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="card">
+    <h2>{{ t('result.by_hq') }}</h2>
+    <ul class="chips">
+      {% for key, c in view.by_hq %}<li>{{ t('country.' ~ key) }} · <b>{{ count(c, t, num) }}</b></li>{% endfor %}
+    </ul>
+    {% if view.appetite_eur %}
+    <h2 style="margin-top:1.5rem">{{ t('result.appetite') }}</h2>
+    <div class="stat">{{ eur(view.appetite_eur) }}+</div>
+    <p class="help">{{ t('result.appetite_note') }}</p>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+<div class="card">
+  <h2>{{ t('result.value_title') }}</h2>
+  {% if valuation %}
+    <div class="value">{{ eur(valuation.ev_low) }} – {{ eur(valuation.ev_high) }}</div>
+    <p class="muted">{{ t('result.value_basis', low=valuation.multiple_low|string|replace('.0',''), high=valuation.multiple_high|string|replace('.0','')) }}</p>
+  {% else %}
+    <p>{{ t('result.value_none') }}</p>
+  {% endif %}
+  <p class="help"><b>{{ t('result.value_disclaimer') }}</b></p>
+</div>
+
+<div class="card">
+  <h2>{{ t('result.next_title') }}</h2>
+  <div class="steps">
+    <div class="step"><h3>{{ t('result.next_call') }}</h3><p>{{ t('result.next_call_body') }}</p></div>
+    <div class="step"><h3>{{ t('result.next_profile') }}</h3><p>{{ t('result.next_profile_body') }}</p></div>
+    <div class="step"><h3>{{ t('result.next_updates') }}</h3><p>{{ t('result.next_updates_body') }}</p></div>
+  </div>
+</div>
+
+<div class="card" id="optin">
+  <h2>{{ t('optin.title') }}</h2>
+  <p>{{ t('optin.intro') }}</p>
+  {% if errors %}<div class="errors">{% for e in errors %}<p>{{ t(e) }}</p>{% endfor %}</div>{% endif %}
+  <form method="post" action="/{{ lang }}/result/{{ check.id }}/optin#optin" novalidate>
+    <div class="grid2">
+      <div class="field"><label for="name">{{ t('optin.name') }}</label>
+        <input type="text" id="name" name="name" autocomplete="name" value="{{ optin.get('name', '') }}"></div>
+      <div class="field"><label for="company">{{ t('optin.company') }}</label>
+        <input type="text" id="company" name="company" autocomplete="organization" value="{{ optin.get('company', '') }}">
+        <div class="help">{{ t('optin.company_help') }}</div></div>
+      <div class="field"><label for="email">{{ t('optin.email') }}</label>
+        <input type="email" id="email" name="email" autocomplete="email" value="{{ optin.get('email', '') }}"></div>
+      <div class="field"><label for="phone">{{ t('optin.phone') }}</label>
+        <input type="tel" id="phone" name="phone" autocomplete="tel" value="{{ optin.get('phone', '') }}"></div>
+    </div>
+    <fieldset style="border:0;padding:0;margin:0">
+      <legend><b>{{ t('optin.channels_title') }}</b></legend>
+      <div class="help">{{ t('optin.channels_help') }}</div>
+      <div class="consents">
+        {% for ch in channels %}
+        <label class="consent">
+          <input type="checkbox" name="consent_{{ ch }}" value="yes" {{ 'checked' if optin.get('consent_' ~ ch) == 'yes' }}>
+          <div><b>{{ t('channel.' ~ ch) }}</b><span>{{ t('consent.' ~ ch) }}</span></div>
+        </label>
+        {% endfor %}
+      </div>
+      <p class="help">{{ t('consent.withdraw') }}</p>
+    </fieldset>
+    <p class="help">{{ t('optin.privacy_ack') }} <a href="/{{ lang }}/privacy" target="_blank">{{ t('site.privacy_link') }}</a></p>
+    <button class="btn" type="submit">{{ t('optin.submit') }}</button>
+  </form>
+  <ul class="promises">
+    <li>{{ t('promise.no_identity') }}</li>
+    <li>{{ t('promise.no_sharing') }}</li>
+  </ul>
+</div>
+{% endblock %}

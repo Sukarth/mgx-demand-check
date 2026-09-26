@@ -1,0 +1,12 @@
+{% extends "dashboard/base.html" %}
+{% block title %}{{ message.subject }}{% endblock %}
+{% block content %}
+<p><a href="/dashboard#nurture">← Back</a> · <a href="/dashboard/owners/{{ message.owner_id }}">Owner</a></p>
+<div class="card" style="max-width:720px">
+  <p class="help">Email preview · queued {{ message.created_at.replace('T', ' ')[:16] }} UTC · not sent</p>
+  <div class="email-preview">
+    <div class="hdr"><b>{{ message.subject }}</b><br>To: {{ message.name }} &lt;{{ message.email }}&gt;</div>
+    <pre>{{ message.body | urlize }}</pre>
+  </div>
+</div>
+{% endblock %}

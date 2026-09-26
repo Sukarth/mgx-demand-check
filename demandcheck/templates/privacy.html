@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ t('privacy.title') }} · {{ t('site.name') }}{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>{{ t('privacy.title') }}</h1>
+  {% for key in ['controller', 'what', 'why', 'who', 'retention', 'rights', 'ai'] %}
+  <p>{{ t('privacy.' ~ key) }}</p>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,3 @@
+{% macro count(c, t, num) -%}
+{%- if c.zero -%}0{%- elif c.value is none -%}{{ t('result.fewer_than', n=5) }}{%- else -%}{{ num(c.value) }}{%- endif -%}
+{%- endmacro %}

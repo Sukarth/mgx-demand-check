@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{ t('sectors_page.title') }} · {{ t('site.name') }}{% endblock %}
+{% block wrap_class %}{% endblock %}
+{% block content %}
+<h1>{{ t('sectors_page.title') }}</h1>
+<p class="lead">{{ t('sectors_page.intro') }} <span class="tag">{{ t('result.sample_label') }}</span></p>
+<ul class="sector-list">
+  {% for s, n in rows %}
+  <li><a href="/{{ lang }}/sectors/{{ s }}"><span>{{ t('sector.' ~ s) }}</span><b>{{ num(n) }}</b></a></li>
+  {% endfor %}
+</ul>
+{% endblock %}
