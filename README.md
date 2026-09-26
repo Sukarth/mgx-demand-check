@@ -1,61 +1,99 @@
 # MGX Demand Check
 
-An anonymous, self-serve buyer-demand check for business owners, built as a
-prototype for [Mergero](https://mergero.com/).
+**Stop chasing owners. Let them come to you.** An anonymous, local-language
+buyer-demand check for business owners, built as a prototype for
+[Mergero](https://mergero.com/) (Mergero challenge, prompt hackathon, September 2026).
 
-An owner answers four questions (industry, country, revenue band, EBITDA band)
-and immediately sees how many buyers in the network are looking for a company
-like theirs, broken down by buyer type and HQ country, plus an indicative value
-range. No name, email or phone number is needed to see the result.
+Mergero already shows owners a shortlist of fitting buyers after a first
+conversation. This prototype shows a preview of that shortlist *before* the
+conversation, self-serve and anonymous, so the preview creates the
+conversation:
 
-Only if the owner wants more (a confidential call, an anonymous profile, or
-buyer-demand updates) do they leave contact details and tick separate, unticked
-consent boxes per channel. Each consent is stored with its exact wording,
-version, language and timestamp.
+1. **Result first.** An owner answers four questions (industry, country,
+   revenue band, EBITDA band) and immediately sees how many buyers are looking
+   for a company like theirs, by buyer type and HQ country, with an indicative
+   value range. No name, email or phone number is needed.
+2. **Consent second.** Only if the owner wants more (a confidential call, an
+   anonymous profile, buyer-demand updates) do they leave contact details and
+   tick a separate, unticked box per channel. In Germany and Austria that
+   consent is what makes calls, SMS, WhatsApp and email outreach lawful.
+3. **Refresh loop.** When new matching buyers join, opted-in owners get a
+   "your buyer demand changed" update in their language.
 
-> **Sample data notice.** The buyer figures come from an illustrative,
-> fictional sample of 2,000 generated buyers (`data/buyers_sample.json`). No
-> buyer has a name and no criteria are attached to any real firm. A production
-> version would read aggregated buyer criteria (counts only) from MGX.
+Every opted-in owner is a sell-side lead for Mergero and new off-market supply
+for its buy-side clients.
+
+> **Illustrative sample data.** All buyer figures come from a fictional sample
+> of 2,000 generated buyers (`data/buyers_sample.json`): no names, and no
+> criteria attached to any real firm. The production version would read
+> aggregated buyer criteria (counts only, no identities) from the MGX Deal
+> Engine. Demo owners and letter recipients are fictional and marked "(Demo)".
+
+## Live demo
+
+| What | Link |
+|---|---|
+| Owner check (Finnish, German, Swedish, English) | [/fi](https://mgx-demand-check.vercel.app/fi) · [/de](https://mgx-demand-check.vercel.app/de) · [/sv](https://mgx-demand-check.vercel.app/sv) · [/en](https://mgx-demand-check.vercel.app/en) |
+| Sector page with live buyer count | [/de/branchen/elektro-und-gebaudetechnik](https://mgx-demand-check.vercel.app/de/branchen/elektro-und-gebaudetechnik?country=DE) · [/fi/toimialat](https://mgx-demand-check.vercel.app/fi/toimialat) |
+| Check embedded on a (fictional) partner site | [/demo/partner](https://mgx-demand-check.vercel.app/demo/partner) |
+| Advisor dashboard | [/dashboard](https://mgx-demand-check.vercel.app/dashboard) (password in the submission email) |
+
+Try a Finnish business ID (for example any Y-tunnus of a logistics company) on
+`/fi` to see the industry pre-filled from the public PRH register.
 
 ## What it does
 
-**Owner side (public)**
-- English, Finnish, German and Swedish (`/en`, `/fi`, `/de`, `/sv`; the root
-  picks the browser language).
-- Four-question check, result first, optional timing and ownership share.
-- Finnish companies can pre-fill the industry from their business ID
-  (Y-tunnus) via the PRH open data API; manual entry is always possible.
-- Buyer count with a privacy threshold: groups under five buyers are pooled or
-  shown as "fewer than 5", so no individual buyer can be inferred.
+**Owner side**
+- Four languages; the root URL picks the browser language.
+- Finnish business ID pre-fill from the PRH open data API (YTJ v3); the ID is
+  not stored and manual entry always works.
+- Privacy threshold: any group under five buyers is pooled or shown as
+  "fewer than 5".
 - Indicative EV range from sector EBITDA multiples with a size adjustment,
-  clearly labelled as indicative. No multiple-based value for loss-making firms.
-- Opt-in with one consent per channel (email, phone, SMS, WhatsApp, quarterly
-  updates) and simulated email double opt-in.
-- Localized sector pages with a live buyer count per industry and country,
-  e.g. `/fi/toimialat/logistiikka-ja-kuljetus`, `/de/branchen/logistik-und-transport`.
-- Embed widget for partner sites (accountants, banks, chambers):
-  `<script src="https://<host>/embed.js" data-lang="fi" data-partner="name" async></script>`.
-  A fictional demo partner page is at `/demo/partner`.
-- Privacy notice (GDPR Art. 13 outline).
+  never a single number; no multiple-based value for loss-making firms.
+- Localized sector pages (`/fi/toimialat/…`, `/de/branchen/…`,
+  `/sv/branscher/…`) as SEO and ad landing pages.
+- Embed widget for accountants, banks and chambers:
+  `<script src="https://mgx-demand-check.vercel.app/embed.js" data-lang="fi" data-partner="name" async></script>`.
 
-**Advisor side (`/dashboard`, password protected)**
-- Owner inbox with profile, timing, consents and match snapshot.
-- Consent proof per channel, exportable as JSON.
-- AI-drafted call brief (with an opening line in the owner's language) and
-  anonymous company profile as a starting point for a soft launch. Drafts are
-  for review by an advisor; the profile draft never receives the owner's name,
-  company or contact details.
+**Advisor side**
+- Owner inbox with sector, size, timing, consents and a match snapshot.
+- Consent proof per channel (exact text, version, language, timestamp, email
+  double opt-in), exportable as JSON.
+- AI-drafted call brief with an opening line in the owner's language, and an
+  anonymous company profile draft as the start of a Soft Launch or Silent
+  Mandate.
 - Status pipeline: new, contacted, call booked, soft launch, mandate, not now.
-- Postal letters for DACH (`/dashboard/letters`): CSV of target companies in,
-  print-ready German PDF out, with the buyer count for each company's sector
-  and country, a QR code to the sector page and a GDPR Art. 14 source notice.
-- Buyer-demand refresh: adding a buyer recomputes matches for every owner with
-  confirmed update consent and queues a "buyer demand changed" email in the
-  owner's language, with an unsubscribe link.
+- "Add a buyer to MGX": recomputes matches and queues localized update emails
+  for owners with confirmed update consent.
+- DACH postal letters: CSV of target companies in, print-ready German PDF out,
+  with the buyer count for each company's sector and country, a QR code to the
+  sector page and a GDPR Art. 14 source notice.
 
-Matching and valuation are pure, tested Python functions. The language model
-only drafts text.
+## How buyer data works
+
+`demandcheck/matching.py` and `demandcheck/valuation.py` are pure functions
+with tests. A buyer matches when it is active, targets the owner's sector and
+country (region groups such as Nordics or DACH expand to countries), and its
+revenue and EBITDA ranges overlap the owner's bands; private equity requires
+positive EBITDA. The sample (`python -m demandcheck.buyers`, seeded and
+deterministic) mirrors what Mergero shared about its network: 2,000+ buyers,
+about €52B combined appetite, private equity about 55%, strategic acquirers
+25%, family offices 12%, search funds 8%. In production the same functions
+would run on an aggregated MGX export.
+
+## Privacy and consent design
+
+- The result is shown before any personal data is requested; the anonymous
+  answers are not linked to a person unless they opt in.
+- One unticked checkbox per channel; consent text is versioned and stored with
+  language and timestamp; email consent needs confirmation (double opt-in).
+- Every update email has a one-click unsubscribe.
+- Buyers are only ever shown as aggregated counts; small groups are hidden.
+- AI drafts are internal and reviewed by a person before anything is sent;
+  the profile draft never receives the owner's name, company or contacts.
+- Legal notes are research, not legal advice; a review by counsel in each
+  target country is recommended before launch.
 
 ## Run locally
 
@@ -65,74 +103,51 @@ Requires Python 3.11+.
 python -m venv .venv
 .venv/Scripts/activate        # Windows; use `source .venv/bin/activate` elsewhere
 pip install -e ".[dev]"
-cp .env.example .env          # optional: add LLM keys and a dashboard password
+python -m demandcheck.demo --drafts   # two demo owners with AI drafts (optional)
 uvicorn demandcheck.app:app --port 8765
 ```
 
-Open <http://127.0.0.1:8765/en> for the owner flow and
-<http://127.0.0.1:8765/dashboard> for the advisor view. Without
-`DASHBOARD_PASSWORD` the password is `mergero-demo`.
+Open <http://127.0.0.1:8765/fi> and <http://127.0.0.1:8765/dashboard>
+(password `mergero-demo` unless `DASHBOARD_PASSWORD` is set). Without LLM keys
+the dashboard uses template drafts. Run the tests with `pytest`.
 
-Seed two demo owners (a Finnish logistics company and a German installation
-company in the DACH size band, arriving via a postal letter), optionally with
-AI drafts:
-
-```bash
-python -m demandcheck.demo --drafts
-```
-
-Regenerate the buyer sample (deterministic, seeded):
+Restore the seeded demo state (deletes all owners, checks, messages and added
+buyers):
 
 ```bash
-python -m demandcheck.buyers
-```
-
-Run the tests:
-
-```bash
-pytest
+python -m demandcheck.demo --reset --confirm mgx-demand-check [--env .env.production]
 ```
 
 ## Deploy
 
-The app runs on Vercel (Python runtime, FastAPI detected automatically;
-`api/index.py` exposes the app) with a Turso (libSQL) database. Vercel's
-filesystem is not shared between requests, so production data lives in Turso;
-local runs and tests use a SQLite file.
+Runs on Vercel (Python runtime; `api/index.py` exposes the FastAPI app) with a
+Turso (libSQL) database, because Vercel's filesystem is not shared between
+requests. Local runs and tests use SQLite; `DATABASE_URL` switches to Turso.
 
-1. Create a Turso database and a token (Turso CLI or Platform API).
-2. Put the production values in `.env.production` (gitignored):
-   `DATABASE_URL=libsql://<db>.turso.io`, `DATABASE_AUTH_TOKEN`,
-   `DASHBOARD_PASSWORD`, `SESSION_SECRET`.
-3. Seed the demo owners and drafts:
-   `python -m demandcheck.demo --drafts --env .env.production`
-4. Add the same variables plus `GROQ_API_KEY` and `OPENCODE_API_KEY` to the
-   Vercel project (`vercel env add <NAME> production`), then deploy:
-   `vercel deploy --prod`.
-
-`SESSION_SECRET` must be set in production so dashboard logins survive across
-function instances. The buyer sample ships with the code and is read-only.
-
-## Configuration
+1. Create a Turso database and token; put `DATABASE_URL`,
+   `DATABASE_AUTH_TOKEN`, `DASHBOARD_PASSWORD` and `SESSION_SECRET` in
+   `.env.production` (gitignored).
+2. Seed: `python -m demandcheck.demo --drafts --env .env.production`.
+3. Add the same variables plus `GROQ_API_KEY` and `OPENCODE_API_KEY` to the
+   Vercel project (`vercel env add <NAME> production`), then `vercel deploy --prod`.
 
 | Variable | Purpose |
 |---|---|
 | `GROQ_API_KEY` | Groq free tier, tried first for drafts |
 | `OPENCODE_API_KEY` | OpenCode Zen fallback |
 | `DASHBOARD_PASSWORD` | Advisor dashboard password |
-| `SESSION_SECRET` | Cookie signing key (random per process if unset) |
-| `DATABASE_URL` | Turso/libSQL URL; when set, used instead of SQLite |
-| `DATABASE_AUTH_TOKEN` | Turso database token |
-| `DB_PATH` | SQLite path when `DATABASE_URL` is unset (default `data/demandcheck.db`) |
+| `SESSION_SECRET` | Cookie signing key; must be set in production |
+| `DATABASE_URL`, `DATABASE_AUTH_TOKEN` | Turso database; SQLite is used when unset |
+| `DB_PATH` | SQLite path (default `data/demandcheck.db`) |
 
-Without any LLM key the dashboard falls back to template drafts.
+## AI use
 
-## Notes
-
-- Legal design notes (consent per channel, proof of consent, double opt-in,
-  AI disclosure) reflect research, not legal advice. A review by counsel in each
-  target country is recommended before launch.
-- Built with the help of Claude Code (AI coding assistant).
+Built with [Claude Code](https://claude.com/claude-code) (Anthropic's AI coding
+assistant), which wrote most of the code, tests and translations under the
+author's direction. At runtime a
+language model (Groq, with OpenCode Zen as fallback) only drafts internal text:
+call briefs and anonymous profile drafts. Matching, valuation, consent handling
+and emails are deterministic code.
 
 ## License
 
