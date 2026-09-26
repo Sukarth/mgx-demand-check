@@ -57,13 +57,11 @@ All notable changes to this project are documented here. The format follows
 
 - Demo seeder with a Finnish owner and a German owner in the DACH size band
   (indicative EV about €41 to 56M) who arrives through a postal letter.
-
 - Turso (libSQL) storage over the Hrana HTTP protocol, selected by
   `DATABASE_URL`/`DATABASE_AUTH_TOKEN`; SQLite remains the default for local
   runs and tests. Same schema on both.
 - Vercel deployment: `api/index.py` entry point, `vercel.json` (Dublin region),
   `requirements.txt`, `.vercelignore`; `--env` option on the demo seeder.
-
 - Protected demo reset (`python -m demandcheck.demo --reset --confirm mgx-demand-check`)
   that empties the database and restores the two demo owners with reviewed
   drafts from `data/demo_drafts.json`; no public endpoint.
@@ -80,6 +78,10 @@ All notable changes to this project are documented here. The format follows
 - Call brief opening lines use the customary form of address (German: "Sie"
   with title and surname); brief and profile prompts restrict statements to
   the given facts, and the profile no longer receives the owner's language.
+- README rewritten for reviewers: live links, how buyer data works, privacy
+  and consent design, AI-use disclosure.
+- Demo companies and sample letter recipients are marked "(Demo)"; test
+  fixtures use a synthetic business ID.
 - Euro amounts use local notation in Finnish, German and Swedish.
 - Buyer sample retuned: exact type mix (private equity 55%, strategic 25%,
   family offices 12%, search funds 8%), one to three sectors and country
