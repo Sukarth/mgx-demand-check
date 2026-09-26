@@ -15,7 +15,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
 
-from . import briefs, nurture, registry
+from . import briefs, letters, nurture, registry
 from .buyers import BUYER_TYPES, Buyer, buyer_from_criteria, load_buyers
 from .consent import CHANNELS, CONSENT_VERSION, consent_text, parse_optin
 from .i18n import (
@@ -407,6 +407,40 @@ def run_nurture(request: Request) -> int:
         store.set_snapshot(owner["id"], nurture.snapshot(change.result))
         queued += 1
     return queued
+
+
+LETTER_SAMPLE = ROOT.parent / "data" / "letter_targets_sample.csv"
+
+
+@app.get("/dashboard/letters", response_class=HTMLResponse)
+def letters_form(request: Request):
+    if (r := _require(request)):
+        return r
+    csv_text = LETTER_SAMPLE.read_text(encoding="utf-8") if LETTER_SAMPLE.exists() else ""
+    targets, errors = letters.parse_targets(csv_text)
+    return render(request, "dashboard/letters.html", csv_text=csv_text, errors=errors,
+                  preview=_letter_preview(request, targets))
+
+
+def _letter_preview(request: Request, targets: list) -> list[dict]:
+    buyers = current_buyers()
+    base = str(request.base_url)
+    return [{"target": t, "count": letters.letter_count(buyers, t),
+             "url": letters.target_url(base, "de", t)} for t in targets]
+
+
+@app.post("/dashboard/letters")
+def letters_pdf(request: Request, csv_text: str = Form(""), action: str = Form("pdf")):
+    if (r := _require(request)):
+        return r
+    targets, errors = letters.parse_targets(csv_text)
+    if action != "pdf" or errors or not targets:
+        return render(request, "dashboard/letters.html", csv_text=csv_text,
+                      errors=errors or (["No valid rows."] if not targets else []),
+                      preview=_letter_preview(request, targets))
+    pdf = letters.render_letters(targets, current_buyers(), str(request.base_url), lang="de")
+    return Response(pdf, media_type="application/pdf",
+                    headers={"Content-Disposition": 'inline; filename="letters-de.pdf"'})
 
 
 @app.get("/dashboard/messages/{message_id}", response_class=HTMLResponse)

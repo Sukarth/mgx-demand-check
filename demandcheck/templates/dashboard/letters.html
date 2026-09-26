@@ -1,0 +1,34 @@
+{% extends "dashboard/base.html" %}
+{% block title %}Postal letters{% endblock %}
+{% block content %}
+<p><a href="/dashboard">← Owner inbox</a></p>
+<div class="split">
+  <div class="card">
+    <h1 style="font-size:1.4rem">Postal letters for DACH</h1>
+    <p class="muted">Postal mail is the channel for a first, unsolicited contact with companies in Germany, Austria and Switzerland. Each letter shows the live buyer count for the recipient's sector and country and a QR code to the anonymous check. Sending can later be automated through a letter API; here the output is a print-ready PDF.</p>
+    {% if errors %}<div class="errors">{% for e in errors %}<p>{{ e }}</p>{% endfor %}</div>{% endif %}
+    <form method="post" action="/dashboard/letters" target="_blank">
+      <div class="field">
+        <label for="csv_text">Target companies (CSV)</label>
+        <textarea id="csv_text" name="csv_text" rows="9" style="width:100%;font:13px/1.4 ui-monospace,Consolas,monospace;padding:.6rem;border:1px solid #c8ced9;border-radius:8px">{{ csv_text }}</textarea>
+        <div class="help">Columns: company, contact, street, postcode, city, country (DE, AT, CH...), sector (id). Sample rows are fictional.</div>
+      </div>
+      <button class="btn" name="action" value="pdf">Generate PDF</button>
+      <button class="btn secondary" name="action" value="preview" formtarget="_self">Update preview</button>
+    </form>
+  </div>
+  <div class="card">
+    <h2>Preview</h2>
+    <table>
+      <thead><tr><th>Company</th><th>Sector · country</th><th>Buyers</th></tr></thead>
+      {% for p in preview %}
+      <tr>
+        <td><b>{{ p.target.company }}</b><br><small>{{ p.target.city }}</small></td>
+        <td>{{ t('sector.' ~ p.target.sector) }}<br><small>{{ t('country.' ~ p.target.country) }} · <a href="{{ p.url }}" target="_blank">landing page</a></small></td>
+        <td><b>{{ p.count if p.count >= 5 else '<5' }}</b></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -138,3 +138,15 @@ def test_parse_optin_only_counts_explicit_yes():
     assert data.channels == ["updates"]
     assert parse_optin({"email": "a@b.fi"}).errors == ["optin.error_no_consent"]
     assert "optin.error_phone_needed" in parse_optin({"email": "a@b.fi", "consent_sms": "yes"}).errors
+
+
+def test_letters_page_and_pdf(client):
+    assert client.get("/dashboard/letters", follow_redirects=False).status_code == 303
+    client.post("/dashboard/login", data={"password": "test-password"})
+    page = client.get("/dashboard/letters")
+    assert "Muster Elektrotechnik GmbH" in page.text
+    csv_text = app_module.LETTER_SAMPLE.read_text(encoding="utf-8")
+    r = client.post("/dashboard/letters", data={"csv_text": csv_text, "action": "pdf"})
+    assert r.headers["content-type"] == "application/pdf" and r.content.startswith(b"%PDF")
+    bad = client.post("/dashboard/letters", data={"csv_text": "nope", "action": "pdf"})
+    assert "Missing columns" in bad.text

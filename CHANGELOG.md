@@ -44,6 +44,12 @@ All notable changes to this project are documented here. The format follows
   `/de/branchen/logistik-und-transport`) with redirects between languages and
   a per-country buyer count.
 
+- Postal letter generator for DACH: CSV of target companies in, print-ready
+  German PDF out, one letter per company with the live buyer count for its
+  sector and country, a QR code to the localized sector page, window-envelope
+  address layout and a GDPR Art. 14 source notice. Fictional sample targets
+  included.
+
 ### Changed
 - Euro amounts use local notation in Finnish, German and Swedish.
 - Buyer sample retuned: exact type mix (private equity 55%, strategic 25%,
