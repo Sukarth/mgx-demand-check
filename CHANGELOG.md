@@ -35,5 +35,5 @@ All notable changes to this project are documented here. The format follows
   further languages.
 
 ### Changed
-- Email confirmation opens as a modal demo inbox; until confirmed, the page
+- Email confirmation is shown in a modal demo inbox opened on request; until confirmed, the page
   asks the owner to confirm and marks email channels as awaiting confirmation.

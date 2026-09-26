@@ -41,7 +41,6 @@
   (function () {
     var dialog = document.getElementById('inbox');
     if (!dialog || typeof dialog.showModal !== 'function') return;
-    dialog.showModal();
     document.getElementById('open-inbox').addEventListener('click', function () { dialog.showModal(); });
     dialog.addEventListener('click', function (e) { if (e.target === dialog) dialog.close(); });
   })();
