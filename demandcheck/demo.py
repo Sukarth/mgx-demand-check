@@ -9,14 +9,22 @@ arrives through a postal letter. Usage::
     python -m demandcheck.demo --drafts   # also draft call briefs and profiles
     python -m demandcheck.demo --drafts --env .env.production   # seed the Turso database
 
+Restore the seeded demo state (deletes every owner, check, consent, message
+and added buyer; drafts come from ``data/demo_drafts.json``). The database
+name must be repeated as a confirmation::
+
+    python -m demandcheck.demo --reset --confirm mgx-demand-check --env .env.production
+
 The buyer sample itself ships with the code (``data/buyers_sample.json``) and
 is read-only; the database holds owners, consents, drafts and added buyers.
 """
 
 from __future__ import annotations
 
+import json
 import os
 import sys
+from pathlib import Path
 
 from . import briefs, nurture
 from .buyers import load_buyers
@@ -30,18 +38,23 @@ DEMO_OWNERS = (
         "lang": "fi", "sector": "logistics", "country": "FI", "revenue_band": "r_10_20",
         "ebitda_band": "e_1_2", "timing": "1_2y", "ownership": "100", "source": "sector",
         "name": "Matti Meikäläinen", "email": "matti@example.com", "phone": "+358 40 000 0001",
-        "company": "Esimerkki Logistiikka Oy", "channels": ("phone", "updates"),
+        "company": "Esimerkki Logistiikka Oy (demo)", "channels": ("phone", "updates"),
     },
     {
         "lang": "de", "sector": "technical_installation", "country": "DE", "revenue_band": "r_50_100",
         "ebitda_band": "e_5_10", "timing": "1_2y", "ownership": "100", "source": "letter",
         "name": "Max Mustermann", "email": "max@example.com", "phone": "+49 89 000 0001",
-        "company": "Muster Elektrotechnik GmbH", "channels": ("email", "phone", "updates"),
+        "company": "Muster Elektrotechnik GmbH (Demo)", "channels": ("email", "phone", "updates"),
     },
 )
 
 
-def seed(store: Store, with_drafts: bool = False) -> list[int]:
+DRAFTS_PATH = Path(__file__).resolve().parent.parent / "data" / "demo_drafts.json"
+RESET_CONFIRMATION = "mgx-demand-check"
+
+
+def seed(store: Store, with_drafts: bool = False, saved_drafts: dict | None = None) -> list[int]:
+    """Create the demo owners. ``saved_drafts`` (keyed by email, then kind) skips the LLM."""
     buyers = load_buyers()
     existing = {o["email"] for o in store.list_owners()}
     ids = []
@@ -60,13 +73,30 @@ def seed(store: Store, with_drafts: bool = False) -> list[int]:
             needs_confirmation=True)
         store.confirm_email(owner["id"])
         ids.append(owner["id"])
-        if with_drafts:
+        if saved_drafts and d["email"] in saved_drafts:
+            for kind, draft in saved_drafts[d["email"]].items():
+                store.save_draft(owner["id"], kind, draft["model"], draft["data"])
+        elif with_drafts:
             client = LLMClient(cache=store)
             owner = store.get_owner(owner["id"])
             for kind in ("brief", "profile"):
                 data, source = briefs.draft(kind, briefs.owner_facts(owner, list(d["channels"])), client)
                 store.save_draft(owner["id"], kind, source, data)
     return ids
+
+
+def export_drafts(store: Store, path: Path = DRAFTS_PATH) -> None:
+    """Save the demo owners' current drafts so a reset can restore them without the LLM."""
+    emails = {d["email"] for d in DEMO_OWNERS}
+    out = {o["email"]: {k: {"model": v["model"], "data": v["data"]} for k, v in store.drafts(o["id"]).items()}
+           for o in store.list_owners() if o["email"] in emails}
+    path.write_text(json.dumps(out, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+
+
+def reset(store: Store) -> list[int]:
+    saved = json.loads(DRAFTS_PATH.read_text(encoding="utf-8")) if DRAFTS_PATH.exists() else None
+    store.reset()
+    return seed(store, with_drafts=saved is None, saved_drafts=saved)
 
 
 def load_env_file(path: str) -> None:
@@ -82,5 +112,15 @@ if __name__ == "__main__":
         load_env_file(sys.argv[sys.argv.index("--env") + 1])
     store = Store()
     print(f"Database: {type(store.db).__name__}")
-    created = seed(store, with_drafts="--drafts" in sys.argv)
-    print(f"Created {len(created)} demo owner(s): {created}")
+    if "--reset" in sys.argv:
+        given = sys.argv[sys.argv.index("--confirm") + 1] if "--confirm" in sys.argv else ""
+        if given != RESET_CONFIRMATION:
+            sys.exit(f"Refusing to reset: add --confirm {RESET_CONFIRMATION}")
+        created = reset(store)
+        print(f"Reset done. Demo owner(s): {created}")
+    elif "--export-drafts" in sys.argv:
+        export_drafts(store)
+        print(f"Wrote {DRAFTS_PATH}")
+    else:
+        created = seed(store, with_drafts="--drafts" in sys.argv)
+        print(f"Created {len(created)} demo owner(s): {created}")

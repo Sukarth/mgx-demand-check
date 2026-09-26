@@ -124,13 +124,13 @@ def test_translated_owner_pages(client, lang, text):
 
 def test_prh_lookup_endpoint(client, monkeypatch):
     from demandcheck import registry
-    company = registry.Company("0536104-0", "Example Oy", "49410", "Freight", "logistics")
+    company = registry.Company("7654321-2", "Example Oy", "49410", "Freight", "logistics")
     monkeypatch.setattr(registry, "lookup", lambda bid, lang="fi": company)
-    data = client.get("/api/prh/0536104-0?lang=fi").json()
+    data = client.get("/api/prh/7654321-2?lang=fi").json()
     assert data["ok"] and data["sector"] == "logistics" and "Example Oy" in data["message"]
     assert client.get("/api/prh/1234567-8").status_code == 400
     monkeypatch.setattr(registry, "lookup", lambda bid, lang="fi": None)
-    assert client.get("/api/prh/0536104-0").status_code == 404
+    assert client.get("/api/prh/7654321-2").status_code == 404
 
 
 def test_parse_optin_only_counts_explicit_yes():
@@ -184,3 +184,20 @@ def test_update_email_grammar_and_address():
     assert "1 uusi yritykseesi sopiva ostaja" in fi and fi.startswith("Hei Matti,")
     _, de = update_email({**base, "lang": "de", "name": "Max Mustermann"}, change, "u", "x")
     assert de.startswith("Guten Tag Max Mustermann,") and "ist 1 neuer Käufer" in de
+
+
+def test_reset_restores_seeded_state(tmp_path):
+    from demandcheck import demo
+    from demandcheck.store import Store
+    store = Store(tmp_path / "reset.db")
+    demo.seed(store)
+    cid = store.add_check(lang="en", sector="logistics", country="FI", revenue_band="r_10_20",
+                          ebitda_band="e_1_2", timing=None, ownership=None, source=None, match_total=1)
+    store.add_owner(check_id=cid, lang="en", name="Judge", email="j@example.com", phone="", company="",
+                    snapshot={"total": 1}, consents=[], needs_confirmation=False)
+    store.add_buyer({"id": "N001"})
+    ids = demo.reset(store)
+    owners = store.list_owners()
+    assert ids == [1, 2] and len(owners) == 2 and store.count_checks() == 2
+    assert not store.added_buyers() and all("(demo)" in o["company"].lower() for o in owners)
+    assert all(set(store.drafts(o["id"])) == {"brief", "profile"} for o in owners)

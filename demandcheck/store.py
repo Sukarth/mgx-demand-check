@@ -188,6 +188,15 @@ class Store:
         self.db = backend or backend_from_env(path)
         self.db.batch([(stmt, ()) for stmt in SCHEMA.split(";") if stmt.strip()])
 
+    TABLES = ("messages", "drafts", "consents", "owners", "checks", "added_buyers", "llm_cache")
+
+    def reset(self) -> None:
+        """Delete all rows (schema is kept) and restart id counters."""
+        statements = [(f"DELETE FROM {t}", ()) for t in self.TABLES]
+        if self._one("SELECT name FROM sqlite_master WHERE name = 'sqlite_sequence'"):
+            statements.append(("DELETE FROM sqlite_sequence", ()))
+        self.db.batch(statements)
+
     def _exec(self, sql: str, params: tuple = ()) -> int | None:
         return self.db.execute(sql, params)[1]
 

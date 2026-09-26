@@ -1,0 +1,126 @@
+{
+ "max@example.com": {
+  "brief": {
+   "model": "groq:qwen/qwen3.8-27b",
+   "data": {
+    "summary": "This is a first contact with Max Mustermann, the sole owner of Muster Elektrotechnik GmbH, who recently requested information on buyer interest. The call aims to discuss the strong demand from 62 potential buyers and explore how to best support the owner's timeline for a potential sale within the next one to two years.",
+    "situation": [
+     "Sector: Electrical and technical installation in Germany.",
+     "Size: Revenue between €50M and €100M with EBITDA between €5M and €10M.",
+     "Ownership: Max Mustermann holds 100% of the shares.",
+     "Timing: The owner is considering a sale in one to two years.",
+     "Channels: The owner has consented to contact via email, phone, and updates."
+    ],
+    "buyer_fit": [
+     "25 Private equity funds are interested, typically looking for stable cash flows and operational efficiency to drive growth.",
+     "20 Strategic acquirers are a match, often seeking to expand their service portfolio or geographic footprint in the electrical installation sector.",
+     "13 Family offices are potential buyers, usually seeking long-term, stable investments with a focus on continuity and management quality.",
+     "4 Private equity add-on buyers are interested, typically looking for smaller, complementary businesses to integrate into an existing platform."
+    ],
+    "opening_line": "Guten Tag Herr Mustermann, ich bin von Mergero und rufe an, da Sie sich kürzlich über das Interesse potenzieller Käufer an Ihrem Unternehmen informiert haben.",
+    "opening_line_en": "Good day Mr. Mustermann, I am calling from Mergero because you recently inquired about the interest of potential buyers in your company.",
+    "questions": [
+     "What are your primary goals for the business over the next one to two years, and how does a potential sale fit into that vision?",
+     "How important is it to you to keep the current management team and employees in place after a transition?",
+     "What aspects of the company's operations or market position do you believe are most attractive to external buyers?",
+     "Are there any specific concerns or sensitivities regarding confidentiality that we should be aware of as we discuss this further?",
+     "How do you envision the process unfolding, and what level of involvement would you prefer to have during the early stages?"
+    ],
+    "watch_outs": [
+     "Ensure the owner understands that the indicative valuation range is based on general market data and not a formal offer.",
+     "Be sensitive to the owner's caution and emphasize that no immediate action is required, respecting the one-to-two-year timeline.",
+     "Maintain strict confidentiality regarding the specific identities of the 62 matching buyers until a formal process is initiated."
+    ]
+   }
+  },
+  "profile": {
+   "model": "groq:openai/gpt-oss-20b",
+   "data": {
+    "headline": "Profitable Electrical and Technical Installation Company in Germany",
+    "summary": "A German electrical and technical installation business with annual revenues between €50 and €100 million and EBITDA of €5 to €10 million. The owner holds 100% of the shares and is looking to sell within one to two years. The company operates in the electrical and technical installation sector.",
+    "key_facts": [
+     "Sector: Electrical and technical installation",
+     "Country: Germany",
+     "Revenue band: €50 to 100 M",
+     "EBITDA band: €5 to 10 M",
+     "Ownership share: 100%",
+     "Timing: 1–2 years"
+    ],
+    "highlights": [
+     "Revenue €50–100 M",
+     "EBITDA €5–10 M",
+     "100% ownership",
+     "Sale within 1–2 years"
+    ],
+    "ideal_buyers": "Private equity funds, strategic acquirers, family offices, and private equity add‑on buyers would be suitable, given the company’s size and sector focus.",
+    "transaction": "The owner may consider a full equity sale within the next one to two years."
+   }
+  }
+ },
+ "matti@example.com": {
+  "brief": {
+   "model": "groq:openai/gpt-oss-120b",
+   "data": {
+    "summary": "Matti Meikäläinen runs Esimerkki Logistiikka Oy, a Finnish logistics firm with €10‑20 M revenue and €1‑2 M EBITDA. The upcoming call is crucial to explore continuity, employee security and strategic options before a potential sale in 1‑2 years.",
+    "situATION": [
+     "Sector: Logistics and transport",
+     "Revenue: €10‑20 M",
+     "EBITDA: €1‑2 M",
+     "Owner holds 100% share",
+     "Timing: sale consideration in 1‑2 years"
+    ],
+    "buyer_fit": [
+     "Strategic acquirers (19) – typically seek market expansion or service integration",
+     "Private equity add‑on buyers (17) – look for platforms to bolt on complementary logistics assets",
+     "Search funds/independent sponsors (8) – interested in founder‑led, cash‑flow positive businesses",
+     "Private equity funds (4) – target mid‑size profitable companies for growth upside"
+    ],
+    "opening_line": "Hei Matti, kiitos että otit yhteyttä. Keskustellaan miten voimme varmistaa yrityksesi jatkuvuuden ja henkilöstön hyvinvoinnin myyntiprosessin aikana.",
+    "opening_line_en": "Hi Matti, thank you for reaching out. Let’s discuss how we can ensure the continuity of your business and the wellbeing of your staff throughout the sale process.",
+    "questions": [
+     "What are your top priorities for the business over the next two years, beyond a potential sale?",
+     "How many employees do you have and what are the key roles you consider critical to retain?",
+     "Are there any specific operational or geographic areas you would like a buyer to preserve or develop?",
+     "What level of involvement would you prefer to have during the transition period, if a sale proceeds?",
+     "Do you have any confidentiality or timing constraints we should be aware of when engaging potential buyers?"
+    ],
+    "watch_outs": [
+     "Ensure expectations about valuation are realistic given the €6‑9 M EV range",
+     "Respect the 1‑2 year timeline and avoid pressuring the owner prematurely",
+     "Maintain strict confidentiality, especially as the owner consented only to phone and update channels"
+    ],
+    "situation": [
+     "Sector: logistics and transport, Finland",
+     "Revenue €10–20M, EBITDA €1–2M",
+     "Owns 100% of the company",
+     "Considering a sale or new owner in one to two years",
+     "Consented to phone calls and quarterly buyer demand updates"
+    ]
+   }
+  },
+  "profile": {
+   "model": "groq:openai/gpt-oss-120b",
+   "data": {
+    "headline": "Profitable logistics and transport business in Finland",
+    "summary": "A logistics and transport company in Finland with revenue of €10–20M and EBITDA of €1–2M. The owner holds 100% of the shares and is considering a sale within the next one to two years. [Short description of services and customers].",
+    "key_facts": [
+     "Sector: Logistics and transport",
+     "Country: Finland",
+     "Revenue: €10 to €20 million",
+     "EBITDA: €1 to €2 million",
+     "Ownership: 100% share",
+     "Timing: Sale expected in 1‑2 years"
+    ],
+    "highlights": [
+     "EBITDA of €1–2M on revenue of €10–20M",
+     "Full ownership simplifies the transaction",
+     "[Number of employees]",
+     "[Key contracts and customer concentration]",
+     "[Fleet, terminals or other key assets]"
+    ],
+    "ideal_buyers": "Strategic logistics groups, private‑equity add‑on buyers, search funds, and family offices looking to expand their footprint in the Nordic transport sector would find this opportunity attractive.",
+    "transaction": "Owner is open to discussing a full sale of the 100% equity stake."
+   }
+  }
+ }
+}

@@ -64,6 +64,10 @@ All notable changes to this project are documented here. The format follows
 - Vercel deployment: `api/index.py` entry point, `vercel.json` (Dublin region),
   `requirements.txt`, `.vercelignore`; `--env` option on the demo seeder.
 
+- Protected demo reset (`python -m demandcheck.demo --reset --confirm mgx-demand-check`)
+  that empties the database and restores the two demo owners with reviewed
+  drafts from `data/demo_drafts.json`; no public endpoint.
+
 ### Fixed
 - Embedded widget no longer grows in a resize loop; it reports the height of
   its card instead of the document.

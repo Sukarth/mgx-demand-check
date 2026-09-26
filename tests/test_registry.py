@@ -4,7 +4,7 @@ import pytest
 from demandcheck import registry
 
 PAYLOAD = {"totalResults": 1, "companies": [{
-    "businessId": {"value": "0536104-0"},
+    "businessId": {"value": "7654321-2"},
     "names": [
         {"name": "Old Name Oy", "type": "1", "endDate": "2010-01-01"},
         {"name": "Example Logistiikka Oy", "type": "1"},
@@ -18,7 +18,7 @@ PAYLOAD = {"totalResults": 1, "companies": [{
 
 
 @pytest.mark.parametrize("value,ok", [
-    ("0112038-9", True), ("0536104-0", True), ("1234567-8", False), ("0112038-8", False), ("112038-9", False),
+    ("0112038-9", True), ("7654321-2", True), ("1234567-8", False), ("0112038-8", False), ("112038-9", False),
 ])
 def test_business_id_check_digit(value, ok):
     assert registry.valid_business_id(value) is ok
@@ -52,9 +52,9 @@ def test_lookup_uses_prh_v3_and_handles_errors():
         return httpx.Response(200, json=PAYLOAD)
 
     client = httpx.Client(transport=httpx.MockTransport(handler))
-    assert registry.lookup("0536104-0", http=client).sector == "logistics"
-    assert "opendata-ytj-api/v3/companies?businessId=0536104-0" in seen["url"]
+    assert registry.lookup("7654321-2", http=client).sector == "logistics"
+    assert "opendata-ytj-api/v3/companies?businessId=7654321-2" in seen["url"]
 
     down = httpx.Client(transport=httpx.MockTransport(lambda r: httpx.Response(503)))
     with pytest.raises(registry.RegistryUnavailable):
-        registry.lookup("0536104-0", http=down)
+        registry.lookup("7654321-2", http=down)
