@@ -50,9 +50,9 @@ Write in English, except the opening line, which must be in the owner's language
 Use only the facts given. Do not invent numbers, names, history or buyer identities. Keep a warm, direct, discreet tone: owners are often cautious and not technical. Lead with continuity, employees and options, not with price.
 Return a JSON object with keys:
 "summary": two sentences on who this is and why the call matters,
-"situation": list of 3 to 5 short bullets on what the owner told us,
+"situation": list of 3 to 5 short bullets restating only what is in the facts (sector, size, timing, ownership, channels); never add motives, attitudes or history,
 "buyer_fit": list of 2 to 4 bullets on which buyer groups match (with their counts) and what that type of buyer usually looks for; do not invent specific buyers, strategies or regions,
-"opening_line": one or two sentences the advisor can say to open the call, in the owner's language,
+"opening_line": one or two sentences the advisor can say to open the call, in the owner's language, with the form of address customary in business there: in German use "Sie" and "Herr" or "Frau" with the surname (if the gender is unclear, use the full name without a title); in Finnish and Swedish the first name is fine,
 "opening_line_en": English translation of the opening line,
 "questions": list of 5 open questions to ask, in English,
 "watch_outs": list of 1 to 3 things to be careful about (for example expectations, timing, confidentiality)."""
@@ -62,14 +62,14 @@ Write in English. The profile must not identify the company: no company name, no
 Use only the facts given. Where a typical teaser point is unknown, write a placeholder in square brackets for the advisor to fill in, for example "[number of employees]". Never invent facts.
 Return a JSON object with keys:
 "headline": a short anonymous headline such as "Profitable logistics company in Finland",
-"summary": three to four sentences,
+"summary": three to four sentences using only the facts given; do not describe customers, market position, stability, growth, reputation or management,
 "key_facts": list of 4 to 6 "Label: value" strings,
 "highlights": list of 3 to 5 investment highlight bullets. Each bullet either restates a given fact or is a bracketed placeholder for the advisor, for example "[Customer base and contract length]". Do not claim anything about customers, margins, growth, location or market position that is not in the facts,
 "ideal_buyers": one or two sentences on which buyer types fit and why,
 "transaction": one sentence on the transaction the owner may consider."""
 
 
-PROFILE_EXCLUDED = frozenset({"contact_name", "company", "consented_channels", "indicative_ev_range",
+PROFILE_EXCLUDED = frozenset({"contact_name", "company", "consented_channels", "indicative_ev_range", "owner_language",
                               "matching_buyers_total", "matching_buyers_by_hq_country"})
 
 

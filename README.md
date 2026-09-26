@@ -21,14 +21,22 @@ version, language and timestamp.
 ## What it does
 
 **Owner side (public)**
+- English, Finnish, German and Swedish (`/en`, `/fi`, `/de`, `/sv`; the root
+  picks the browser language).
 - Four-question check, result first, optional timing and ownership share.
+- Finnish companies can pre-fill the industry from their business ID
+  (Y-tunnus) via the PRH open data API; manual entry is always possible.
 - Buyer count with a privacy threshold: groups under five buyers are pooled or
   shown as "fewer than 5", so no individual buyer can be inferred.
 - Indicative EV range from sector EBITDA multiples with a size adjustment,
   clearly labelled as indicative. No multiple-based value for loss-making firms.
 - Opt-in with one consent per channel (email, phone, SMS, WhatsApp, quarterly
   updates) and simulated email double opt-in.
-- Sector pages with a live buyer count per industry and country.
+- Localized sector pages with a live buyer count per industry and country,
+  e.g. `/fi/toimialat/logistiikka-ja-kuljetus`, `/de/branchen/logistik-und-transport`.
+- Embed widget for partner sites (accountants, banks, chambers):
+  `<script src="https://<host>/embed.js" data-lang="fi" data-partner="name" async></script>`.
+  A fictional demo partner page is at `/demo/partner`.
 - Privacy notice (GDPR Art. 13 outline).
 
 **Advisor side (`/dashboard`, password protected)**
@@ -39,6 +47,9 @@ version, language and timestamp.
   for review by an advisor; the profile draft never receives the owner's name,
   company or contact details.
 - Status pipeline: new, contacted, call booked, soft launch, mandate, not now.
+- Postal letters for DACH (`/dashboard/letters`): CSV of target companies in,
+  print-ready German PDF out, with the buyer count for each company's sector
+  and country, a QR code to the sector page and a GDPR Art. 14 source notice.
 - Buyer-demand refresh: adding a buyer recomputes matches for every owner with
   confirmed update consent and queues a "buyer demand changed" email in the
   owner's language, with an unsubscribe link.
@@ -61,6 +72,14 @@ uvicorn demandcheck.app:app --port 8765
 Open <http://127.0.0.1:8765/en> for the owner flow and
 <http://127.0.0.1:8765/dashboard> for the advisor view. Without
 `DASHBOARD_PASSWORD` the password is `mergero-demo`.
+
+Seed two demo owners (a Finnish logistics company and a German installation
+company in the DACH size band, arriving via a postal letter), optionally with
+AI drafts:
+
+```bash
+python -m demandcheck.demo --drafts
+```
 
 Regenerate the buyer sample (deterministic, seeded):
 

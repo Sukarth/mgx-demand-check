@@ -55,7 +55,13 @@ All notable changes to this project are documented here. The format follows
   partner is recorded as the source. Fictional demo partner page at
   `/demo/partner`.
 
+- Demo seeder with a Finnish owner and a German owner in the DACH size band
+  (indicative EV about €41 to 56M) who arrives through a postal letter.
+
 ### Changed
+- Call brief opening lines use the customary form of address (German: "Sie"
+  with title and surname); brief and profile prompts restrict statements to
+  the given facts, and the profile no longer receives the owner's language.
 - Euro amounts use local notation in Finnish, German and Swedish.
 - Buyer sample retuned: exact type mix (private equity 55%, strategic 25%,
   family offices 12%, search funds 8%), one to three sectors and country

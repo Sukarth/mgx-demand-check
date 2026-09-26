@@ -161,3 +161,15 @@ def test_embed_widget(client):
     r = client.post("/fi/check", data={**CHECK, "source": "partner-tilitoimisto"}, follow_redirects=False)
     check_id = r.headers["location"].rsplit("/", 1)[1]
     assert app_module.store.get_check(check_id)["source"] == "partner-tilitoimisto"
+
+
+def test_demo_seed_creates_dach_case_once(tmp_path):
+    from demandcheck.demo import seed
+    from demandcheck.store import Store
+    from demandcheck.valuation import indicative_value
+    store = Store(tmp_path / "demo.db")
+    assert len(seed(store)) == 2 and seed(store) == []
+    de = next(o for o in store.list_owners() if o["lang"] == "de")
+    v = indicative_value(de["sector"], de["ebitda_band"])
+    assert 20_000_000 <= v.ev_low < v.ev_high <= 200_000_000
+    assert de["email_confirmed_at"] and de["source"] == "letter" and de["snapshot"]["total"] >= 20
