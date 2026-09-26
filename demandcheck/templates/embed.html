@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="{{ lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>{{ t('site.name') }}</title>
+<link rel="stylesheet" href="/static/style.css">
+<style>
+  body { background: transparent; }
+  .embed { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.25rem; }
+  .embed h1 { font-size: 1.35rem; }
+  .embed .brandline { font-size: .8rem; color: var(--muted); margin-top: .75rem; }
+</style>
+</head>
+<body>
+<div class="embed">
+  <h1>{{ t('form.title') }}</h1>
+  <p class="help" style="margin-bottom:1rem">{{ t('form.intro') }}</p>
+  <form method="post" action="/{{ lang }}/check" target="_blank">
+    <div class="field">
+      <label for="sector">{{ t('form.sector') }}</label>
+      <select id="sector" name="sector" required>
+        <option value="">{{ t('form.choose') }}</option>
+        {% for s in sectors %}<option value="{{ s }}">{{ t('sector.' ~ s) }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="field">
+      <label for="country">{{ t('form.country') }}</label>
+      <select id="country" name="country" required>
+        <option value="">{{ t('form.choose') }}</option>
+        {% for c in countries %}<option value="{{ c }}">{{ t('country.' ~ c) }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="grid2">
+      <div class="field">
+        <label for="revenue_band">{{ t('form.revenue') }}</label>
+        <select id="revenue_band" name="revenue_band" required>
+          <option value="">{{ t('form.choose') }}</option>
+          {% for b in revenue_bands %}<option value="{{ b }}">{{ t('revenue.' ~ b) }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="field">
+        <label for="ebitda_band">{{ t('form.ebitda') }}</label>
+        <select id="ebitda_band" name="ebitda_band" required>
+          <option value="">{{ t('form.choose') }}</option>
+          {% for b in ebitda_bands %}<option value="{{ b }}">{{ t('ebitda.' ~ b) }}</option>{% endfor %}
+        </select>
+      </div>
+    </div>
+    <input type="hidden" name="source" value="{{ source }}">
+    <button class="btn" type="submit">{{ t('form.submit') }}</button>
+  </form>
+  <ul class="promises">
+    <li>{{ t('promise.anonymous') }}</li>
+    <li>{{ t('promise.no_identity') }}</li>
+  </ul>
+  <p class="brandline">{{ t('site.name') }} · {{ t('site.sample_notice') }}</p>
+</div>
+<script>
+  (function () {
+    function post() { parent.postMessage({ mgxHeight: document.documentElement.scrollHeight + 4 }, '*'); }
+    window.addEventListener('load', post);
+    window.addEventListener('resize', post);
+  })();
+</script>
+</body>
+</html>

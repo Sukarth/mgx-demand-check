@@ -50,6 +50,11 @@ All notable changes to this project are documented here. The format follows
   address layout and a GDPR Art. 14 source notice. Fictional sample targets
   included.
 
+- Embed widget: one script tag (`/embed.js`) renders a compact check in an
+  auto-resizing iframe on partner sites; results open in a new tab and the
+  partner is recorded as the source. Fictional demo partner page at
+  `/demo/partner`.
+
 ### Changed
 - Euro amounts use local notation in Finnish, German and Swedish.
 - Buyer sample retuned: exact type mix (private equity 55%, strategic 25%,

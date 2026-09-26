@@ -150,3 +150,14 @@ def test_letters_page_and_pdf(client):
     assert r.headers["content-type"] == "application/pdf" and r.content.startswith(b"%PDF")
     bad = client.post("/dashboard/letters", data={"csv_text": "nope", "action": "pdf"})
     assert "Missing columns" in bad.text
+
+
+def test_embed_widget(client):
+    js = client.get("/embed.js")
+    assert js.headers["content-type"].startswith("application/javascript") and "iframe" in js.text
+    form = client.get("/fi/embed?src=partner-tilitoimisto")
+    assert 'target="_blank"' in form.text and 'value="partner-tilitoimisto"' in form.text
+    assert "/embed.js" in client.get("/demo/partner").text
+    r = client.post("/fi/check", data={**CHECK, "source": "partner-tilitoimisto"}, follow_redirects=False)
+    check_id = r.headers["location"].rsplit("/", 1)[1]
+    assert app_module.store.get_check(check_id)["source"] == "partner-tilitoimisto"

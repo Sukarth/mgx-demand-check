@@ -215,6 +215,42 @@ def privacy(request: Request, lang: str):
     return render(request, "privacy.html", _lang_or_404(lang))
 
 
+EMBED_JS = """(function () {
+  var script = document.currentScript;
+  if (!script) return;
+  var origin = new URL(script.src).origin;
+  var lang = script.getAttribute('data-lang') || 'en';
+  var partner = (script.getAttribute('data-partner') || 'partner').replace(/[^a-z0-9-]/gi, '').slice(0, 30);
+  var frame = document.createElement('iframe');
+  frame.src = origin + '/' + encodeURIComponent(lang) + '/embed?src=partner-' + partner;
+  frame.title = 'MGX Demand Check';
+  frame.loading = 'lazy';
+  frame.style.cssText = 'width:100%;max-width:560px;border:0;height:640px;display:block';
+  window.addEventListener('message', function (e) {
+    if (e.origin === origin && e.data && e.data.mgxHeight) frame.style.height = e.data.mgxHeight + 'px';
+  });
+  script.parentNode.insertBefore(frame, script.nextSibling);
+})();
+"""
+
+
+@app.get("/embed.js", include_in_schema=False)
+def embed_js():
+    return Response(EMBED_JS, media_type="application/javascript",
+                    headers={"Cache-Control": "public, max-age=300"})
+
+
+@public.get("/{lang}/embed", response_class=HTMLResponse)
+def embed_form(request: Request, lang: str, src: str = "partner"):
+    lang = _lang_or_404(lang)
+    return render(request, "embed.html", lang, source=src[:40], **form_options())
+
+
+@app.get("/demo/partner", response_class=HTMLResponse, include_in_schema=False)
+def demo_partner(request: Request):
+    return templates.TemplateResponse(request, "demo_partner.html", {"request": request})
+
+
 @app.get("/api/prh/{business_id}")
 def prh_lookup(business_id: str, lang: str = "fi"):
     """Look up a Finnish company to pre-fill the form; the ID is not stored."""
