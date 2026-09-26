@@ -1,27 +1,50 @@
 {% extends "base.html" %}
 {% block content %}
+{% set email_channels = ['email', 'updates'] %}
 <div class="card">
-  <h1>{{ t('thanks.title') }}</h1>
-  <p class="lead">{{ t('thanks.body') }}</p>
+  {% if confirm_url %}
+    <h1>{{ t('thanks.confirm_title') }}</h1>
+    <p class="lead">{{ t('thanks.confirm_body', email=owner.email) }}</p>
+  {% else %}
+    <h1>{{ t('thanks.title') }}</h1>
+    <p class="lead">{{ t('thanks.body') }}</p>
+  {% endif %}
   <ul class="chips" style="margin-bottom:1rem">
-    {% for ch in channels %}<li>✓ {{ t('channel.' ~ ch) }}</li>{% endfor %}
+    {% for ch in channels %}
+      {% if confirm_url and ch in email_channels %}
+        <li class="pending">… {{ t('channel.' ~ ch) }} · {{ t('thanks.pending') }}</li>
+      {% else %}
+        <li>✓ {{ t('channel.' ~ ch) }}</li>
+      {% endif %}
+    {% endfor %}
   </ul>
   {% if channels | select('in', ['phone', 'sms', 'whatsapp']) | list %}<p>{{ t('thanks.phone_body') }}</p>{% endif %}
+  {% if confirm_url %}<button type="button" class="btn" id="open-inbox">{{ t('thanks.open_inbox') }}</button>{% endif %}
   <a class="btn secondary" href="/{{ lang }}/result/{{ owner.check_id }}">{{ t('thanks.back') }}</a>
 </div>
 
 {% if confirm_url %}
-<div class="card">
-  <h2>{{ t('thanks.confirm_title') }}</h2>
-  <p>{{ t('thanks.confirm_body', email=owner.email) }}</p>
-  <p class="help">{{ t('thanks.demo_inbox') }}</p>
+<dialog id="inbox" class="modal" aria-labelledby="inbox-title">
+  <div class="modal-head">
+    <p class="help" id="inbox-title">{{ t('thanks.demo_inbox') }}</p>
+    <form method="dialog"><button class="btn small secondary" aria-label="{{ t('thanks.close') }}">✕</button></form>
+  </div>
   <div class="email-preview">
     <div class="hdr"><b>{{ t('confirm.subject') }}</b><br>To: {{ owner.email }}</div>
     <p>{{ t('confirm.greeting', name=(owner.name or '').split(' ')[0]) }}</p>
     <p>{{ t('confirm.body') }}</p>
-    <p><a class="btn" href="{{ confirm_url }}">{{ t('confirm.button') }}</a></p>
+    <p><a class="btn" href="{{ confirm_url }}" autofocus>{{ t('confirm.button') }}</a></p>
     <p class="help">{{ t('confirm.ignore') }}</p>
   </div>
-</div>
+</dialog>
+<script>
+  (function () {
+    var dialog = document.getElementById('inbox');
+    if (!dialog || typeof dialog.showModal !== 'function') return;
+    dialog.showModal();
+    document.getElementById('open-inbox').addEventListener('click', function () { dialog.showModal(); });
+    dialog.addEventListener('click', function (e) { if (e.target === dialog) dialog.close(); });
+  })();
+</script>
 {% endif %}
 {% endblock %}

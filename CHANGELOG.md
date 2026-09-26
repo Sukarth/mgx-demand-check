@@ -33,3 +33,7 @@ All notable changes to this project are documented here. The format follows
   confirmed update consent and queues a localized update email.
 - Message catalogs (English) and locale-aware number formatting, ready for
   further languages.
+
+### Changed
+- Email confirmation opens as a modal demo inbox; until confirmed, the page
+  asks the owner to confirm and marks email channels as awaiting confirmation.

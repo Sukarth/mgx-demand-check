@@ -138,3 +138,9 @@ dl.facts dd { margin: 0; }
 .inline { display: inline; }
 .checks { display: flex; flex-wrap: wrap; gap: .25rem .9rem; }
 .checks label { font-weight: 400; display: flex; gap: .35rem; align-items: center; margin: 0; font-size: .9rem; }
+
+.chips li.pending { background: var(--warn-bg); border-color: #f0dfae; color: var(--warn); }
+dialog.modal { border: 0; border-radius: var(--radius); padding: 1.25rem; width: min(560px, calc(100vw - 32px)); box-shadow: 0 20px 60px rgba(20, 33, 61, .3); }
+dialog.modal::backdrop { background: rgba(20, 33, 61, .45); }
+.modal-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: .75rem; }
+.modal-head p { margin: 0; }

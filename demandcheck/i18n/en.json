@@ -149,7 +149,10 @@
     "confirm_body": "We sent a confirmation link to {email}. Email contact and updates start only after you confirm.",
     "demo_inbox": "Demo inbox (the email that would be sent)",
     "phone_body": "An advisor will contact you on the channels you chose, usually within two working days.",
-    "back": "Back to your result"
+    "back": "Back to your result",
+    "pending": "awaiting confirmation",
+    "open_inbox": "Open demo inbox",
+    "close": "Close"
   },
   "confirm": {
     "subject": "Please confirm your email address",
