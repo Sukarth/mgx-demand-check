@@ -1,0 +1,29 @@
+{
+  "notice": "Indicative EV/EBITDA multiples for the lower mid-market. Anchored on an average of about 5.5x reported in Nordic advisor surveys, with modest sector adjustments. Not a valuation.",
+  "size_adjustment": {
+    "e_0_05": -1.5,
+    "e_05_1": -1.0,
+    "e_1_2": -0.5,
+    "e_2_5": 0.0,
+    "e_5_10": 0.5,
+    "e_10_20": 1.0,
+    "e_20p": 1.5
+  },
+  "sectors": {
+    "industrial_services": [5.0, 7.0],
+    "technical_installation": [5.0, 7.0],
+    "facility_services": [4.0, 6.0],
+    "logistics": [4.5, 6.5],
+    "waste_circular": [5.5, 8.0],
+    "construction_services": [4.0, 6.0],
+    "technical_wholesale": [5.0, 7.0],
+    "software_it": [7.0, 10.0],
+    "health_products": [6.5, 9.0],
+    "healthcare_services": [6.0, 8.5],
+    "manufacturing": [4.5, 6.5],
+    "food_production": [5.0, 7.0],
+    "business_services": [5.0, 7.0],
+    "engineering_consulting": [5.0, 7.5],
+    "retail_ecommerce": [4.0, 6.0]
+  }
+}
