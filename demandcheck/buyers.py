@@ -24,7 +24,7 @@ DEAL_TYPES = ("majority", "minority", "full_exit")
 
 TOTAL_APPETITE_EUR = 52_000 * M
 SAMPLE_SIZE = 2000
-SAMPLE_SEED = 20260926
+SAMPLE_SEED = 20260934
 SAMPLE_REFERENCE_DATE = date(2026, 9, 26)
 
 
@@ -58,7 +58,7 @@ class Buyer:
         return cls(**data)
 
 
-# HQ countries with relative weights, and the target geography each tends to cover.
+# HQ countries with relative weights, and the region each belongs to.
 _HQ_WEIGHTS = {
     "FI": 18, "SE": 20, "NO": 9, "DK": 8, "DE": 16, "CH": 6, "AT": 3,
     "NL": 5, "GB": 7, "FR": 3, "US": 5,
@@ -67,8 +67,26 @@ _HOME_REGION = {
     "FI": "NORDICS", "SE": "NORDICS", "NO": "NORDICS", "DK": "NORDICS",
     "DE": "DACH", "CH": "DACH", "AT": "DACH", "NL": "BENELUX",
 }
+_NEIGHBOURS = {
+    "FI": ("SE", "EE"), "SE": ("FI", "NO", "DK"), "NO": ("SE", "DK"), "DK": ("SE", "DE"),
+    "DE": ("AT", "CH", "NL"), "AT": ("DE", "CH"), "CH": ("DE", "AT"), "NL": ("DE",),
+}
+_OTHER_REGIONS = ("NORDICS", "DACH", "BENELUX", "BALTICS")
 _TYPE_WEIGHTS = {
-    "pe_platform": 28, "pe_addon": 26, "strategic": 26, "family_office": 14, "search_fund": 6,
+    "pe_platform": 29, "pe_addon": 26, "strategic": 25, "family_office": 12, "search_fund": 8,
+}
+_SECTOR_COUNT = {
+    "pe_platform": (1, 2), "pe_addon": (1, 1), "strategic": (1, 2),
+    "family_office": (1, 3), "search_fund": (1, 3),
+}
+# EV bands (EUR millions) as (low_min, low_max, width_min, width_max) per buyer type,
+# for buyers focused on the Nordics/Benelux and for buyers covering DACH.
+_EV_BANDS = {
+    "pe_platform": ((8, 20, 2.5, 4.0), (20, 50, 2.5, 4.0)),
+    "pe_addon": ((2, 6, 2.5, 4.0), (5, 15, 2.5, 4.0)),
+    "strategic": ((4, 15, 2.5, 5.0), (15, 40, 2.5, 5.0)),
+    "family_office": ((10, 25, 2.5, 4.0), (20, 50, 2.5, 4.0)),
+    "search_fund": ((3, 6, 2.0, 3.0), (5, 10, 2.0, 3.0)),
 }
 
 
@@ -78,27 +96,24 @@ def _round_eur(value: float) -> float:
 
 
 def _pick_geography(rng: random.Random, hq: str) -> list[str]:
+    """One to three country groups (a country code or a region code)."""
     home = _HOME_REGION.get(hq)
-    roll = rng.random()
     if home is None:
-        # Buyers from outside the covered countries look at one or two regions or all of Europe.
-        if roll < 0.4:
-            return ["EUROPE"]
-        return rng.sample(["NORDICS", "DACH", "BENELUX", "BALTICS"], k=rng.choice([1, 2]))
-    if roll < 0.25:
+        return rng.sample(_OTHER_REGIONS[:3], k=rng.choice([1, 1, 2]))
+    roll = rng.random()
+    if roll < 0.35:
         return [hq]
-    if roll < 0.70:
-        return [home] + (["BALTICS"] if home == "NORDICS" and rng.random() < 0.3 else [])
+    if roll < 0.60:
+        return [hq] + rng.sample(_NEIGHBOURS[hq], k=min(len(_NEIGHBOURS[hq]), rng.choice([1, 2])))
     if roll < 0.88:
-        other = "DACH" if home != "DACH" else "NORDICS"
-        return [home, other]
-    return ["EUROPE"]
+        return [home]
+    other = rng.choice([r for r in _OTHER_REGIONS if r != home])
+    return [home, other]
 
 
 def _pick_sectors(rng: random.Random, kind: str) -> list[str]:
-    k = {"pe_platform": (1, 2), "pe_addon": (1, 1), "strategic": (1, 2),
-         "family_office": (2, 5), "search_fund": (2, 4)}[kind]
-    n = rng.randint(*k)
+    lo, hi = _SECTOR_COUNT[kind]
+    n = max(lo, min(hi, rng.choices((1, 2, 3), (0.6, 0.3, 0.1))[0]))
     pool = [s.id for s in SECTORS]
     weights = [s.weight for s in SECTORS]
     chosen: list[str] = []
@@ -110,35 +125,35 @@ def _pick_sectors(rng: random.Random, kind: str) -> list[str]:
 
 
 def _pick_ev_range(rng: random.Random, kind: str, geography: list[str]) -> tuple[float, float]:
-    dach = "DACH" in geography or "EUROPE" in geography
-    if kind == "pe_addon":
-        lo = rng.uniform(2, 8) * M
-        hi = lo * rng.uniform(3, 6)
-    elif kind == "search_fund":
-        lo = rng.uniform(3, 6) * M
-        hi = lo * rng.uniform(2.5, 4)
-    elif dach and rng.random() < 0.6:
-        lo = rng.uniform(15, 40) * M
-        hi = lo * rng.uniform(3, 7)
-    else:
-        lo = rng.uniform(4, 15) * M
-        hi = lo * rng.uniform(3, 6)
-    return _round_eur(lo), _round_eur(min(hi, 300 * M))
+    countries = {c for g in geography for c in (("DE", "AT", "CH") if g == "DACH" else (g,))}
+    dach = bool(countries & {"DE", "AT", "CH"})
+    lo_min, lo_max, w_min, w_max = _EV_BANDS[kind][1 if dach else 0]
+    lo = rng.uniform(lo_min, lo_max) * M
+    hi = lo * rng.uniform(w_min, w_max)
+    return _round_eur(lo), _round_eur(min(hi, 250 * M))
 
 
-def _build_buyer(rng: random.Random, index: int, ref: date) -> Buyer:
-    kind = rng.choices(list(_TYPE_WEIGHTS), list(_TYPE_WEIGHTS.values()))[0]
+def _type_quota(rng: random.Random, n: int) -> list[str]:
+    """Buyer types in exact proportion to ``_TYPE_WEIGHTS``, shuffled."""
+    total = sum(_TYPE_WEIGHTS.values())
+    kinds = [k for k, w in _TYPE_WEIGHTS.items() for _ in range(round(n * w / total))]
+    kinds = (kinds + ["strategic"] * n)[:n]
+    rng.shuffle(kinds)
+    return kinds
+
+
+def _build_buyer(rng: random.Random, index: int, ref: date, kind: str) -> Buyer:
     hq = rng.choices(list(_HQ_WEIGHTS), list(_HQ_WEIGHTS.values()))[0]
     geography = _pick_geography(rng, hq)
     sectors = _pick_sectors(rng, kind)
     ev_min, ev_max = _pick_ev_range(rng, kind, geography)
 
-    multiple = rng.uniform(5.0, 8.0)
+    multiple = rng.uniform(5.0, 7.5)
     ebitda_min = _round_eur(ev_min / multiple)
     ebitda_max = _round_eur(ev_max / multiple)
     if kind == "strategic" and rng.random() < 0.15:
         ebitda_min = -2 * M  # open to turnarounds and loss-making targets
-    margin_hi, margin_lo = rng.uniform(0.12, 0.25), rng.uniform(0.05, 0.10)
+    margin_hi, margin_lo = rng.uniform(0.13, 0.18), rng.uniform(0.08, 0.11)
     revenue_min = _round_eur(max(ebitda_min, 0.2 * M) / margin_hi)
     revenue_max = _round_eur(ebitda_max / margin_lo)
 
@@ -172,7 +187,8 @@ def generate_sample(n: int = SAMPLE_SIZE, seed: int = SAMPLE_SEED,
                     reference_date: date = SAMPLE_REFERENCE_DATE) -> list[Buyer]:
     """Generate ``n`` fictional buyers; appetite is scaled so the sum equals ``total_appetite``."""
     rng = random.Random(seed)
-    buyers = [_build_buyer(rng, i + 1, reference_date) for i in range(n)]
+    kinds = _type_quota(rng, n)
+    buyers = [_build_buyer(rng, i + 1, reference_date, kinds[i]) for i in range(n)]
     scale = total_appetite / sum(b.appetite_eur for b in buyers)
     for b in buyers:
         b.appetite_eur = _round_eur(b.appetite_eur * scale)

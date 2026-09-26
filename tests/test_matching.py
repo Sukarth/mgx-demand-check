@@ -118,7 +118,25 @@ def test_sample_is_deterministic_and_matches_stated_scale():
     full = generate_sample()
     assert len(full) == 2000
     assert abs(sum(x.appetite_eur for x in full) - 52_000 * M) < 1_000 * M
-    pe_share = sum(x.is_pe for x in full) / len(full)
-    assert pe_share > 0.5
+    share = {k: sum(x.display_type == k for x in full) / len(full) for k in
+             ("pe_platform", "pe_addon", "strategic", "family_office", "search_fund")}
+    assert abs(share["pe_platform"] + share["pe_addon"] - 0.55) < 0.01
+    assert abs(share["strategic"] - 0.25) < 0.01
+    assert abs(share["family_office"] - 0.12) < 0.01
+    assert abs(share["search_fund"] - 0.08) < 0.01
+    assert all(1 <= len(x.target_sectors) <= 3 and 1 <= len(x.target_countries) <= 3 for x in full)
     assert all(x.ebitda_min > 0 for x in full if x.is_pe)
     assert all(x.revenue_min < x.revenue_max and x.ev_min < x.ev_max for x in full)
+
+
+@pytest.mark.parametrize("profile,low,high", [
+    (("logistics", "FI", "r_10_20", "e_1_2"), 40, 60),
+    (("technical_installation", "DE", "r_20_50", "e_2_5"), 30, 70),
+    (("technical_installation", "DE", "r_50_100", "e_5_10"), 30, 70),
+    (("software_it", "FI", "r_5_10", "e_1_2"), 30, 70),
+    (("facility_services", "FI", "r_5_10", "e_05_1"), 10, 40),
+    (("retail_ecommerce", "AT", "r_2_5", "e_0_05"), 0, 4),
+])
+def test_sample_counts_are_realistic(profile, low, high):
+    from demandcheck.buyers import load_buyers
+    assert low <= match(load_buyers(), OwnerProfile(*profile)).total <= high

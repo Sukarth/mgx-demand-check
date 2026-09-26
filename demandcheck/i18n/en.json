@@ -10,7 +10,7 @@
   },
   "promise": {
     "anonymous": "Anonymous until you choose otherwise",
-    "no_identity": "Buyers never see who you are",
+    "no_identity": "Buyers do not see who you are unless you agree",
     "no_sharing": "Nothing is shared without your permission"
   },
   "form": {
@@ -106,7 +106,7 @@
     "value_disclaimer": "Indicative, based on market averages. A real valuation needs your numbers.",
     "next_title": "What you can do next",
     "next_call": "Confidential call",
-    "next_call_body": "Talk to an M&A advisor about what these buyers look for. No obligation, no fees for a first call.",
+    "next_call_body": "Talk confidentially with an M&A advisor about what these buyers look for and what your options are.",
     "next_profile": "Anonymous profile",
     "next_profile_body": "We draft an anonymous profile of your company and ask matching buyers for feedback. Your name stays hidden.",
     "next_updates": "Buyer demand updates",
@@ -121,7 +121,7 @@
     "email": "Email",
     "phone": "Phone",
     "company": "Company name or business ID",
-    "company_help": "Helps us prepare. Never shown to buyers.",
+    "company_help": "Helps us prepare. Not shown to buyers without your agreement.",
     "channels_title": "How may we contact you?",
     "channels_help": "Each box is a separate consent. None is required.",
     "submit": "Send",
@@ -148,7 +148,7 @@
     "confirm_title": "One more step: confirm your email",
     "confirm_body": "We sent a confirmation link to {email}. Email contact and updates start only after you confirm.",
     "demo_inbox": "Demo inbox (the email that would be sent)",
-    "phone_body": "An advisor will contact you on the channels you chose, usually within two working days.",
+    "phone_body": "An advisor will contact you only on the channels you chose.",
     "back": "Back to your result",
     "pending": "awaiting confirmation",
     "open_inbox": "Open demo inbox",
@@ -169,7 +169,7 @@
     "controller": "Controller: Mergero (prototype). Contact: privacy@example.com.",
     "what": "What we collect: the answers to the four questions (not linked to you unless you opt in). If you opt in: name, email, phone, company name or business ID, your consents with their exact wording, version and time.",
     "why": "Why: to show you buyer demand, and, only with your consent, to contact you on the channels you chose. Legal basis: your consent (GDPR Art. 6(1)(a)).",
-    "who": "Who sees it: Mergero advisors only. Buyers never see your identity. Nothing is sold or shared without your permission.",
+    "who": "Who sees it: Mergero advisors only. Buyers do not see your identity unless you agree. Nothing is sold or shared without your permission.",
     "retention": "Retention: contact details are deleted 24 months after our last contact with you, or earlier on request. Anonymous answers are kept as statistics.",
     "rights": "Your rights: access, correction, deletion, withdrawal of consent, objection, and complaint to your data protection authority.",
     "ai": "AI: an AI tool may draft internal notes and message suggestions. A Mergero person reviews every message before it is sent."

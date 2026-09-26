@@ -35,5 +35,11 @@ All notable changes to this project are documented here. The format follows
   further languages.
 
 ### Changed
+- Buyer sample retuned: exact type mix (private equity 55%, strategic 25%,
+  family offices 12%, search funds 8%), one to three sectors and country
+  groups per buyer, narrower size ranges. Typical results now land between
+  about 10 and 70 and differ clearly by sector, country and size.
+- Owner copy no longer states terms that are not confirmed (first-call fees,
+  response times); anonymity wording now says "unless you agree".
 - Email confirmation is shown in a modal demo inbox opened on request; until confirmed, the page
   asks the owner to confirm and marks email channels as awaiting confirmation.
